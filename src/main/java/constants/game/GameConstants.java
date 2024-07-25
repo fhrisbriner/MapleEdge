@@ -26,7 +26,7 @@ public class GameConstants {
     public static final int[] CASH_DATA = new int[]{50200004, 50200069, 50200117, 50100008, 50000047};
 
     public static final int[] FISHING_BAIT_STRENGTH = {100, 100, 100}; // 400 200 100 - default
-    public static final int FISHING_INTERVAL = 60; //seconds
+    public static final int FISHING_INTERVAL = 5; //seconds
 
     // Ronan's rates upgrade system
     private static final int[] DROP_RATE_GAIN = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
@@ -336,15 +336,15 @@ public class GameConstants {
 
     public static boolean isHallOfFameMap(int mapid) {
         switch (mapid) {
-            case MapId.HALL_OF_WARRIORS:     // warrior
-            case MapId.HALL_OF_MAGICIANS:     // magician
-            case MapId.HALL_OF_BOWMEN:     // bowman
-            case MapId.HALL_OF_THIEVES:     // thief
-            case MapId.NAUTILUS_TRAINING_ROOM:     // pirate
-            case MapId.KNIGHTS_CHAMBER:     // cygnus
-            case MapId.KNIGHTS_CHAMBER_LARGE:     // other cygnus
-            case MapId.KNIGHTS_CHAMBER_2:     // cygnus 2nd floor
-            case MapId.KNIGHTS_CHAMBER_3:     // cygnus 3rd floor (beginners)
+            case MapId.HALL_OF_WARRIORS:             // warrior
+            case MapId.HALL_OF_MAGICIANS:            // magician
+            case MapId.HALL_OF_BOWMEN:               // bowman
+            case MapId.HALL_OF_THIEVES:              // thief
+            case MapId.NAUTILUS_TRAINING_ROOM:        // pirate
+            case MapId.KNIGHTS_CHAMBER:              // cygnus
+            case MapId.KNIGHTS_CHAMBER_LARGE:       // other cygnus
+            case MapId.KNIGHTS_CHAMBER_2:          // cygnus 2nd floor
+            case MapId.KNIGHTS_CHAMBER_3:         // cygnus 3rd floor (beginners)
             case MapId.PALACE_OF_THE_MASTER:     // aran
                 return true;
 
@@ -467,22 +467,13 @@ public class GameConstants {
     public static int getJobMaxLevel(Job job) {
         int jobBranch = getJobBranch(job);
 
-        switch (jobBranch) {
-            case 0:
-                return 10;   // beginner
-
-            case 1:
-                return 30;   // 1st job
-
-            case 2:
-                return 70;   // 2nd job
-
-            case 3:
-                return 120;   // 3rd job
-
-            default:
-                return (job.getId() / 1000 == 1) ? 120 : 200;   // 4th job: cygnus is 120, rest is 200
-        }
+        return switch (jobBranch) {
+            case 0 -> 10;   // beginner
+            case 1 -> 30;   // 1st job
+            case 2 -> 70;   // 2nd job
+            case 3 -> 120;   // 3rd job
+            default -> (job.getId() / 1000 == 1) ? 120 : 200;   // 4th job: cygnus is 120, rest is 200
+        };
     }
 
     public static int getSkillBook(final int job) {
@@ -598,22 +589,10 @@ public class GameConstants {
     }
 
     public static boolean hasSPTable(Job job) {
-        switch (job) {
-            case EVAN:
-            case EVAN1:
-            case EVAN2:
-            case EVAN3:
-            case EVAN4:
-            case EVAN5:
-            case EVAN6:
-            case EVAN7:
-            case EVAN8:
-            case EVAN9:
-            case EVAN10:
-                return true;
-            default:
-                return false;
-        }
+        return switch (job) {
+            case EVAN, EVAN1, EVAN2, EVAN3, EVAN4, EVAN5, EVAN6, EVAN7, EVAN8, EVAN9, EVAN10 -> true;
+            default -> false;
+        };
     }
 
     public static int getMonsterHP(final int level) {

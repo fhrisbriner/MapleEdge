@@ -1820,6 +1820,7 @@ public class StatEffect {
      }
      }
      */
+
     public short getHp() {
         return hp;
     }

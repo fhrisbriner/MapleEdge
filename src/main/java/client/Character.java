@@ -79,7 +79,6 @@ import server.partyquest.MonsterCarnival;
 import server.partyquest.MonsterCarnivalParty;
 import server.partyquest.PartyQuest;
 import server.partyquest.pyramid.PyramidCharacterStats;
-import server.partyquest.pyramid.PyramidDifficulty;
 import server.partyquest.pyramid.PyramidProcessor;
 
 import server.quest.Quest;
@@ -305,7 +304,7 @@ public class Character extends AbstractCharacterObject {
     public boolean inExpedition = false;
     private int reborns;
     // linked system //
-    //Linked Calculations//
+    //Linked skills Calculations //
     private int LinkedHero = 0;
     private int LinkedDK = 0;
     private int LinkedPage = 0;
@@ -337,9 +336,8 @@ public class Character extends AbstractCharacterObject {
     private int LinkedTotal = -1;
     private int LinkedTotalPercent;
     private int getLinkedStats;
-    //Regression
     public int charinacc = 0;
-    //Monster Books Tiers
+    // Monster Books Tiers //
     private int Tier1;
     private int Tier2;
     private int Tier3;
@@ -451,7 +449,6 @@ public class Character extends AbstractCharacterObject {
     }
 
     public boolean arrowplatterrunning = false;
-
     public boolean arrowplatterrunning1 = false;
     public boolean arrowplatterrunning2 = false;
     public boolean arrowplatterrunning3 = false;
@@ -10843,6 +10840,30 @@ public class Character extends AbstractCharacterObject {
     }
 
 
+    ///// entire linked stats system /////
+    public void reCalculateLinkLevelForAccount() {
+        if(this.LinkedTotal < 0) {
+            try {
+                Connection con = DatabaseConnection.getConnection();
+                PreparedStatement ps = con.prepareStatement("SELECT level, job FROM characters WHERE accountid = ?");
+                ps.setInt(1, this.accountid);
+                ResultSet rs = ps.executeQuery();
+                while(rs.next()) {
+                    int job = rs.getInt("job");
+                    int level = rs.getInt("level");
+                    this.linkedLevel = Math.max(this.linkedLevel, level);
+                    this.updateLinkedLevelForJobAndLevel(job, level);
+                }
+                rs.close();
+                ps.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        // Update for current character too.
+        this.updateLinkedLevelForJobAndLevel(this.getJob().getId(), this.getLevel());
+    }
+
     public void updateLinkedLevelForJobAndLevel(int job, int level) {
         switch (job) {
             case 0:  // Beginner
@@ -10968,31 +10989,94 @@ public class Character extends AbstractCharacterObject {
         }
     }
 
-    // linked stats + skills
-    public void reCalculateLinkLevelForAccount() {
-        if(this.LinkedTotal < 0) {
-            try {
-                Connection con = DatabaseConnection.getConnection();
-                PreparedStatement ps = con.prepareStatement("SELECT level, job FROM characters WHERE accountid = ?");
-                ps.setInt(1, this.accountid);
-                ResultSet rs = ps.executeQuery();
-                while(rs.next()) {
-                    int job = rs.getInt("job");
-                    int level = rs.getInt("level");
-                    this.linkedLevel = Math.max(this.linkedLevel, level);
-                    this.updateLinkedLevelForJobAndLevel(job, level);
-                }
-                rs.close();
-                ps.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        // Update for current character too.
-        this.updateLinkedLevelForJobAndLevel(this.getJob().getId(), this.getLevel());
+    public void BoostMedal() {
+        getMap().broadcastUpdateCharLookMessage(this, this);
+        this.applyLinkStatsBoost();
     }
 
-    //Linked Stats
+    public void applyLinkStatsBoost() {
+        equipchanged = true;
+
+        short equipSTR = 0;
+        short equipDEX = 0;
+        short equipINT = 0;
+        short equipLUK = 0;
+
+        // Link bonus applied to equips.
+        Inventory equippedItems = this.getInventory(InventoryType.EQUIPPED);
+        for(Item item: equippedItems.list()) {
+            if (item.getItemId() == ServerConstants.Account_LINK_EquipID || item.getItemId() == 1142101 || item.getItemId() == 1113058) {  // Custom items.
+                continue;
+            }
+            Equip eq = (Equip) item;
+            equipSTR += eq.getStr();
+            equipDEX += eq.getDex();
+            equipINT += eq.getInt();
+            equipLUK += eq.getLuk();
+        }
+
+        short STRLinkBonus = (short) (1 + (this.getLinkedTotal()/1000d) * (this.getStr() + equipSTR));
+        short DEXLinkBonus = (short) (1 + (this.getLinkedTotal()/1000d) * (this.getDex() + equipDEX));
+        short INTLinkBonus = (short) (1 + (this.getLinkedTotal()/1000d) * (this.getInt() + equipINT));
+        short LUKLinkBonus = (short) (1 + (this.getLinkedTotal()/1000d) * (this.getLuk() + equipLUK));
+
+        Inventory equip = this.getInventory(InventoryType.EQUIP);
+        Inventory equipped = this.getInventory(InventoryType.EQUIPPED);
+        Equip linkEquip = (Equip) equip.findById(1142145);
+        if (linkEquip == null)
+            linkEquip = (Equip) equipped.findById(1142145);
+        if (linkEquip == null) {
+            System.out.println("Error: Unable to find link medal.");
+            return;
+        }
+
+        short monsterBookAllStat = (short) (this.getTier5() + this.getTier6() + this.getTier7() + this.getTier8() + this.getTier9());
+        short monsterBookSTR = (short) (this.getTier1() + monsterBookAllStat);
+        short monsterBookDEX = (short) (this.getTier2() + monsterBookAllStat);
+        short monsterBookINT = (short) (this.getTier3() + monsterBookAllStat);
+        short monsterBookLUK = (short) (this.getTier4() + monsterBookAllStat);
+
+        short medalSTR = (short) (STRLinkBonus + monsterBookSTR);
+        short medalDEX = (short) (DEXLinkBonus + monsterBookDEX);
+        short medalINT = (short) (INTLinkBonus + monsterBookINT);
+        short medalLUK = (short) (LUKLinkBonus + monsterBookLUK);
+
+        try {
+            linkEquip.setStr(medalSTR);
+            linkEquip.setDex(medalDEX);
+            linkEquip.setInt(medalINT);
+            linkEquip.setLuk(medalLUK);
+
+            short flag = linkEquip.getFlag();
+            flag |= ItemConstants.UNTRADEABLE;
+            flag |= ItemConstants.LOCK;
+            linkEquip.setFlag(flag);
+            this.forceUpdateItem(linkEquip);
+        } catch (Exception e) {
+            System.out.println("Error: Unable to lock and force update item for link equip.");
+        }
+        recalcLocalStats();
+    }
+
+    public String getLinkedName() {
+        return linkedName;
+    }
+
+    public int getLinkedLevel() {
+        return linkedLevel;
+    }
+
+    public int getLinkedStats() {
+        return getLinkedStats;
+    }
+
+    public int getTotalChar() {
+        if (charinacc <= 0) {
+            this.charinacc = this.getLinkedTotal();
+        }
+        return charinacc;
+    }
+
     public int getLinkedTotal() {
         this.reCalculateLinkLevelForAccount();
         return LinkedTotal;
@@ -11002,15 +11086,7 @@ public class Character extends AbstractCharacterObject {
         LinkedTotalPercent = this.getLinkedTotal() / 10;
         return LinkedTotalPercent;
     }
-    // end of linked system bs //
-
-    public int getLinkedLevel() {
-        return linkedLevel;
-    }
-
-    public String getLinkedName() {
-        return linkedName;
-    }
+    ///// end of linked system bs /////
 
     public CashShop getCashShop() {
         return cashshop;
@@ -11096,7 +11172,7 @@ public class Character extends AbstractCharacterObject {
         return area_info;
     }
 
-    public void autoban(String reason) {
+    public void autoban (String reason) {
         if (this.isGM() || this.isBanned()) {  // thanks RedHat for noticing GM's being able to get banned
             return;
         }
@@ -11243,6 +11319,22 @@ public class Character extends AbstractCharacterObject {
         return equippedPetItemIgnore;
     }
 
+    /*private void FishingEquip() {
+        if (pendantOfSpirit == null) {
+            pendantOfSpirit = TimerManager.getInstance().register(new Runnable() {
+                @Override
+                public void run() {
+                    if (pendantExp < 3) {
+                        pendantExp++;
+                        message("Pendant of the Spirit has been equipped for " + pendantExp + " hour(s), you will now receive " + pendantExp + "0% bonus exp.");
+                    } else {
+                        pendantOfSpirit.cancel(false);
+                    }
+                }
+            }, 3600000); //1 hour
+        }
+    }*/
+
     private void equipPendantOfSpirit() {
         if (pendantOfSpirit == null) {
             pendantOfSpirit = TimerManager.getInstance().register(new Runnable() {
@@ -11259,7 +11351,7 @@ public class Character extends AbstractCharacterObject {
         }
     }
 
-    private void unequipPendantOfSpirit() {
+    public void unequipPendantOfSpirit() {
         if (pendantOfSpirit != null) {
             pendantOfSpirit.cancel(false);
             pendantOfSpirit = null;
@@ -12873,81 +12965,6 @@ public class Character extends AbstractCharacterObject {
         } catch (SQLException se) {
             se.printStackTrace();
         }
-    }
-
-    public int getLinkedStats() {
-        return getLinkedStats;
-    }
-
-    public int getTotalChar() {
-        if (charinacc <= 0) {
-            this.charinacc = this.getLinkedTotal();
-        }
-        return charinacc;
-    }
-
-    public void applyLinkStatsBoost() {
-        equipchanged = true;
-
-        short equipSTR = 0;
-        short equipDEX = 0;
-        short equipINT = 0;
-        short equipLUK = 0;
-
-        // Link bonus applied to equips.
-        Inventory equippedItems = this.getInventory(InventoryType.EQUIPPED);
-        for(Item item: equippedItems.list()) {
-            if (item.getItemId() == ServerConstants.Account_LINK_EquipID || item.getItemId() == 1142101 || item.getItemId() == 1113058) {  // Custom items.
-                continue;
-            }
-            Equip eq = (Equip) item;
-            equipSTR += eq.getStr();
-            equipDEX += eq.getDex();
-            equipINT += eq.getInt();
-            equipLUK += eq.getLuk();
-        }
-
-        short STRLinkBonus = (short) (1 + (this.getLinkedTotal()/1000d) * (this.getStr() + equipSTR));
-        short DEXLinkBonus = (short) (1 + (this.getLinkedTotal()/1000d) * (this.getDex() + equipDEX));
-        short INTLinkBonus = (short) (1 + (this.getLinkedTotal()/1000d) * (this.getInt() + equipINT));
-        short LUKLinkBonus = (short) (1 + (this.getLinkedTotal()/1000d) * (this.getLuk() + equipLUK));
-
-        Inventory equip = this.getInventory(InventoryType.EQUIP);
-        Inventory equipped = this.getInventory(InventoryType.EQUIPPED);
-        Equip linkEquip = (Equip) equip.findById(1142145);
-        if (linkEquip == null)
-            linkEquip = (Equip) equipped.findById(1142145);
-        if (linkEquip == null) {
-            System.out.println("Error: Unable to find link medal.");
-            return;
-        }
-
-        short monsterBookAllStat = (short) (this.getTier5() + this.getTier6() + this.getTier7() + this.getTier8() + this.getTier9());
-        short monsterBookSTR = (short) (this.getTier1() + monsterBookAllStat);
-        short monsterBookDEX = (short) (this.getTier2() + monsterBookAllStat);
-        short monsterBookINT = (short) (this.getTier3() + monsterBookAllStat);
-        short monsterBookLUK = (short) (this.getTier4() + monsterBookAllStat);
-
-        short medalSTR = (short) (STRLinkBonus + monsterBookSTR);
-        short medalDEX = (short) (DEXLinkBonus + monsterBookDEX);
-        short medalINT = (short) (INTLinkBonus + monsterBookINT);
-        short medalLUK = (short) (LUKLinkBonus + monsterBookLUK);
-
-        try {
-            linkEquip.setStr(medalSTR);
-            linkEquip.setDex(medalDEX);
-            linkEquip.setInt(medalINT);
-            linkEquip.setLuk(medalLUK);
-
-            byte flag = (byte)linkEquip.getFlag();
-            flag |= ItemConstants.UNTRADEABLE;
-            flag |= ItemConstants.LOCK;
-            linkEquip.setFlag(flag);
-            this.forceUpdateItem(linkEquip);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        recalcLocalStats();
     }
 
     private String dataSearch;

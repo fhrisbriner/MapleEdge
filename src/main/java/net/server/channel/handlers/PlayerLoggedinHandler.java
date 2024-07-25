@@ -27,6 +27,7 @@ import client.inventory.*;
 import client.keybind.KeyBinding;
 import config.YamlConfig;
 import constants.game.GameConstants;
+import constants.net.ServerConstants;
 import net.AbstractPacketHandler;
 import net.packet.InPacket;
 import net.server.PlayerBuffValueHolder;
@@ -370,14 +371,14 @@ public final class PlayerLoggedinHandler extends AbstractPacketHandler {
 
                 player.reloadQuestExpirations();
 
-                    /*
-                    if (!c.hasVotedAlready()){
-                        player.sendPacket(PacketCreator.earnTitleMessage("You can vote now! Vote and earn a vote point!"));
-                    }
-                    */
-                if (player.isGM()) {
-                    Server.getInstance().broadcastGMMessage(c.getWorld(), PacketCreator.earnTitleMessage((player.gmLevel() < 6 ? "GM " : "Admin ") + player.getName() + " has logged in"));
+            /*
+            if (!c.hasVotedAlready()){
+                player.sendPacket(PacketCreator.earnTitleMessage("You can vote now! Vote and earn a vote point!"));
                 }
+                    */
+            /*if (player.isGM()) {
+                  Server.getInstance().broadcastGMMessage(c.getWorld(), PacketCreator.earnTitleMessage((player.gmLevel() < 6 ? "GM " : "Admin ") + player.getName() + " has logged in"));
+                }*/// this announce GM/Admin logging in notification definitely not needed
 
                 if (diseases != null) {
                     for (Entry<Disease, Pair<Long, MobSkill>> e : diseases.entrySet()) {
@@ -393,19 +394,30 @@ public final class PlayerLoggedinHandler extends AbstractPacketHandler {
             player.expirationTask();
             player.totemCooldownTask();
             player.questExpirationTask();
+
+            if (ServerConstants.Account_Linked_Stats == true) {
+                player.applyLinkStatsBoost();
+            } //TODO linked stats
+            //player.updateQuestAttackRing();
+            player.changeSkillLevel(SkillFactory.getSkill(10000000 * player.getJobType() + 12), (byte) (player.getLinkedLevel() / 10), 20, -1);
+
             if (GameConstants.hasSPTable(player.getJob()) && player.getJob().getId() != 2001) {
                 player.createDragon();
             }
 
             player.commitExcludedItems();
+            //sendISCForCharacterSpecificLinkSkills(c);
             showDueyNotification(c, player);
+
+            player.receivePartyMemberHP();
 
             player.resetPlayerRates();
             if (YamlConfig.config.server.USE_ADD_RATES_BY_LEVEL) {
                 player.setPlayerRates();
+                player.setWorldRates();
+                player.updateCouponRates();
             }
 
-            player.setWorldRates();
             if(player.getReborns() > 0){
                 if(player.getReborns() == 1){
                     player.setPlayerExpRatesCerezeth(YamlConfig.config.server.REBIRTH_FIRST_RATE);
@@ -417,9 +429,6 @@ public final class PlayerLoggedinHandler extends AbstractPacketHandler {
                     player.setPlayerExpRatesCerezeth(YamlConfig.config.server.REBIRTH_THIRD_RATE);
                 }
             }
-            player.updateCouponRates();
-
-            player.receivePartyMemberHP();
 
             if (player.getPartnerId() > 0) {
                 int partnerId = player.getPartnerId();

@@ -419,7 +419,7 @@ public class InventoryManipulator {
             if (ItemConstants.isRechargeable(itemid)) {
                 numSlotsNeeded = 1;
             } else {
-                if (existing.size() > 0) // first update all existing slots to slotMax
+                if (!existing.isEmpty()) // first update all existing slots to slotMax
                 {
                     for (Item eItem : existing) {
                         short oldQ = eItem.getQuantity();
@@ -474,7 +474,7 @@ public class InventoryManipulator {
         } else {
             List<Item> existing = inv.listById(itemid);
 
-            if (existing.size() > 0) // first update all existing slots to slotMax
+            if (!existing.isEmpty()) // first update all existing slots to slotMax
             {
                 for (Item eItem : existing) {
                     short oldQ = eItem.getQuantity();
@@ -754,6 +754,7 @@ public class InventoryManipulator {
         Equip source = (Equip) eqpdInv.getItem(src);
         Equip target = (Equip) eqpInv.getItem(dst);
         if (dst < 0) {
+            System.out.println("Unequipping to negative slot.");
             return;
         }
         //Locks monsterbook stat item in inventory
@@ -766,6 +767,10 @@ public class InventoryManipulator {
         if (target != null && src <= 0) {
             c.sendPacket(PacketCreator.getInventoryFull());
             return;
+        }
+
+        if (source.getItemId() == 1122017) {
+            c.getPlayer().unequipPendantOfSpirit();
         }
 
         eqpdInv.lockInventory();

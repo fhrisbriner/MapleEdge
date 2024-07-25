@@ -68,8 +68,6 @@ public final class LoginPasswordHandler implements PacketHandler {
             return;
         }
 
-
-
         String login = p.readString();
         String pwd = p.readString();
         c.setAccountName(login);
@@ -189,6 +187,7 @@ public final class LoginPasswordHandler implements PacketHandler {
         }
     }
 
+    //TODO to create a logging system for everything else that uses the same thing below
     private static DiscordWebhook getDiscordRegistrationWebhookMessage(Client c, String login, String remoteHost) {
         DiscordWebhook webhookMessage = new DiscordWebhook(ServerConstants.REGISTRATION_URL);
         DiscordWebhook.EmbedObject messageEmbed = new DiscordWebhook.EmbedObject()

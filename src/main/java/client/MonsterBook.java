@@ -93,7 +93,6 @@ public final class MonsterBook {
             if (qty == 0) {     // leveling system only accounts unique cards
                 calculateLevel();
             }
-
             c.sendPacket(PacketCreator.addCard(false, cardid, qty + 1));
             c.sendPacket(PacketCreator.showGainCard());
             if (isTier1(cardid)) { //Tier 1
@@ -169,7 +168,7 @@ public final class MonsterBook {
                 }
             }
             if (isTier9(cardid)) { //Tier 9
-                if(cards.get(cardid) == 5){
+                if(cards.get(cardid) == 5) {
                     c.getPlayer().AddTier9(1);
                     c.getPlayer().UpdateTier9();
                     c.getPlayer().forceUpdateItem(eq);
