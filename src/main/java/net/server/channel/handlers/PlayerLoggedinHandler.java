@@ -47,6 +47,7 @@ import net.server.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import scripting.event.EventInstanceManager;
+import server.ItemInformationProvider;
 import server.life.MobSkill;
 import service.NoteService;
 import tools.DatabaseConnection;
@@ -469,16 +470,21 @@ public final class PlayerLoggedinHandler extends AbstractPacketHandler {
             if (newcomer) {
                 player.setLoginTime(System.currentTimeMillis());
             }
-            int MobItem = 1113232;
+            int monsterBookMedal = 1142145;
+
             Inventory equipped = c.getPlayer().getInventory(InventoryType.EQUIPPED);
-            Equip eq = (Equip) equipped.findById(MobItem);
-
-            if (eq == null) {
-                // If not found in EQUIPPED, search in EQUIP inventory
+            Equip eq = (Equip) equipped.findById(monsterBookMedal);
+            if (eq == null) { // If not found in EQUIPPED, search in EQUIP inventory
                 Inventory equipInventory = c.getPlayer().getInventory(InventoryType.EQUIP);
-                eq = (Equip) equipInventory.findById(MobItem);
+                eq = (Equip) equipInventory.findById(monsterBookMedal);
             }
-
+            if (eq == null) { // player is somehow missing the item
+                ItemInformationProvider ii = ItemInformationProvider.getInstance();
+                Item m_medal = ii.getEquipById(monsterBookMedal);
+                m_medal.setPosition((byte) -20);
+                equipped.addItemFromDB(m_medal);
+                eq = (Equip) equipped.findById(monsterBookMedal);
+            }
             c.getPlayer().forceUpdateItem(eq);
             c.getPlayer().applyLinkStatsBoost();
         } catch (Exception e) {

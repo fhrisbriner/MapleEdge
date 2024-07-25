@@ -270,58 +270,43 @@ public final class MonsterBook {
         calculateLevel();
     }
 
-    private static int saveStringConcat(char[] data, int pos, Integer i) {
-        return saveStringConcat(data, pos, i.toString());
-    }
+    public void saveCards(Connection con, int accId) throws SQLException {
+        final String query = """
+                INSERT INTO monsterbook (accountid, cardid, level)
+                VALUES (?, ?, ?)
+                ON DUPLICATE KEY UPDATE level = VALUES(level);
+                """;
+        try (final PreparedStatement ps = con.prepareStatement(query)) {
+            for (Map.Entry<Integer, Integer> cardAndLevel : cards.entrySet()) {
+                final int card = cardAndLevel.getKey();
+                final int level = cardAndLevel.getValue();
+                // insert
+                ps.setInt(1, accId);
+                ps.setInt(2, card);
+                ps.setInt(3, level);
 
-    private static int saveStringConcat(char[] data, int pos, String s) {
-        int len = s.length();
-        for(int j = 0; j < len; j++) {
-            data[pos + j] = s.charAt(j);
+                ps.addBatch();
+            }
+            ps.executeBatch();
         }
-        return pos + len;
     }
 
-    private static String getSaveString(Integer charid, Set<Entry<Integer, Integer>> cardSet) {
-        try {
-            char[] save = new char[400000]; // 500 * 10 * 10 * 8
-            int i = 0;           i = saveStringConcat(save, i, "INSERT INTO monsterbook VALUES ");
+    public static int[] getCardTierSize() {
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM monstercarddata GROUP BY floor(cardid / 1000);", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+             ResultSet rs = ps.executeQuery()) {
+            rs.last();
+            int[] tierSizes = new int[rs.getRow()];
+            rs.beforeFirst();
 
-            for (Entry<Integer, Integer> all : cardSet) {   // assuming maxsize 500 unique cards
-                i = saveStringConcat(save, i, "(");
-                i = saveStringConcat(save, i, charid);  //10 chars
-                i = saveStringConcat(save, i, ", ");
-                i = saveStringConcat(save, i, all.getKey());  //10 chars
-                i = saveStringConcat(save, i, ", ");
-                i = saveStringConcat(save, i, all.getValue());  //1 char due to being 0 ~ 5
-                i = saveStringConcat(save, i, "),");
+            while (rs.next()) {
+                tierSizes[rs.getRow() - 1] = rs.getInt(1);
             }
 
-            return new String(save, 0, i - 1);
-        } finally {
-
-        }
-    }
-
-    public void saveCards(final int charid) {
-        Set<Entry<Integer, Integer>> cardSet = getCardSet();
-
-        if (cardSet.isEmpty()) {
-            return;
-        }
-        try {
-            Connection con = DatabaseConnection.getConnection();
-            PreparedStatement ps = con.prepareStatement("DELETE FROM monsterbook WHERE charid = ?");
-            ps.setInt(1, charid);
-            ps.execute();
-            ps.close();
-
-            ps = con.prepareStatement(getSaveString(charid, cardSet));
-            ps.execute();
-            ps.close();
-            con.close();
+            return tierSizes;
         } catch (SQLException e) {
             e.printStackTrace();
+            return new int[0];
         }
     }
 
@@ -332,7 +317,7 @@ public final class MonsterBook {
     public static boolean isTier2(int CardID) {
         return CardID >= 2381000 && CardID <= 2381083;
     }
-         
+
     public static boolean isTier3(int CardID) {
         return CardID >= 2382000 && CardID <= 2382096;
     }
@@ -342,7 +327,7 @@ public final class MonsterBook {
     public static boolean isTier5(int CardID) {
         return CardID >= 2384000 && CardID <= 2384040;
     }
-    
+
     public static boolean isTier6(int CardID) {
         return CardID >= 2385000 && CardID <= 2385025;
     }
