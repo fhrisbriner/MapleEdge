@@ -25,7 +25,7 @@ function action(mode, type, selection) {
                 cm.dispose();
             } else {
                 var selStr = "";
-                if (cm.getLevel() >= 20 && cm.getLevel() <= 30) {
+                if (cm.getLevel() >= 20) {
                     selStr += "#0# Ariant Coliseum";
                 }
 
@@ -33,24 +33,21 @@ function action(mode, type, selection) {
                     selStr += "#1# Mu Lung Dojo";
                 }
 
-                if (cm.getLevel() >= 30 && cm.getLevel() <= 50) {   // MC 1 & 2 recalled thanks to ---
+                if (cm.getLevel() >= 30) {
                     selStr += "#2# Monster Carnival 1";
                 }
 
-                if (cm.getLevel() >= 51 && cm.getLevel() <= 70) {
+                if (cm.getLevel() >= 51) {
                     selStr += "#3# Monster Carnival 2";
                 }
 
-                /*
-                if (cm.getLevel() >= 40) { NOT IMPLEMENTED
-                    selStr += "#5# Nett's Pyramid"; 
-                } 
+                if (cm.getLevel() >= 40) {
+                    selStr += "#5# Nett's Pyramid";
+                }
 
-                if (cm.getLevel() >= 25 && cm.getLevel() <= 30) { NOT IMPLEMENTED
-                    selStr += "#6# Construction Site"; 
-                } 
-                */
-
+                if (cm.getLevel() >= 25) {
+                    selStr += "#6# Construction Site";
+                }
                 cm.sendDimensionalMirror(selStr);
             }
         } else if (status == 1) {
@@ -63,11 +60,9 @@ function action(mode, type, selection) {
                     cm.warp(925020000, 0);
                     break;
                 case 2:
-                    cm.getPlayer().saveLocation("MONSTER_CARNIVAL");
                     cm.warp(980000000, 3);
                     break;
                 case 3:
-                    cm.getPlayer().saveLocation("MONSTER_CARNIVAL");
                     cm.warp(980030000, 3);
                     break;
                 case 5:

@@ -24,17 +24,18 @@
         <maven-assembly-plugin.version>3.5.0</maven-assembly-plugin.version> <!-- For packaging the executable fat jar -->
 
         <!-- Dependencies -->
-        <slf4j-api.version>1.7.36</slf4j-api.version> <!-- Logging facade -->
-        <log4j.version>2.20.0</log4j.version> <!-- Slf4j implementation -->
-        <graalvm.version>22.3.1</graalvm.version> <!-- ScriptEngine implementation -->
-        <netty.version>4.1.89.Final</netty.version> <!-- Networking -->
+        <slf4j-api.version>2.0.13</slf4j-api.version> <!-- Logging facade -->
+        <log4j.version>2.23.1</log4j.version> <!-- Slf4j implementation -->
+        <graalvm-js.version>23.0.4</graalvm-js.version>
+        <graalvm-js-scriptengine.version>24.0.1</graalvm-js-scriptengine.version> <!-- ScriptEngine implementation -->
+        <netty.version>4.1.109.Final</netty.version> <!-- Networking -->
         <yamlbeans.version>1.17</yamlbeans.version> <!-- Config file -->
         <jcip-annotations.version>1.0</jcip-annotations.version> <!-- Annotations for concurrency documentation -->
-        <HikariCP.version>5.0.1</HikariCP.version> <!-- Database connection pool -->
-        <mysql-connector-j.version>8.0.32</mysql-connector-j.version> <!-- MySQL JDBC driver -->
-        <jdbi-version>3.37.1</jdbi-version> <!-- Convenience wrapper around JDBC -->
-        <junit.version>5.9.2</junit.version> <!-- Unit test -->
-        <mockito.version>5.1.1</mockito.version> <!-- Unit test -->
+        <HikariCP.version>5.1.0</HikariCP.version> <!-- Database connection pool -->
+        <mysql-connector-j.version>8.4.0</mysql-connector-j.version> <!-- MySQL JDBC driver -->
+        <jdbi-version>3.45.1</jdbi-version> <!-- Convenience wrapper around JDBC -->
+        <junit.version>5.10.2</junit.version> <!-- Unit test -->
+        <mockito.version>5.11.0</mockito.version> <!-- Unit test -->
         <jedis.version>5.1.2</jedis.version>
         <javassist.version>3.30.2-GA</javassist.version>
         <gson.version>2.10.1</gson.version>
@@ -84,7 +85,11 @@
             <artifactId>jdbi3-core</artifactId>
             <version>${jdbi-version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>2.0</version>
+        </dependency>
 
         <!-- Networking -->
         <dependency>
@@ -126,20 +131,21 @@
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
+            <artifactId>log4j-slf4j2-impl</artifactId>
             <version>${log4j.version}</version>
         </dependency>
+
 
         <!-- Scripting -->
         <dependency>
             <groupId>org.graalvm.js</groupId>
             <artifactId>js</artifactId>
-            <version>${graalvm.version}</version>
+            <version>${graalvm-js.version}</version>
         </dependency>
         <dependency>
             <groupId>org.graalvm.js</groupId>
             <artifactId>js-scriptengine</artifactId>
-            <version>${graalvm.version}</version>
+            <version>${graalvm-js-scriptengine.version}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
@@ -180,26 +186,26 @@
         <plugins>
             <!-- Maven Exec Plugin to fetch the latest Git tag -->
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.0.0</version>
-                <executions>
-                    <execution>
-                        <id>get-latest-tag</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                        <configuration>
-                            <executable>git</executable>
-                            <arguments>
-                                <argument>describe</argument>
-                                <argument>--tags</argument>
-                                <argument>--abbrev=0</argument>
-                            </arguments>
-                            <outputProperty>latest.tag</outputProperty>
-                        </configuration>
-                    </execution>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>3.0.0</version>
+            <executions>
+            <execution>
+                <id>get-latest-tag</id>
+                <phase>initialize</phase>
+                <goals>
+                    <goal>exec</goal>
+                </goals>
+                <configuration>
+                    <executable>git</executable>
+                    <arguments>
+                        <argument>describe</argument>
+                        <argument>--tags</argument>
+                        <argument>--abbrev=0</argument>
+                        <outputProperty>latest.tag</outputProperty>
+                    </arguments>
+                </configuration>
+                </execution>
                 </executions>
             </plugin>
 

@@ -58,7 +58,7 @@ public class PlayerNPCFactory {
 
                 thisData = sound.getData("Field.img");
                 if (thisData != null) {
-                    Data md = thisData.getChildByPath("anthem/brazil");
+                    Data md = thisData.getChildByPath("anthem/brazil"); // we can unload this from field.img
                     if (md != null) {
                         Server.getInstance().setAvailableDeveloperRoom();
                     }

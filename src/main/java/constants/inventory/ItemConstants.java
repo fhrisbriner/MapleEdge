@@ -505,7 +505,7 @@ public final class ItemConstants {
     }
 
     public static boolean isFishingChair(int itemId) {
-        return itemId == ItemId.FISHING_CHAIR;
+        return itemId >= 3010000 && itemId < 3019999;
     }
 
     public static boolean isMedal(int itemId) {

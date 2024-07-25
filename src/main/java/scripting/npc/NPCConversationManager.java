@@ -57,8 +57,6 @@ import server.life.*;
 import server.maps.*;
 import server.partyquest.AriantColiseum;
 import server.partyquest.MonsterCarnival;
-import server.partyquest.Pyramid;
-import server.partyquest.Pyramid.PyramidMode;
 import tools.DatabaseConnection;
 import tools.PacketCreator;
 import tools.packets.WeddingPackets;
@@ -542,42 +540,6 @@ public class NPCConversationManager extends AbstractPlayerInteraction {
 
     public void logLeaf(String prize) {
         MapleLeafLogger.log(getPlayer(), true, prize);
-    }
-
-    public boolean createPyramid(String mode, boolean party) {//lol
-        PyramidMode mod = PyramidMode.valueOf(mode);
-
-        Party partyz = getPlayer().getParty();
-        MapManager mapManager = c.getChannelServer().getMapFactory();
-
-        MapleMap map = null;
-        int mapid = MapId.NETTS_PYRAMID_SOLO_BASE;
-        if (party) {
-            mapid += 10000;
-        }
-        mapid += (mod.getMode() * 1000);
-
-        for (byte b = 0; b < 5; b++) {//They cannot warp to the next map before the timer ends (:
-            map = mapManager.getMap(mapid + b);
-            if (map.getCharacters().size() > 0) {
-                continue;
-            } else {
-                break;
-            }
-        }
-
-        if (map == null) {
-            return false;
-        }
-
-        if (!party) {
-            partyz = new Party(-1, new PartyCharacter(getPlayer()));
-        }
-        Pyramid py = new Pyramid(partyz, mod, map.getId());
-        getPlayer().setPartyQuest(py);
-        py.warp(mapid);
-        dispose();
-        return true;
     }
 
     public boolean itemExists(int itemid) {

@@ -1,5 +1,7 @@
 package constants.id;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.IntStream;
 
 public class ItemId {
@@ -7,7 +9,6 @@ public class ItemId {
     public static final int PENDANT_OF_THE_SPIRIT = 1122017;
     public static final int HEART_SHAPED_CHOCOLATE = 5110000;
     public static final int HAPPY_BIRTHDAY = 2022153;
-    public static final int FISHING_CHAIR = 3011000;
     public static final int MINI_GAME_BASE = 4080000;
     public static final int MATCH_CARDS = 4080100;
     public static final int MAGICAL_MITTEN = 1472063;
@@ -59,12 +60,96 @@ public class ItemId {
 
     // Chair
     public static final int RELAXER = 3010000;
-    private static final int CHAIR_MIN = RELAXER;
-    private static final int CHAIR_MAX = FISHING_CHAIR;
+    private static final int CHAIR_MIN = 3010000;
+    private static final int CHAIR_MAX = 3019999;
 
     public static boolean isChair(int itemId) {
         // return itemId >= CHAIR_MIN && itemId <= CHAIR_MAX;
          alt: return itemId / 10000 == 301;
+    }
+
+    // Fishing items - set to some implemented item you wish to use as bait.
+    public static final int TIER_1_BAIT = 4035001; // shrimp bait
+    public static final int TIER_2_BAIT = 4035002; // golden worm bait
+    public static final int TIER_3_BAIT = 4035004; // diamond bait
+
+    // Rewards lists -- newarray made by @Filetternavn //
+    public static int [] FISHING_REWARDS_COMMON = {
+            4009410, 4009410, 4009410, 4009410, 4009410, // 5x useless bug
+            4034790, 4034790, 4034790, 4034790, 4034790, // 5x young golden fish
+            4035001, 4009411, 4009411, 4009411, 4009411, // 1x shrimp bait 4x fishing coin
+            4009411, 4009411, 4009411, 4009411, 4009411, // fishing coin
+            4009411, 4009411, 4009411, 4009411, 4009411, // fishing coin
+            4009411, 4009411, 4009411, 4009411, 4009411, // fishing coin
+    };
+
+    public static int [] FISHING_REWARDS_UNCOMMON = {
+            4009418, // eel (fish etc)
+            4009411, 4009411, 4009411, 4009411, 4009411, // fishing coin
+            4009411, 4009411, 4009411, 4009411, 4009411, // fishing coin
+            4001126, 4001126, 4001126, 4001126, 4001126, // maple leaf
+            4035003, // refunds user with golden shrimp bait
+            4034791, // Grown Golden fish - only 1
+            4034382, 4034382, 4034382, 4034382, 4034382, // golden leaf
+            2049001, 2049001, 2049001, 2049001, // 3% clean slate
+            1012071, 1012072, 1012073, // choco / Melon / watermelon Icecream Bar
+            2043001, // 1H Sword ATT 60%
+            2043101, // 1H Axe ATT 60%
+            2043201, // 1H BW ATT 60%
+            2044601, // Xbow ATT 60%
+            2044701, // Claw ATT 60%
+            2044801, // Knuckle ATT 60%
+            2044902,  // Gun ATT 60%
+            1002788, // Necomimi
+            4036049, // fake magic eyepatch (etc)
+            2002015 // Elpam Elixir - buff potion
+    };
+
+    public static int [] FISHING_REWARDS_RARE = {
+            5451000, 5451000, // remote Gachapon ticket
+            4034792, // Legendary Golden Fish - there should only be 1 in-game
+            1012071, // Choco Icecream Bar
+            1012072, // Melon Icecream Bar
+            1012073, // Watermelon Icecream Bar
+            4035004, // refund user with diamond bait
+            1002788, // Necomimi
+            2049100, // Chaos Scroll 60%
+            2040826, // GFA 60%
+            2040817, // GFMA 60%
+            2002015, // Elpam Elixir - buff potion
+            1002311, // Traveler's Hat (NX)
+            1002418, // Newspaper Hat
+            1051140, // Yellow Bath Towel (F)
+            1050127, // Bath Towel (Black) (M)
+            2049004, 2049004, 2049004, // clean slate 10%
+            4280003, // premium silver box
+            2044712, // scroll for claw for att 100% (white 100%s)
+            2044612, // scroll for Xbow for att 100% (white 100%s)
+            2044512, // scroll for bow for att 100% (white 100%s)
+            2044417, // scroll for polearm for att 100% (white 100%s)
+            2044317, // scroll for spear for att 100% (white 100%s)
+            2044217, // scroll for 2H BW for att 100% (white 100%s)
+            2044117, // scroll for 2H Axe for att 100% (white 100%s)
+            2044025, // scroll for 2H sword for att 100% (white 100%s)
+            2043812, // scroll for Staff for matt 100% (white 100%s)
+            2043712, // scroll for Wand for matt 100% (white 100%s)
+            2043312, // scroll for Dagger for att 100% (white 100%s)
+            2043217, // scroll for 1H BW for att 100% (white 100%s)
+            2043117, // scroll for 1H axe for att 100% (white 100%s)
+            2043023, // scroll for 1H sword for att 100% (white 100%s)
+            2044815, // scroll for knuckle for att 100% (white 100%s)
+            2044908, // scroll for gun for att 100% (white 100%s)
+    };
+
+    // This identifies which items in the rewards lists above should trigger
+    // a server-wide message announcing the catch. Obviously, any items here
+    // should be in the above lists somewhere. This is not a separate tier.
+    private static List<String> jackpots = Arrays.asList(
+            "2049100"); // chaos scroll
+
+    public static boolean isJackpotFishingDrop(int itemId){
+        // TODO - move this to the DB and load
+        return jackpots.contains(String.valueOf(itemId));
     }
 
     // Throwing star

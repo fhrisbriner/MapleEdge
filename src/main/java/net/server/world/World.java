@@ -58,7 +58,6 @@ import server.maps.*;
 import tools.DatabaseConnection;
 import tools.PacketCreator;
 import tools.Pair;
-import tools.Randomizer;
 import tools.packets.Fishing;
 
 import java.sql.*;
@@ -205,10 +204,11 @@ public class World {
         charactersSchedule = tman.register(new CharacterAutosaverTask(this), HOURS.toMillis(1), HOURS.toMillis(1));
         marriagesSchedule = tman.register(new WeddingReservationTask(this), MINUTES.toMillis(YamlConfig.config.server.WEDDING_RESERVATION_INTERVAL), MINUTES.toMillis(YamlConfig.config.server.WEDDING_RESERVATION_INTERVAL));
         mapOwnershipSchedule = tman.register(new MapOwnershipTask(this), SECONDS.toMillis(20), SECONDS.toMillis(20));
-        fishingSchedule = tman.register(new FishingTask(this), SECONDS.toMillis(10), SECONDS.toMillis(10));
         partySearchSchedule = tman.register(new PartySearchTask(this), SECONDS.toMillis(10), SECONDS.toMillis(10));
         timeoutSchedule = tman.register(new TimeoutTask(this), SECONDS.toMillis(10), SECONDS.toMillis(10));
         hpDecSchedule = tman.register(new CharacterHpDecreaseTask(this), YamlConfig.config.server.MAP_DAMAGE_OVERTIME_INTERVAL, YamlConfig.config.server.MAP_DAMAGE_OVERTIME_INTERVAL);
+        fishingSchedule = tman.register(new FishingTask(this), SECONDS.toMillis(GameConstants.FISHING_INTERVAL), SECONDS.toMillis(GameConstants.FISHING_INTERVAL));
+        // handle fishing interval from gameconstants for now
 
         if (YamlConfig.config.server.USE_FAMILY_SYSTEM) {
             long timeLeft = Server.getTimeLeftForNextDay();
@@ -2091,13 +2091,13 @@ public class World {
         }
     }
 
-    public boolean registerFisherPlayer(Character chr, int baitLevel) {
+    public boolean registerFisherPlayer(Character chr) {
         synchronized (fishingAttempters) {
             if (fishingAttempters.containsKey(chr)) {
                 return false;
             }
 
-            fishingAttempters.put(chr, baitLevel);
+            fishingAttempters.put(chr, 1);
             return true;
         }
     }
@@ -2112,8 +2112,6 @@ public class World {
     }
 
     public void runCheckFishingSchedule() {
-        double[] fishingLikelihoods = Fishing.fetchFishingLikelihood();
-        double yearLikelihood = fishingLikelihoods[0], timeLikelihood = fishingLikelihoods[1];
 
         if (!fishingAttempters.isEmpty()) {
             List<Character> fishingAttemptersList;
@@ -2123,8 +2121,15 @@ public class World {
             }
 
             for (Character chr : fishingAttemptersList) {
-                int baitLevel = unregisterFisherPlayer(chr);
-                Fishing.doFishing(chr, baitLevel, yearLikelihood, timeLikelihood);
+                if(!chr.isLoggedinWorld() || !chr.isAlive() || chr.getChair() == -1){
+                    unregisterFisherPlayer(chr);
+                    continue;
+                }
+
+                int baitLevel = chr.getFishingBait();
+                if(baitLevel > 0)
+                    Fishing.doFishing(chr, baitLevel);
+                    Fishing.doFishing(chr, baitLevel);
             }
         }
     }

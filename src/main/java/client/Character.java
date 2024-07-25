@@ -40,6 +40,7 @@ import constants.id.ItemId;
 import constants.id.MapId;
 import constants.id.MobId;
 import constants.inventory.ItemConstants;
+import constants.net.ServerConstants;
 import constants.skills.*;
 import net.packet.Packet;
 import net.server.PlayerBuffValueHolder;
@@ -77,6 +78,10 @@ import server.partyquest.AriantColiseum;
 import server.partyquest.MonsterCarnival;
 import server.partyquest.MonsterCarnivalParty;
 import server.partyquest.PartyQuest;
+import server.partyquest.pyramid.PyramidCharacterStats;
+import server.partyquest.pyramid.PyramidDifficulty;
+import server.partyquest.pyramid.PyramidProcessor;
+
 import server.quest.Quest;
 import server.transactions.TransactionItem;
 import server.transactions.TransactionService;
@@ -294,12 +299,46 @@ public class Character extends AbstractCharacterObject {
     private boolean pendingNameChange; //only used to change name on logout, not to be relied upon elsewhere
     private long loginTime;
     private boolean chasing = false;
-
+    // Pyramid PQ
+    PyramidCharacterStats pyramidCharacterStats = null;
     public int potionCount = 0;
     public boolean inExpedition = false;
     private int reborns;
-    private int getLinkedStats;
+    // linked system //
+    //Linked Calculations//
+    private int LinkedHero = 0;
+    private int LinkedDK = 0;
+    private int LinkedPage = 0;
+    private int LinkedFire = 0;
+    private int LinkedBishop = 0;
+    private int LinkedIce = 0;
+    private int LinkedHunter = 0;
+    private int LinkedXbow = 0;
+    private int LinkedNL = 0;
+    private int LinkedShadower = 0;
+    private int LinkedBucc = 0;
+    private int LinkedSair = 0;
+    private int LinkedBeginner = 0;
+    private int LinkedNovice = 0;
+    private int LinkedDawn = 0;
+    private int LinkedBlaze = 0;
+    private int LinkedWind = 0;
+    private int LinkedNight = 0;
+    private int LinkedThunder = 0;
+    private int LinkedAran = 0;
+    private int LinkedWarrior = 0;
+    private int LinkedMage = 0;
+    private int LinkedArcher = 0;
+    private int LinkedThief = 0;
+    private int LinkedPirate = 0;
+    private int LinkedLegend = 0;
 
+    // link level i guess //
+    private int LinkedTotal = -1;
+    private int LinkedTotalPercent;
+    private int getLinkedStats;
+    //Regression
+    public int charinacc = 0;
     //Monster Books Tiers
     private int Tier1;
     private int Tier2;
@@ -1129,15 +1168,13 @@ public class Character extends AbstractCharacterObject {
             }
         }
 
-        TimerManager.getInstance().schedule(new Runnable() {    // need to delay to ensure clientside has finished reloading character data
-            @Override
-            public void run() {
-                Character thisChr = Character.this;
-                MapleMap map = thisChr.getMap();
+        // need to delay to ensure clientside has finished reloading character data
+        TimerManager.getInstance().schedule(() -> {
+            Character thisChr = Character.this;
+            MapleMap map = thisChr.getMap();
 
-                if (map != null) {
-                    map.broadcastMessage(thisChr, PacketCreator.showForeignEffect(thisChr.getId(), 8), false);
-                }
+            if (map != null) {
+                map.broadcastMessage(thisChr, PacketCreator.showForeignEffect(thisChr.getId(), 8), false);
             }
         }, 777);
     }
@@ -1404,6 +1441,8 @@ public class Character extends AbstractCharacterObject {
             warpMap = eim.getMapInstance(map);
         } else if (this.getMonsterCarnival() != null && this.getMonsterCarnival().getEventMap().getId() == map) {
             warpMap = this.getMonsterCarnival().getEventMap();
+        } else if (PyramidProcessor.getPyramidForCharacter(this.id) != null) {
+            warpMap = PyramidProcessor.getPyramidForCharacter(this.id).getMap(map);
         } else {
             warpMap = client.getChannelServer().getMapFactory().getMap(map);
         }
@@ -1963,19 +2002,16 @@ public class Character extends AbstractCharacterObject {
             final int skilllevel = getSkillLevel(BerserkX);
             if (skilllevel > 0) {
                 berserk = chr.getHp() * 100 / chr.getCurrentMaxHp() < BerserkX.getEffect(skilllevel).getX();
-                berserkSchedule = TimerManager.getInstance().register(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (awayFromWorld.get()) {
-                            return;
-                        }
+                berserkSchedule = TimerManager.getInstance().register(() -> {
+                    if (awayFromWorld.get()) {
+                        return;
+                    }
 
-                        sendPacket(PacketCreator.showOwnBerserk(skilllevel, berserk));
-                        if (!isHidden) {
-                            getMap().broadcastMessage(Character.this, PacketCreator.showBerserk(getId(), skilllevel, berserk), false);
-                        } else {
-                            getMap().broadcastGMMessage(Character.this, PacketCreator.showBerserk(getId(), skilllevel, berserk), false);
-                        }
+                    sendPacket(PacketCreator.showOwnBerserk(skilllevel, berserk));
+                    if (!isHidden) {
+                        getMap().broadcastMessage(Character.this, PacketCreator.showBerserk(getId(), skilllevel, berserk), false);
+                    } else {
+                        getMap().broadcastGMMessage(Character.this, PacketCreator.showBerserk(getId(), skilllevel, berserk), false);
                     }
                 }, 5000, 3000);
             }
@@ -2591,6 +2627,38 @@ public class Character extends AbstractCharacterObject {
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, cid);
             ps.executeUpdate();
+        }
+    }
+
+    public boolean canAttemptCatchFish() {
+        return YamlConfig.config.server.USE_FISHING_SYSTEM
+                && MapId.isFishingArea(mapid)
+                && ItemConstants.isFishingChair(chair.get())
+                && this.getPosition().getX() < 345;
+    }
+
+    public int getFishingBait(){
+        chrLock.lock();
+        try {
+            if (haveItemWithId(ItemId.TIER_1_BAIT, false)) {    // basic bait that you can get from mob drops / NPC
+                getAbstractPlayerInteraction().gainItem(ItemId.TIER_1_BAIT, (short)-1, false, false);
+                return GameConstants.FISHING_BAIT_STRENGTH[0];
+            }
+            else if(haveItemWithId(ItemId.TIER_2_BAIT, false)) {    // middle tier bait
+                getAbstractPlayerInteraction().gainItem(ItemId.TIER_2_BAIT, (short)-1, false, false);
+                return GameConstants.FISHING_BAIT_STRENGTH[1];
+            }
+            else if(haveItemWithId(ItemId.TIER_3_BAIT, false)) {    // diamond bait
+                getAbstractPlayerInteraction().gainItem(ItemId.TIER_3_BAIT, (short)-1, false, false);
+                return GameConstants.FISHING_BAIT_STRENGTH[2];
+            }
+            else
+            {
+                yellowMessage("You don't have any bait to fish with!");
+                return 0;
+            }
+        } finally {
+            chrLock.unlock();
         }
     }
 
@@ -6592,7 +6660,6 @@ public class Character extends AbstractCharacterObject {
         return job.getId() == 700;
     }
 
-
     public boolean isGM() {
         return gmLevel > 1;
     }
@@ -6617,13 +6684,6 @@ public class Character extends AbstractCharacterObject {
 
     public boolean isGuildLeader() {    // true on guild master or jr. master
         return guildid > 0 && guildRank < 3;
-    }
-
-    public boolean attemptCatchFish(int baitLevel) {
-        return YamlConfig.config.server.USE_FISHING_SYSTEM && MapId.isFishingArea(mapid) &&
-                this.getPosition().getY() > 0 &&
-                ItemConstants.isFishingChair(chair.get()) &&
-                this.getWorldServer().registerFisherPlayer(this, baitLevel);
     }
 
     public void leaveMap() {
@@ -8040,6 +8100,9 @@ public class Character extends AbstractCharacterObject {
         EventInstanceManager eim = getEventInstance();
         if (eim != null) {
             eim.playerKilled(this);
+            if (PyramidProcessor.getPyramidForCharacter(this.getId()) != null) {
+                PyramidProcessor.getPyramidForCharacter(this.getId()).playerDead(this);
+            }
         }
         int[] charmID = {ItemId.SAFETY_CHARM, ItemId.EASTER_BASKET, ItemId.EASTER_CHARM};
         int possesed = 0;
@@ -8093,7 +8156,7 @@ public class Character extends AbstractCharacterObject {
     private void unsitChairInternal() {
         int chairid = chair.get();
         if (chairid >= 0) {
-            if (ItemConstants.isFishingChair(chairid)) {
+            if (ItemConstants.isFishingChair(chairid) && canAttemptCatchFish()) {
                 this.getWorldServer().unregisterFisherPlayer(this);
             }
 
@@ -8113,6 +8176,8 @@ public class Character extends AbstractCharacterObject {
             if (itemId >= 1000000) {    // sit on item chair
                 if (chair.get() < 0) {
                     setChair(itemId);
+                    if(ItemConstants.isFishingChair(itemId))
+                        this.getWorldServer().registerFisherPlayer(this);
                     getMap().broadcastMessage(this, PacketCreator.showChair(this.getId(), itemId), false);
                 }
                 sendPacket(PacketCreator.enableActions());
@@ -10777,6 +10842,168 @@ public class Character extends AbstractCharacterObject {
         return name;
     }
 
+
+    public void updateLinkedLevelForJobAndLevel(int job, int level) {
+        switch (job) {
+            case 0:  // Beginner
+                this.LinkedBeginner = Math.max(this.LinkedBeginner, level);
+                break;
+            case 100: // Base warrior
+                this.LinkedWarrior = Math.max(this.LinkedWarrior, level);
+                break;
+            case 110:
+            case 111:
+            case 112:
+                this.LinkedHero = Math.max(this.LinkedHero, level);
+                break;
+            case 120:
+            case 121:
+            case 122:
+                this.LinkedPage = Math.max(this.LinkedPage, level);
+                break;
+            case 130:
+            case 131:
+            case 132:
+                this.LinkedDK = Math.max(this.LinkedDK, level);
+                break;
+            case 200:
+                this.LinkedMage = Math.max(this.LinkedMage, level);
+                break;
+            case 210:
+            case 211:
+            case 212:
+                this.LinkedFire = Math.max(this.LinkedFire, level);
+                break;
+            case 220:
+            case 221:
+            case 222:
+                this.LinkedIce = Math.max(this.LinkedIce, level);
+                break;
+            case 230:
+            case 231:
+            case 232:
+                this.LinkedBishop = Math.max(this.LinkedBishop, level);
+                break;
+            case 300:
+                this.LinkedArcher = Math.max(this.LinkedArcher, level);
+                break;
+            case 310:
+            case 311:
+            case 312:
+                this.LinkedHunter = Math.max(this.LinkedHunter, level);
+                break;
+            case 320:
+            case 321:
+            case 322:
+                this.LinkedXbow = Math.max(this.LinkedXbow, level);
+                break;
+            case 400:
+                this.LinkedThief = Math.max(this.LinkedThief, level);
+                break;
+            case 410:
+            case 411:
+            case 412:
+                this.LinkedNL = Math.max(this.LinkedNL, level);
+                break;
+            case 420:
+            case 421:
+            case 422:
+                this.LinkedShadower = Math.max(this.LinkedShadower, level);
+                break;
+            case 500:
+                this.LinkedPirate = Math.max(this.LinkedPirate, level);
+                break;
+            case 510:
+            case 511:
+            case 512:
+                this.LinkedBucc = Math.max(this.LinkedBucc, level);
+                break;
+            case 520:
+            case 521:
+            case 522:
+                this.LinkedSair = Math.max(this.LinkedSair, level);
+                break;
+            case 1000:   // Noblesse
+                this.LinkedNovice = Math.max(this.LinkedNovice, level);
+                break;
+            case 1100:
+            case 1110:
+            case 1111:
+            case 1112:
+                this.LinkedDawn = Math.max(this.LinkedDawn, level);
+                break;
+            case 1200:
+            case 1210:
+            case 1211:
+            case 1212:
+                this.LinkedBlaze = Math.max(this.LinkedBlaze, level);
+                break;
+            case 1300:
+            case 1310:
+            case 1311:
+            case 1312:
+                this.LinkedWind = Math.max(this.LinkedWind, level);
+                break;
+            case 1400:
+            case 1410:
+            case 1411:
+            case 1412:
+                this.LinkedNight = Math.max(this.LinkedNight, level);
+                break;
+            case 1500:
+            case 1510:
+            case 1511:
+            case 1512:
+                this.LinkedThunder = Math.max(this.LinkedThunder, level);
+                break;
+            case 2000:    // Legend
+                this.LinkedLegend = Math.max(this.LinkedLegend, level);
+                break;
+            case 2100:
+            case 2110:
+            case 2111:
+            case 2112:
+                this.LinkedAran = Math.max(this.LinkedAran, level);
+                break;
+        }
+    }
+
+    // linked stats + skills
+    public void reCalculateLinkLevelForAccount() {
+        if(this.LinkedTotal < 0) {
+            try {
+                Connection con = DatabaseConnection.getConnection();
+                PreparedStatement ps = con.prepareStatement("SELECT level, job FROM characters WHERE accountid = ?");
+                ps.setInt(1, this.accountid);
+                ResultSet rs = ps.executeQuery();
+                while(rs.next()) {
+                    int job = rs.getInt("job");
+                    int level = rs.getInt("level");
+                    this.linkedLevel = Math.max(this.linkedLevel, level);
+                    this.updateLinkedLevelForJobAndLevel(job, level);
+                }
+                rs.close();
+                ps.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        // Update for current character too.
+        this.updateLinkedLevelForJobAndLevel(this.getJob().getId(), this.getLevel());
+    }
+
+    //Linked Stats
+    public int getLinkedTotal() {
+        this.reCalculateLinkLevelForAccount();
+        return LinkedTotal;
+    }
+
+    public int getLinkedTotalPercent() {
+        LinkedTotalPercent = this.getLinkedTotal() / 10;
+        return LinkedTotalPercent;
+    }
+    // end of linked system bs //
+
     public int getLinkedLevel() {
         return linkedLevel;
     }
@@ -12351,6 +12578,90 @@ public class Character extends AbstractCharacterObject {
         this.chasing = chasing;
     }
 
+    public void setPyramidCharacterStats(PyramidCharacterStats stats) {
+        this.pyramidCharacterStats = stats;
+    }
+
+    public PyramidCharacterStats getPyramidCharacterStats() {
+        return this.pyramidCharacterStats;
+    }
+
+    public void sendPyramidResults() {
+        if (getPyramidCharacterStats() == null) {
+            return;
+        }
+
+        byte rank = getPyramidCharacterStats().getRank().getCode();
+        int pyramidExp = getPyramidCharacterStats().calculateExp();
+
+        if (rank == 4) {
+            sendPacket(PacketCreator.mapEffect("killing/fail"));
+        }
+        sendPacket(PacketCreator.pyramidScore(rank, pyramidExp));
+        gainExp(pyramidExp, true, true);
+    }
+
+    public void clearPyramidResults() {
+        setPyramidCharacterStats(null);
+    }
+
+    public boolean startPyramidBonus(int difficultyCode) {
+        return startPyramidBonus(server.partyquest.pyramid.PyramidDifficulty.getById(difficultyCode));
+    }
+
+    public boolean startPyramidBonus(server.partyquest.pyramid.PyramidDifficulty difficulty) {
+        int monsterId = difficulty.equals(server.partyquest.pyramid.PyramidDifficulty.HELL) ? 9700029 : 9700019;
+
+        if (LifeFactory.getMonster(monsterId) == null) {
+            log.warn("Error while attempting to start Pyramid Bonus. Mob ID " + monsterId + " is invalid.");
+            return false;
+        }
+
+        int mapId = 926010010;
+        MapleMap map = getClient().getChannelServer().getMapFactory().getDisposableMap(mapId);
+        if (map == null) {
+            log.warn("Error while attempting to start Pyramid Bonus. Map ID " + mapId + " is invalid.");
+            return false;
+        }
+
+        int numberOfMonsters = switch (difficulty) {
+            case EASY -> 30;
+            case NORMAL -> 40;
+            case HARD, HELL -> 50;
+        };
+
+        Point topLeft = new Point(-361, -115);
+        Point topRight = new Point(352, -115);
+        Point bottomMiddle = new Point(4, 125);
+
+
+        for (int i = 0; i < (numberOfMonsters / 3); i++) {
+            map.spawnMonsterOnGroundBelow(LifeFactory.getMonster(monsterId), topLeft);
+        }
+        for (int i = 0; i < (numberOfMonsters / 3); i++) {
+            map.spawnMonsterOnGroundBelow(LifeFactory.getMonster(monsterId), topRight);
+        }
+        for (int i = 0; i < (numberOfMonsters / 3); i++) {
+            map.spawnMonsterOnGroundBelow(LifeFactory.getMonster(monsterId), bottomMiddle);
+        }
+        if (numberOfMonsters % 3 != 0) {
+            for (int i = 0; i < (numberOfMonsters % 3); i++) {
+                map.spawnMonsterOnGroundBelow(LifeFactory.getMonster(monsterId), bottomMiddle);
+            }
+        }
+
+        // Have to use changeMapInternal.. because we need our own instance of the map
+        changeMapInternal(map, map.getPortal(0).getPosition(), PacketCreator.getWarpToMap(map, 0, this));
+        setPyramidCharacterStats(null);
+
+        TimerManager.getInstance().schedule(() -> {
+            if (getMap().getId() == mapId) {
+                changeMap(926010000);
+            }
+        }, SECONDS.toMillis(60));
+        return true;
+    }
+
     //Monster Book Tiers 
     public int getTier1() {
         return Tier1;
@@ -12566,6 +12877,13 @@ public class Character extends AbstractCharacterObject {
 
     public int getLinkedStats() {
         return getLinkedStats;
+    }
+
+    public int getTotalChar() {
+        if (charinacc <= 0) {
+            this.charinacc = this.getLinkedTotal();
+        }
+        return charinacc;
     }
 
     public void applyLinkStatsBoost() {

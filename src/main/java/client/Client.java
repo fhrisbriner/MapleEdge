@@ -62,6 +62,7 @@ import server.life.Monster;
 import server.maps.FieldLimit;
 import server.maps.MapleMap;
 import server.maps.MiniDungeonInfo;
+import server.partyquest.pyramid.PyramidProcessor;
 import tools.BCrypt;
 import tools.DatabaseConnection;
 import tools.HexTool;
@@ -934,6 +935,9 @@ public class Client extends ChannelInboundHandlerAdapter {
 
                 if (player.getMonsterCarnival() != null) {
                     player.getMonsterCarnival().playerDisconnected(getPlayer().getId());
+                }
+                if (PyramidProcessor.getPyramidForCharacter(player.getId()) != null) {
+                    PyramidProcessor.getPyramidForCharacter(player.getId()).playerDisconnected(player);
                 }
 
                 if (player.getAriantColiseum() != null) {

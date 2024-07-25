@@ -42,7 +42,14 @@ public class FishingRateCommand extends Command {
         }
 
         int fishrate = Math.max(Integer.parseInt(params[0]), 1);
-        c.getWorldServer().setFishingRate(fishrate);
-        c.getWorldServer().broadcastPacket(PacketCreator.serverNotice(6, "[Rate] Fishing Rate has been changed to " + fishrate + "x."));
+        if(fishrate >= 0 && fishrate <= 10)
+        {
+            c.getWorldServer().setFishingRate(fishrate);
+            c.getWorldServer().broadcastPacket(PacketCreator.serverNotice(6, "[Rate] Fishing Rate bonus has been changed to +" + fishrate + "%."));
+        }
+        else
+        {
+            player.yellowMessage("Fishing rate must be 0-10");
+        }
     }
 }

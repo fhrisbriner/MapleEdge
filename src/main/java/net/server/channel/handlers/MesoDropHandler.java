@@ -64,10 +64,10 @@ public final class MesoDropHandler extends AbstractPacketHandler {
             return;
         }
 
-        if (player.attemptCatchFish(meso)) {
+        /*if (player.attemptCatchFish(meso)) {
             player.getMap().disappearingMesoDrop(meso, player, player, player.getPosition());
         } else {
             player.getMap().spawnMesoDrop(meso, player.getPosition(), player, player, true, (byte) 2);
-        }
+        }*/
     }
 }
