@@ -53,7 +53,7 @@ public class BankCommand extends Command {
         } else {
             player.dropMessage("Deposited " + NumberFormat.getInstance().format(amount) + " mesos to your bank.");
             player.gainMeso(-amount);
-            player.setBankMesos(player.getBankMesos() + amount);
+            player.setBankMesos(amount);
         }
     }
 
@@ -69,7 +69,7 @@ public class BankCommand extends Command {
             player.dropMessage("You don't have enough mesos to withdraw.");
         } else {
             player.dropMessage("Withdrew " + NumberFormat.getInstance().format(amount) + " mesos from your bank.");
-            player.setBankMesos(bank - amount);
+            player.setBankMesos(-amount);
             player.gainMeso(amount);
         }
     }
