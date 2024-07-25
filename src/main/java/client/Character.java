@@ -2634,23 +2634,19 @@ public class Character extends AbstractCharacterObject {
                 && this.getPosition().getX() < 345;
     }
 
-    public int getFishingBait(){
+    public int getFishingBait() {
         chrLock.lock();
         try {
             if (haveItemWithId(ItemId.TIER_1_BAIT, false)) {    // basic bait that you can get from mob drops / NPC
-                getAbstractPlayerInteraction().gainItem(ItemId.TIER_1_BAIT, (short)-1, false, false);
+                getAbstractPlayerInteraction().gainItem(ItemId.TIER_1_BAIT, (short) -1, false, false);
                 return GameConstants.FISHING_BAIT_STRENGTH[0];
-            }
-            else if(haveItemWithId(ItemId.TIER_2_BAIT, false)) {    // middle tier bait
-                getAbstractPlayerInteraction().gainItem(ItemId.TIER_2_BAIT, (short)-1, false, false);
+            } else if (haveItemWithId(ItemId.TIER_2_BAIT, false)) {    // middle tier bait
+                getAbstractPlayerInteraction().gainItem(ItemId.TIER_2_BAIT, (short) -1, false, false);
                 return GameConstants.FISHING_BAIT_STRENGTH[1];
-            }
-            else if(haveItemWithId(ItemId.TIER_3_BAIT, false)) {    // diamond bait
-                getAbstractPlayerInteraction().gainItem(ItemId.TIER_3_BAIT, (short)-1, false, false);
+            } else if (haveItemWithId(ItemId.TIER_3_BAIT, false)) {    // diamond bait
+                getAbstractPlayerInteraction().gainItem(ItemId.TIER_3_BAIT, (short) -1, false, false);
                 return GameConstants.FISHING_BAIT_STRENGTH[2];
-            }
-            else
-            {
+            } else {
                 yellowMessage("You don't have any bait to fish with!");
                 return 0;
             }
@@ -6394,9 +6390,9 @@ public class Character extends AbstractCharacterObject {
     }
 
     public void giveCoolDowns(final int skillid, long starttime, long length) {
-            long timeNow = Server.getInstance().getCurrentTime();
-            int time = (int) ((length + starttime) - timeNow);
-            addCooldown(skillid, timeNow, time);
+        long timeNow = Server.getInstance().getCurrentTime();
+        int time = (int) ((length + starttime) - timeNow);
+        addCooldown(skillid, timeNow, time);
     }
 
     public int gmLevel() {
@@ -8173,7 +8169,7 @@ public class Character extends AbstractCharacterObject {
             if (itemId >= 1000000) {    // sit on item chair
                 if (chair.get() < 0) {
                     setChair(itemId);
-                    if(ItemConstants.isFishingChair(itemId))
+                    if (ItemConstants.isFishingChair(itemId))
                         this.getWorldServer().registerFisherPlayer(this);
                     getMap().broadcastMessage(this, PacketCreator.showChair(this.getId(), itemId), false);
                 }
@@ -9165,8 +9161,7 @@ public class Character extends AbstractCharacterObject {
                     for (int i = 1; i < 5; i++) {
                         ps.setInt(i + 31, getSlots(i));
                     }
-                    //monsterbook.saveCards(con, client.getAccID());
-                    monsterbook.saveCards(getId());
+                    monsterbook.saveCards(con, client.getAccID());
 
                     ps.setInt(36, bookCover);
                     ps.setInt(37, vanquisherStage);
@@ -11016,7 +11011,7 @@ public class Character extends AbstractCharacterObject {
 
         // Link bonus applied to equips.
         Inventory equippedItems = this.getInventory(InventoryType.EQUIPPED);
-        for(Item item: equippedItems.list()) {
+        for (Item item : equippedItems.list()) {
             if (item.getItemId() == ServerConstants.Account_LINK_EquipID || item.getItemId() == 1142101 || item.getItemId() == 1113058) {  // Custom items.
                 continue;
             }
@@ -11026,11 +11021,12 @@ public class Character extends AbstractCharacterObject {
             equipINT += eq.getInt();
             equipLUK += eq.getLuk();
         }
+        int linkedtotal = this.getLinkedTotal();
 
-        short STRLinkBonus = (short) (1 + (this.getLinkedTotal()/1000d) * (this.getStr() + equipSTR));
-        short DEXLinkBonus = (short) (1 + (this.getLinkedTotal()/1000d) * (this.getDex() + equipDEX));
-        short INTLinkBonus = (short) (1 + (this.getLinkedTotal()/1000d) * (this.getInt() + equipINT));
-        short LUKLinkBonus = (short) (1 + (this.getLinkedTotal()/1000d) * (this.getLuk() + equipLUK));
+        short STRLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getStr() + equipSTR));
+        short DEXLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getDex() + equipDEX));
+        short INTLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getInt() + equipINT));
+        short LUKLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getLuk() + equipLUK));
 
         Inventory equip = this.getInventory(InventoryType.EQUIP);
         Inventory equipped = this.getInventory(InventoryType.EQUIPPED);
@@ -11078,18 +11074,22 @@ public class Character extends AbstractCharacterObject {
     public int getLinkedHero() {
         return LinkedHero;
     }
+
     //Linked Stats Calculations//
     public int getLinkedDK() {
         return LinkedDK;
     }
+
     //Linked Stats Calculations//
     public int getLinkedPage() {
         return LinkedPage;
     }
+
     //Linked Stats Calculations//
     public int getLinkedFire() {
         return LinkedFire;
     }
+
     //Linked Stats Calculations//
     public int getLinkedIce() {
         return LinkedIce;
@@ -11171,8 +11171,34 @@ public class Character extends AbstractCharacterObject {
     }
 
     public int getLinkedTotal() {
-        this.reCalculateLinkLevelForAccount();
-        return LinkedTotal;
+        //        reCalculateLinkLevelForAccount();
+        //        return LinkedTotal;
+        //        if(this.LinkedTotal < 0) {
+        int totalLevel = 0;
+        int totalRBs = 0;
+        try {
+            Connection con = DatabaseConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement("SELECT level, reborns FROM characters WHERE accountid = ?");
+            ps.setInt(1, this.accountid);
+            System.out.println("not broken yet");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                // int job = rs.getInt("job");
+                int chrLevel = rs.getInt("level");
+                totalRBs = rs.getInt("reborns");
+                if(totalRBs > 0 && totalRBs < 3) {
+                    totalLevel += ((200 * totalRBs) + chrLevel);
+                } else {
+                    totalLevel += chrLevel;
+                }
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(totalLevel);
+        return totalLevel;
     }
 
     public int getLinkedTotalPercent() {
@@ -11265,7 +11291,7 @@ public class Character extends AbstractCharacterObject {
         return area_info;
     }
 
-    public void autoban (String reason) {
+    public void autoban(String reason) {
         if (this.isGM() || this.isBanned()) {  // thanks RedHat for noticing GM's being able to get banned
             return;
         }
