@@ -91,15 +91,7 @@ public class ItemId {
             4035003, // refunds user with golden shrimp bait
             4034791, // Grown Golden fish - only 1
             4034382, 4034382, 4034382, 4034382, 4034382, // golden leaf
-            2049001, 2049001, 2049001, 2049001, // 3% clean slate
             1012071, 1012072, 1012073, // choco / Melon / watermelon Icecream Bar
-            2043001, // 1H Sword ATT 60%
-            2043101, // 1H Axe ATT 60%
-            2043201, // 1H BW ATT 60%
-            2044601, // Xbow ATT 60%
-            2044701, // Claw ATT 60%
-            2044801, // Knuckle ATT 60%
-            2044902,  // Gun ATT 60%
             1002788, // Necomimi
             4036049, // fake magic eyepatch (etc)
             2002015 // Elpam Elixir - buff potion
@@ -113,32 +105,12 @@ public class ItemId {
             1012073, // Watermelon Icecream Bar
             4035004, // refund user with diamond bait
             1002788, // Necomimi
-            2049100, // Chaos Scroll 60%
-            2040826, // GFA 60%
-            2040817, // GFMA 60%
             2002015, // Elpam Elixir - buff potion
             1002311, // Traveler's Hat (NX)
             1002418, // Newspaper Hat
             1051140, // Yellow Bath Towel (F)
             1050127, // Bath Towel (Black) (M)
-            2049004, 2049004, 2049004, // clean slate 10%
             4280003, // premium silver box
-            2044712, // scroll for claw for att 100% (white 100%s)
-            2044612, // scroll for Xbow for att 100% (white 100%s)
-            2044512, // scroll for bow for att 100% (white 100%s)
-            2044417, // scroll for polearm for att 100% (white 100%s)
-            2044317, // scroll for spear for att 100% (white 100%s)
-            2044217, // scroll for 2H BW for att 100% (white 100%s)
-            2044117, // scroll for 2H Axe for att 100% (white 100%s)
-            2044025, // scroll for 2H sword for att 100% (white 100%s)
-            2043812, // scroll for Staff for matt 100% (white 100%s)
-            2043712, // scroll for Wand for matt 100% (white 100%s)
-            2043312, // scroll for Dagger for att 100% (white 100%s)
-            2043217, // scroll for 1H BW for att 100% (white 100%s)
-            2043117, // scroll for 1H axe for att 100% (white 100%s)
-            2043023, // scroll for 1H sword for att 100% (white 100%s)
-            2044815, // scroll for knuckle for att 100% (white 100%s)
-            2044908, // scroll for gun for att 100% (white 100%s)
     };
 
     // This identifies which items in the rewards lists above should trigger

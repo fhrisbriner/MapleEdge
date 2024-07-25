@@ -260,7 +260,6 @@ public class StatEffect {
                     // the damage output like it should either..
 
                     addBuffStatPairToListIfNotZero(statups, BuffStat.BERSERK, ret.berserk);
-                    addBuffStatPairToListIfNotZero(statups, BuffStat.BOOSTER, ret.booster);
 
                 } else if (ItemId.isDojoBuff(sourceid) || isHpMpRecovery(sourceid)) {
                     ret.mhpR = (byte) DataTool.getInt("mhpR", source, 0);

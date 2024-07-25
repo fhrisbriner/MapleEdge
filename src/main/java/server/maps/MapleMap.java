@@ -1344,7 +1344,7 @@ public class MapleMap {
     public boolean damageMonster(final Character chr, final Monster monster, final long damage) {
         Pyramid pyramid = PyramidProcessor.getPyramidForCharacter(chr.getId());
         if (pyramid != null) {
-            pyramid.hitMonster(chr, monster, (int) damage);
+            pyramid.hitMonster(chr, monster, damage);
         } //TODO this might be wrong, it doesn't use (int)
 
 

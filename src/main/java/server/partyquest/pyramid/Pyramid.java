@@ -392,7 +392,7 @@ public class Pyramid {
         return mapId;
     }
 
-    public void hitMonster(Character character, Monster monster, int damage) {
+    public void hitMonster(Character character, Monster monster, long damage) {
         // If the damage is 0, then the player has missed
         if (damage == 0) {
             missMonster(character);
