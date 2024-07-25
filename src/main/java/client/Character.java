@@ -9165,8 +9165,8 @@ public class Character extends AbstractCharacterObject {
                     for (int i = 1; i < 5; i++) {
                         ps.setInt(i + 31, getSlots(i));
                     }
-
-                    monsterbook.saveCards(con, client.getAccID());
+                    //monsterbook.saveCards(con, client.getAccID());
+                    monsterbook.saveCards(getId());
 
                     ps.setInt(36, bookCover);
                     ps.setInt(37, vanquisherStage);
@@ -10862,7 +10862,19 @@ public class Character extends AbstractCharacterObject {
         }
         // Update for current character too.
         this.updateLinkedLevelForJobAndLevel(this.getJob().getId(), this.getLevel());
+
+        this.LinkedTotal = (this.LinkedBeginner + this.LinkedNovice + this.LinkedLegend +
+                Math.max(this.LinkedHero + this.LinkedPage + this.LinkedDK, LinkedWarrior) +
+                Math.max(this.LinkedFire + this.LinkedIce + this.LinkedBishop, LinkedMage) +
+                Math.max(this.LinkedHunter + this.LinkedXbow, LinkedArcher) +
+                Math.max(this.LinkedNL + this.LinkedShadower, LinkedThief) +
+                Math.max(this.LinkedBucc + this.LinkedSair, LinkedPirate) +
+                this.LinkedDawn + this.LinkedBlaze + this.LinkedWind + this.LinkedNight + this.LinkedThunder +
+                this.LinkedAran
+        );
     }
+
+    //Linked Stats
 
     public void updateLinkedLevelForJobAndLevel(int job, int level) {
         switch (job) {
@@ -11060,6 +11072,87 @@ public class Character extends AbstractCharacterObject {
 
     public String getLinkedName() {
         return linkedName;
+    }
+
+    //Linked Stats Calculations//
+    public int getLinkedHero() {
+        return LinkedHero;
+    }
+    //Linked Stats Calculations//
+    public int getLinkedDK() {
+        return LinkedDK;
+    }
+    //Linked Stats Calculations//
+    public int getLinkedPage() {
+        return LinkedPage;
+    }
+    //Linked Stats Calculations//
+    public int getLinkedFire() {
+        return LinkedFire;
+    }
+    //Linked Stats Calculations//
+    public int getLinkedIce() {
+        return LinkedIce;
+    }
+
+    public int getLinkedBishop() {
+        return LinkedBishop;
+    }
+
+    public int getLinkedHunter() {
+        return LinkedHunter;
+    }
+
+    public int getLinkedXbow() {
+        return LinkedXbow;
+    }
+
+    public int getLinkedNL() {
+        return LinkedNL;
+    }
+
+    public int getLinkedShadower() {
+        return LinkedShadower;
+    }
+
+    public int getLinkedBucc() {
+        return LinkedBucc;
+    }
+
+    public int getLinkedSair() {
+        return LinkedSair;
+    }
+
+    public int getLinkedBeginner() {
+        return LinkedBeginner;
+    }
+
+    public int getLinkedNovice() {
+        return LinkedNovice;
+    }
+
+    public int getLinkedDawn() {
+        return LinkedDawn;
+    }
+
+    public int getLinkedBlaze() {
+        return LinkedBlaze;
+    }
+
+    public int getLinkedWind() {
+        return LinkedWind;
+    }
+
+    public int getLinkedNight() {
+        return LinkedNight;
+    }
+
+    public int getLinkedThunder() {
+        return LinkedThunder;
+    }
+
+    public int getLinkedAran() {
+        return LinkedAran;
     }
 
     public int getLinkedLevel() {

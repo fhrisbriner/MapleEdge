@@ -25,6 +25,7 @@ import client.Character;
 import client.*;
 import client.inventory.*;
 import client.keybind.KeyBinding;
+import client.processor.npc.DueyProcessor;
 import config.YamlConfig;
 import constants.game.GameConstants;
 import constants.net.ServerConstants;
