@@ -4834,6 +4834,20 @@ public class MapleMap {
         }
     }
 
+    public int countTeamReactors(String teamPrefix) {
+        int teamReactors = 0;
+        for (Reactor react : getAllReactors()) {
+            if (react.getName().startsWith(teamPrefix)) {
+                teamReactors++;
+            }
+        }
+        return teamReactors;
+    }
+
+    public boolean canGuardian(String teamPrefix) {
+        return countTeamReactors(teamPrefix) < getMaxReactors();
+    }
+
     public int getMaxMobs() {
         return maxMobs;
     }

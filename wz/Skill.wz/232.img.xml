@@ -1868,274 +1868,274 @@
 </imgdir>
 <imgdir name="level">
 <imgdir name="1">
-<int name="cooltime" value="16"/>
 <string name="hs" value="h1"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="12"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="11"/>
 <int name="x" value="1"/>
+<int name="time" value="7"/>
+<int name="cooltime" value="177"/>
 </imgdir>
 <imgdir name="2">
-<int name="cooltime" value="17"/>
 <string name="hs" value="h2"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="14"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="12"/>
 <int name="x" value="1"/>
+<int name="time" value="7"/>
+<int name="cooltime" value="174"/>
 </imgdir>
 <imgdir name="3">
-<int name="cooltime" value="18"/>
 <string name="hs" value="h3"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="16"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="13"/>
 <int name="x" value="1"/>
+<int name="time" value="7"/>
+<int name="cooltime" value="171"/>
 </imgdir>
 <imgdir name="4">
-<int name="cooltime" value="19"/>
 <string name="hs" value="h4"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="18"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="14"/>
 <int name="x" value="1"/>
+<int name="time" value="7"/>
+<int name="cooltime" value="168"/>
 </imgdir>
 <imgdir name="5">
-<int name="cooltime" value="20"/>
 <string name="hs" value="h5"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="20"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="15"/>
 <int name="x" value="1"/>
+<int name="time" value="7"/>
+<int name="cooltime" value="165"/>
 </imgdir>
 <imgdir name="6">
-<int name="cooltime" value="21"/>
 <string name="hs" value="h6"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="22"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="16"/>
 <int name="x" value="1"/>
+<int name="time" value="7"/>
+<int name="cooltime" value="162"/>
 </imgdir>
 <imgdir name="7">
-<int name="cooltime" value="22"/>
 <string name="hs" value="h7"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="24"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="17"/>
 <int name="x" value="1"/>
+<int name="time" value="7"/>
+<int name="cooltime" value="159"/>
 </imgdir>
 <imgdir name="8">
-<int name="cooltime" value="23"/>
 <string name="hs" value="h8"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="26"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="18"/>
 <int name="x" value="1"/>
+<int name="time" value="7"/>
+<int name="cooltime" value="156"/>
 </imgdir>
 <imgdir name="9">
-<int name="cooltime" value="24"/>
 <string name="hs" value="h9"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="28"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="19"/>
 <int name="x" value="1"/>
+<int name="time" value="7"/>
+<int name="cooltime" value="153"/>
 </imgdir>
 <imgdir name="10">
-<int name="cooltime" value="25"/>
 <string name="hs" value="h10"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="30"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="20"/>
 <int name="x" value="1"/>
+<int name="time" value="7"/>
+<int name="cooltime" value="150"/>
 </imgdir>
 <imgdir name="11">
-<int name="cooltime" value="26"/>
 <string name="hs" value="h11"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="22"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="21"/>
 <int name="x" value="1"/>
+<int name="time" value="8"/>
+<int name="cooltime" value="147"/>
 </imgdir>
 <imgdir name="12">
-<int name="cooltime" value="27"/>
 <string name="hs" value="h12"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="24"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="22"/>
 <int name="x" value="1"/>
+<int name="time" value="8"/>
+<int name="cooltime" value="144"/>
 </imgdir>
 <imgdir name="13">
-<int name="cooltime" value="28"/>
 <string name="hs" value="h13"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="26"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="23"/>
 <int name="x" value="1"/>
+<int name="time" value="8"/>
+<int name="cooltime" value="141"/>
 </imgdir>
 <imgdir name="14">
-<int name="cooltime" value="29"/>
 <string name="hs" value="h14"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="28"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="24"/>
 <int name="x" value="1"/>
+<int name="time" value="8"/>
+<int name="cooltime" value="138"/>
 </imgdir>
 <imgdir name="15">
-<int name="cooltime" value="30"/>
 <string name="hs" value="h15"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="30"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="25"/>
 <int name="x" value="1"/>
+<int name="time" value="8"/>
+<int name="cooltime" value="135"/>
 </imgdir>
 <imgdir name="16">
-<int name="cooltime" value="31"/>
 <string name="hs" value="h16"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="32"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="26"/>
 <int name="x" value="1"/>
+<int name="time" value="8"/>
+<int name="cooltime" value="132"/>
 </imgdir>
 <imgdir name="17">
-<int name="cooltime" value="32"/>
 <string name="hs" value="h17"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="34"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="27"/>
 <int name="x" value="1"/>
+<int name="time" value="8"/>
+<int name="cooltime" value="129"/>
 </imgdir>
 <imgdir name="18">
-<int name="cooltime" value="33"/>
 <string name="hs" value="h18"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="36"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="28"/>
 <int name="x" value="1"/>
+<int name="time" value="8"/>
+<int name="cooltime" value="126"/>
 </imgdir>
 <imgdir name="19">
-<int name="cooltime" value="34"/>
 <string name="hs" value="h19"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="38"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="29"/>
 <int name="x" value="1"/>
+<int name="time" value="8"/>
+<int name="cooltime" value="123"/>
 </imgdir>
 <imgdir name="20">
-<int name="cooltime" value="35"/>
 <string name="hs" value="h20"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="40"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="30"/>
 <int name="x" value="1"/>
+<int name="time" value="8"/>
+<int name="cooltime" value="120"/>
 </imgdir>
 <imgdir name="21">
-<int name="cooltime" value="36"/>
 <string name="hs" value="h21"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="31"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="31"/>
 <int name="x" value="1"/>
+<int name="time" value="9"/>
+<int name="cooltime" value="117"/>
 </imgdir>
 <imgdir name="22">
-<int name="cooltime" value="37"/>
 <string name="hs" value="h22"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="32"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="32"/>
 <int name="x" value="1"/>
+<int name="time" value="9"/>
+<int name="cooltime" value="114"/>
 </imgdir>
 <imgdir name="23">
-<int name="cooltime" value="38"/>
 <string name="hs" value="h23"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="33"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="33"/>
 <int name="x" value="1"/>
+<int name="time" value="9"/>
+<int name="cooltime" value="111"/>
 </imgdir>
 <imgdir name="24">
-<int name="cooltime" value="39"/>
 <string name="hs" value="h24"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="34"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="34"/>
 <int name="x" value="1"/>
+<int name="time" value="9"/>
+<int name="cooltime" value="108"/>
 </imgdir>
 <imgdir name="25">
-<int name="cooltime" value="40"/>
 <string name="hs" value="h25"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="35"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="35"/>
 <int name="x" value="1"/>
+<int name="time" value="9"/>
+<int name="cooltime" value="105"/>
 </imgdir>
 <imgdir name="26">
-<int name="cooltime" value="41"/>
 <string name="hs" value="h26"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="36"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="36"/>
 <int name="x" value="1"/>
+<int name="time" value="9"/>
+<int name="cooltime" value="102"/>
 </imgdir>
 <imgdir name="27">
-<int name="cooltime" value="42"/>
 <string name="hs" value="h27"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="37"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="37"/>
 <int name="x" value="1"/>
+<int name="time" value="9"/>
+<int name="cooltime" value="99"/>
 </imgdir>
 <imgdir name="28">
-<int name="cooltime" value="43"/>
 <string name="hs" value="h28"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="38"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="38"/>
 <int name="x" value="1"/>
+<int name="time" value="9"/>
+<int name="cooltime" value="96"/>
 </imgdir>
 <imgdir name="29">
-<int name="cooltime" value="44"/>
 <string name="hs" value="h29"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="39"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="39"/>
 <int name="x" value="1"/>
+<int name="time" value="9"/>
+<int name="cooltime" value="93"/>
 </imgdir>
 <imgdir name="30">
-<int name="cooltime" value="45"/>
 <string name="hs" value="h30"/>
 <vector name="lt" x="-400" y="-300"/>
 <int name="mpCon" value="40"/>
 <vector name="rb" x="400" y="300"/>
-<int name="time" value="40"/>
 <int name="x" value="1"/>
+<int name="time" value="10"/>
+<int name="cooltime" value="90"/>
 </imgdir>
 </imgdir>
 <int name="masterLevel" value="10"/>

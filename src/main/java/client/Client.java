@@ -183,10 +183,7 @@ public class Client extends ChannelInboundHandlerAdapter {
     private static String getRemoteAddress(io.netty.channel.Channel channel) {
         String remoteAddress = "null";
         try {
-            String hostAddress = ((InetSocketAddress) channel.remoteAddress()).getAddress().getHostAddress();
-            if (hostAddress != null) {
-                remoteAddress = IpAddresses.evaluateRemoteAddress(hostAddress); // thanks dyz for noticing Local/LAN/WAN connections not interacting properly
-            }
+            remoteAddress = ((InetSocketAddress) channel.remoteAddress()).getAddress().getHostAddress();
         } catch (NullPointerException npe) {
             log.warn("Unable to get remote address for client", npe);
         }
@@ -1545,7 +1542,6 @@ public class Client extends ChannelInboundHandlerAdapter {
 
         player.getInventory(InventoryType.EQUIPPED).checked(false); //test
         player.getMap().removePlayer(player);
-        player.clearBanishPlayerData();
         player.getClient().getChannelServer().removePlayer(player);
 
         player.saveCharToDB();

@@ -264,13 +264,9 @@ public class Pyramid {
     }
 
     private void startRespawnTimer() {
-        // TODO: Find GMS-like respawn rates.
-        //  Every video I watch the mobs begin spawning around 9-10 secs from when the stage starts and then spawn every
-        //  3-5 ish seconds. But in the WZ files there is a 'createMobInterval' node that is set to 3000 (I'm assuming milliseconds)
-        //  but I feel like respawn every 3 secs is way too much.. especially for solo
         respawnTimer = TimerManager.getInstance().register(() -> {
             getMap(getCurrentMapId()).respawn();
-        }, SECONDS.toMillis(3), SECONDS.toMillis(5));
+        }, SECONDS.toMillis(3), SECONDS.toMillis(5)); // adjust pyramid PQ spawn rate here
     }
 
     private void spawnYetiMonsters() {

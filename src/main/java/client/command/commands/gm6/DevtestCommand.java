@@ -15,7 +15,7 @@ import org.yaml.snakeyaml.Yaml;
 
 public class DevtestCommand extends Command {
     {
-        setDescription("Runs devtest.js. Developer utility - test stuff without restarting the server. Also reloads config.yaml.");
+        setDescription("Runs devtest.js. Developer utility - test stuff without restarting the server. Also reloads config.yaml (kind of)");
     }
 
     private static final Logger log = LoggerFactory.getLogger(DevtestCommand.class);

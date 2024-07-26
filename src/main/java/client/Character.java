@@ -144,6 +144,7 @@ public class Character extends AbstractCharacterObject {
     private int battleshipHp = 0;
     private int mesosTraded = 0;
     private int possibleReports = 10;
+    private int stamina;
     private int ariantPoints, dojoPoints, vanquisherStage, dojoStage, dojoEnergy, vanquisherKills;
     private int expRate = 1, mesoRate = 1, dropRate = 1, expCoupon = 1, mesoCoupon = 1, dropCoupon = 1;
     private int omokwins, omokties, omoklosses, matchcardwins, matchcardties, matchcardlosses;
@@ -291,9 +292,6 @@ public class Character extends AbstractCharacterObject {
     private int targetHpBarHash = 0;
     private long targetHpBarTime = 0;
     private long nextWarningTime = 0;
-    private int banishMap = -1;
-    private int banishSp = -1;
-    private long banishTime = 0;
     private long lastExpGainTime;
     private boolean pendingNameChange; //only used to change name on logout, not to be relied upon elsewhere
     private long loginTime;
@@ -1465,38 +1463,7 @@ public class Character extends AbstractCharacterObject {
         }
     }
 
-    public boolean canRecoverLastBanish() {
-        return System.currentTimeMillis() - this.banishTime < MINUTES.toMillis(5);
-    }
-
-    public Pair<Integer, Integer> getLastBanishData() {
-        return new Pair<>(this.banishMap, this.banishSp);
-    }
-
-    public void clearBanishPlayerData() {
-        this.banishMap = -1;
-        this.banishSp = -1;
-        this.banishTime = 0;
-    }
-
-    public void setBanishPlayerData(int banishMap, int banishSp, long banishTime) {
-        this.banishMap = banishMap;
-        this.banishSp = banishSp;
-        this.banishTime = banishTime;
-    }
-
     public void changeMapBanish(int mapid, String portal, String msg) {
-        if (YamlConfig.config.server.USE_SPIKES_AVOID_BANISH) {
-            for (Item it : this.getInventory(InventoryType.EQUIPPED).list()) {
-                if ((it.getFlag() & ItemConstants.SPIKES) == ItemConstants.SPIKES) {
-                    return;
-                }
-            }
-        }
-
-        int banMap = this.getMapId();
-        int banSp = this.getMap().findClosestPlayerSpawnpoint(this.getPosition()).getId();
-        long banTime = System.currentTimeMillis();
 
         if (msg != null) {
             dropMessage(5, msg);
@@ -1505,8 +1472,6 @@ public class Character extends AbstractCharacterObject {
         MapleMap map_ = getWarpMap(mapid);
         Portal portal_ = map_.getPortal(portal);
         changeMap(map_, portal_ != null ? portal_ : map_.getRandomPlayerSpawnpoint());
-
-        setBanishPlayerData(banMap, banSp, banTime);
     }
 
     public void changeMap(int map) {
@@ -1889,7 +1854,6 @@ public class Character extends AbstractCharacterObject {
         this.mapTransitioning.set(true);
 
         this.unregisterChairBuff();
-        this.clearBanishPlayerData();
         Trade.cancelTrade(this, Trade.TradeResult.UNSUCCESSFUL_ANOTHER_MAP);
         this.closePlayerInteractions();
 
@@ -5963,14 +5927,21 @@ public class Character extends AbstractCharacterObject {
                 merchant.removeVisitor(this);
                 this.setHiredMerchant(null);
             }
-        } else {
-            if (merchant.isOwner(this)) {
+        } else { //through DC, close client / change map/channel/world
+            if (merchant.isOwner(this) && hasMerchant) {
                 merchant.setOpen(true);
             } else {
                 merchant.removeVisitor(this);
+                if (merchant.isOwner(this) && !hasMerchant) {
+                    merchant.forceClose();
+                    log.warn("Chr {} potentially tried to set up Hired Merchant exploit", this.name);
+                }
             }
             try {
-                merchant.saveItems();
+                if (hasMerchant) {
+                    log.debug("Merchant save items");
+                    merchant.saveItems();
+                }
             } catch (SQLException e) {
                 log.error("Error while saving {}'s Hired Merchant items.", name, e);
             }
@@ -6434,7 +6405,8 @@ public class Character extends AbstractCharacterObject {
             sendPacket(PacketCreator.giveBuff(energybar, 0, stat));
             sendPacket(PacketCreator.showOwnBuffEffect(energycharge.getId(), 2));
             getMap().broadcastPacket(this, PacketCreator.showBuffEffect(id, energycharge.getId(), 2));
-            getMap().broadcastPacket(this, PacketCreator.giveForeignBuff(energybar, stat));
+            getMap().broadcastPacket(this, PacketCreator.giveForeignPirateBuff(id, energycharge.getId(),
+                    ceffect.getDuration(), stat));
         }
         if (energybar >= 10000 && energybar < 11000) {
             energybar = 15000;
@@ -7495,7 +7467,7 @@ public class Character extends AbstractCharacterObject {
                     ret.canRecvPartySearchInvite = rs.getBoolean("partySearch");
                     ret.reborns = rs.getInt("reborns");
                     ret.bankMesos = rs.getLong("bank");
-
+                    ret.stamina = rs.getInt("stamina");
                     wserv = Server.getInstance().getWorld(ret.world);
 
                     ret.getInventory(InventoryType.EQUIP).setSlotLimit(rs.getByte("equipslots"));
@@ -9070,7 +9042,7 @@ public class Character extends AbstractCharacterObject {
             con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 
             try {
-                try (PreparedStatement ps = con.prepareStatement("UPDATE characters SET level = ?, fame = ?, str = ?, dex = ?, luk = ?, `int` = ?, exp = ?, gachaexp = ?, hp = ?, mp = ?, maxhp = ?, maxmp = ?, sp = ?, ap = ?, gm = ?, skincolor = ?, gender = ?, job = ?, hair = ?, face = ?, map = ?, meso = ?, hpMpUsed = ?, spawnpoint = ?, party = ?, buddyCapacity = ?, messengerid = ?, messengerposition = ?, mountlevel = ?, mountexp = ?, mounttiredness= ?, equipslots = ?, useslots = ?, setupslots = ?, etcslots = ?,  monsterbookcover = ?, vanquisherStage = ?, dojoPoints = ?, lastDojoStage = ?, finishedDojoTutorial = ?, vanquisherKills = ?, matchcardwins = ?, matchcardlosses = ?, matchcardties = ?, omokwins = ?, omoklosses = ?, omokties = ?, dataString = ?, fquest = ?, jailexpire = ?, partnerId = ?, marriageItemId = ?, lastExpGainTime = ?, ariantPoints = ?, partySearch = ?, bank = ? WHERE id = ?", Statement.RETURN_GENERATED_KEYS)) {
+                try (PreparedStatement ps = con.prepareStatement("UPDATE characters SET level = ?, fame = ?, str = ?, dex = ?, luk = ?, `int` = ?, exp = ?, gachaexp = ?, hp = ?, mp = ?, maxhp = ?, maxmp = ?, sp = ?, ap = ?, gm = ?, skincolor = ?, gender = ?, job = ?, hair = ?, face = ?, map = ?, meso = ?, hpMpUsed = ?, spawnpoint = ?, party = ?, buddyCapacity = ?, messengerid = ?, messengerposition = ?, mountlevel = ?, mountexp = ?, mounttiredness= ?, equipslots = ?, useslots = ?, setupslots = ?, etcslots = ?,  monsterbookcover = ?, vanquisherStage = ?, dojoPoints = ?, lastDojoStage = ?, finishedDojoTutorial = ?, vanquisherKills = ?, matchcardwins = ?, matchcardlosses = ?, matchcardties = ?, omokwins = ?, omoklosses = ?, omokties = ?, dataString = ?, fquest = ?, jailexpire = ?, partnerId = ?, marriageItemId = ?, lastExpGainTime = ?, ariantPoints = ?, partySearch = ?, bank = ?, stamina = ? WHERE id = ?", Statement.RETURN_GENERATED_KEYS)) {
                     ps.setInt(1, level);    // thanks CanIGetaPR for noticing an unnecessary "level" limitation when persisting DB data
                     ps.setInt(2, fame);
 
@@ -9184,7 +9156,8 @@ public class Character extends AbstractCharacterObject {
                     ps.setInt(54, ariantPoints);
                     ps.setBoolean(55, canRecvPartySearchInvite);
                     ps.setLong(56, bankMesos);
-                    ps.setInt(57, id);
+                    ps.setInt(57, stamina);
+                    ps.setInt(58, id);
 
                     int updateRows = ps.executeUpdate();
                     if (updateRows < 1) {
@@ -11008,6 +10981,8 @@ public class Character extends AbstractCharacterObject {
         short equipDEX = 0;
         short equipINT = 0;
         short equipLUK = 0;
+        short equipHP = 0;
+        short equipMP = 0;
 
         // Link bonus applied to equips.
         Inventory equippedItems = this.getInventory(InventoryType.EQUIPPED);
@@ -11022,6 +10997,17 @@ public class Character extends AbstractCharacterObject {
             equipLUK += eq.getLuk();
         }
         int linkedtotal = this.getLinkedTotal();
+
+        //Monster book stat gain for each maxed Tier
+        //Tier 1 = +25HP/MP and +1 STR/DEX/INT/LUK
+        //Tier 2 = +25HP/MP and +1 STR/DEX/INT/LUK
+        //Tier 3 = +50HP/MP and +2 STR/DEX/INT/LUK
+        //Tier 4 = +50HP/MP and +2 STR/DEX/INT/LUK
+        //Tier 5 = +75HP/MP and +3 STR/DEX/INT/LUK
+        //Tier 6 = +75HP/MP and +3 STR/DEX/INT/LUK
+        //Tier 7 = +100HP/MP and +4 STR/DEX/INT/LUK
+        //Tier 8 = +100HP/MP and +4 STR/DEX/INT/LUK
+        //Tier 9 = +125HP/MP, +5 STR/DEX/INT/LUK, and +5 Watk/+10 Matk (Mark's request)
 
         short STRLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getStr() + equipSTR));
         short DEXLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getDex() + equipDEX));
@@ -11038,22 +11024,20 @@ public class Character extends AbstractCharacterObject {
             return;
         }
 
-        short monsterBookAllStat = (short) (this.getTier5() + this.getTier6() + this.getTier7() + this.getTier8() + this.getTier9());
-        short monsterBookSTR = (short) (this.getTier1() + monsterBookAllStat);
-        short monsterBookDEX = (short) (this.getTier2() + monsterBookAllStat);
-        short monsterBookINT = (short) (this.getTier3() + monsterBookAllStat);
-        short monsterBookLUK = (short) (this.getTier4() + monsterBookAllStat);
-
-        short medalSTR = (short) (STRLinkBonus + monsterBookSTR);
-        short medalDEX = (short) (DEXLinkBonus + monsterBookDEX);
-        short medalINT = (short) (INTLinkBonus + monsterBookINT);
-        short medalLUK = (short) (LUKLinkBonus + monsterBookLUK);
+        short medalHP = (short)  (this.getTier1() * 25 + this.getTier2() * 25 + this.getTier3() * 50 + this.getTier4() * 50 + this.getTier5() * 75 + this.getTier6() * 75 + this.getTier7() * 100 + this.getTier8() * 100 + this.getTier9() * 125);
+        short medalMP = (short) (this.getTier1() * 25 + this.getTier2() * 25 + this.getTier3() * 50 + this.getTier4() * 50 + this.getTier5() * 75 + this.getTier6() * 75 + this.getTier7() * 100 + this.getTier8() * 100 + this.getTier9() * 125);
+        short medalSTR = (short) (STRLinkBonus + (this.getTier1() + this.getTier2() + this.getTier3() * 2 + this.getTier4() * 2 + this.getTier5() * 3 + this.getTier6() * 3 + this.getTier7() * 4 + this.getTier8() * 4 + this.getTier9() * 5));
+        short medalDEX = (short) (DEXLinkBonus + (this.getTier1() + this.getTier2() + this.getTier3() * 2 + this.getTier4() * 2 + this.getTier5() * 3 + this.getTier6() * 3 + this.getTier7() * 4 + this.getTier8() * 4 + this.getTier9() * 5));
+        short medalINT = (short) (INTLinkBonus + (this.getTier1() + this.getTier2() + this.getTier3() * 2 + this.getTier4() * 2 + this.getTier5() * 3 + this.getTier6() * 3 + this.getTier7() * 4 + this.getTier8() * 4 + this.getTier9() * 5));
+        short medalLUK = (short) (LUKLinkBonus + (this.getTier1() + this.getTier2() + this.getTier3() * 2 + this.getTier4() * 2 + this.getTier5() * 3 + this.getTier6() * 3 + this.getTier7() * 4 + this.getTier8() * 4 + this.getTier9() * 5));
 
         try {
             linkEquip.setStr(medalSTR);
             linkEquip.setDex(medalDEX);
             linkEquip.setInt(medalINT);
             linkEquip.setLuk(medalLUK);
+            linkEquip.setHp(medalHP);
+            linkEquip.setMp(medalMP);
 
             short flag = linkEquip.getFlag();
             flag |= ItemConstants.UNTRADEABLE;
@@ -12628,6 +12612,39 @@ public class Character extends AbstractCharacterObject {
         return this.ariantPoints;
     }
 
+    public int getStamina() {
+        return stamina;
+    }
+
+    public int setStamina(int stam) {
+        stamina = stam;
+        this.yellowMessage("Your Stamina has been set to " + stam);
+        saveCharToDB(true);
+        return stamina;
+    }
+
+    public int addStamina(int stam) {
+        stamina += stam;
+        this.yellowMessage(stam + " stamina has been added to your stamina pool. Your stamina is now at " + this.stamina);
+        saveCharToDB(true);
+        return stamina;
+    }
+
+    public int removeStamina(int stam) {
+        stamina -= stam;
+        this.yellowMessage(stam + " stamina has been removed from your stamina pool. Your stamina is now at " + this.stamina);
+        saveCharToDB(true);
+        return stamina;
+    }
+
+    /*public void restoreStam() {
+        if (this.stamina < this.totallevel) {
+            this.stamina += this.totallevel;
+        }
+        this.yellowMessage("Your Stamina has been restored. Your stamina is now at " + this.stamina);
+        saveCharToDB(true);
+    }*/
+
     public int getBossLog(String bossid) {
         try {
             Connection con = DatabaseConnection.getConnection();
@@ -13114,14 +13131,15 @@ public class Character extends AbstractCharacterObject {
         this.dataSearchType = dataSearchType;
     }
 
-    private int philID = 100100;
+    // NPC ID and function for corono's drop editor //
+    private int NpcId = 9201601;
 
-    public int getPhilID() {
-        return philID;
+    public int NpcId() {
+        return NpcId;
     }
 
-    public void setPhilID(int id) {
-        philID = id;
+    public void setNpcId(int id) {
+        NpcId = id;
     }
 
     public void openNpcIn(int npc, String scriptname, int time, boolean dispose) {

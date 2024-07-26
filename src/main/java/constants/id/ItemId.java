@@ -69,60 +69,64 @@ public class ItemId {
     }
 
     // Fishing items - set to some implemented item you wish to use as bait.
-    public static final int TIER_1_BAIT = 4035001; // shrimp bait
-    public static final int TIER_2_BAIT = 4035002; // golden worm bait
-    public static final int TIER_3_BAIT = 4035004; // diamond bait
+    public static final int TIER_1_BAIT = 4035001; // shrimp bait - basic bait
+    public static final int TIER_2_BAIT = 4035002; // golden worm bait - mid bait
+    public static final int TIER_3_BAIT = 4035004; // diamond bait - best bait
 
-    // Rewards lists -- newarray made by @Filetternavn //
+    // Rewards lists // - each id only gives 1 each
     public static int [] FISHING_REWARDS_COMMON = {
+            4009410, 4009410, 4009410, 4009410, 4009410, // 5x useless bug
+            4009410, 4009410, 4009410, 4009410, 4009410, // 5x useless bug
             4009410, 4009410, 4009410, 4009410, 4009410, // 5x useless bug
             4034790, 4034790, 4034790, 4034790, 4034790, // 5x young golden fish
             4035001, 4009411, 4009411, 4009411, 4009411, // 1x shrimp bait 4x fishing coin
             4009411, 4009411, 4009411, 4009411, 4009411, // fishing coin
             4009411, 4009411, 4009411, 4009411, 4009411, // fishing coin
             4009411, 4009411, 4009411, 4009411, 4009411, // fishing coin
-    };
+            4035001, 4035001, 4035001, 4035001, 4035001, // chance to gets back basic bait
+            4000999, 4000999, 4000999, 4000999, 4000999, // spell trace
+            4000999, 4000999, 4000999, 4000999, 4000999, // spell trace
+            4000999, 4000999, 4000999, 4000999, 4000999  // spell trace
+    }; // 60 id so far
 
     public static int [] FISHING_REWARDS_UNCOMMON = {
-            4009418, // eel (fish etc)
+            4009418, 4009418, 4009418, 4009418, 4009418, // eel (fish etc)
             4009411, 4009411, 4009411, 4009411, 4009411, // fishing coin
             4009411, 4009411, 4009411, 4009411, 4009411, // fishing coin
             4001126, 4001126, 4001126, 4001126, 4001126, // maple leaf
             4035003, // refunds user with golden shrimp bait
             4034791, // Grown Golden fish - only 1
-            4034382, 4034382, 4034382, 4034382, 4034382, // golden leaf
             1012071, 1012072, 1012073, // choco / Melon / watermelon Icecream Bar
             1002788, // Necomimi
             4036049, // fake magic eyepatch (etc)
-            2002015 // Elpam Elixir - buff potion
+            2002015, // Elpam Elixir - buff potion
+            4035002, 4035002, 4035002, // golden worm bait, lower the better
+            4009412, 4009412, 4009412, 4009412, 4009412 // fishing contest coins, eventually its 100 coins for 20~50 tier 3 bait
     };
 
     public static int [] FISHING_REWARDS_RARE = {
-            5451000, 5451000, // remote Gachapon ticket
+            5451000, 5451000, 5451000, 5451000, 5451000, // remote Gachapon ticket
             4034792, // Legendary Golden Fish - there should only be 1 in-game
             1012071, // Choco Icecream Bar
             1012072, // Melon Icecream Bar
             1012073, // Watermelon Icecream Bar
-            4035004, // refund user with diamond bait
+            4035004, // chance to get a tier 3 diamond bait, 1 is better
             1002788, // Necomimi
             2002015, // Elpam Elixir - buff potion
-            1002311, // Traveler's Hat (NX)
-            1002418, // Newspaper Hat
-            1051140, // Yellow Bath Towel (F)
-            1050127, // Bath Towel (Black) (M)
             4280003, // premium silver box
+            4001253  // billion coin (1 coin : 1b mesos)
     };
 
+    public static boolean isJackpotFishingDrop(int itemId) {
+        // TODO - move this to the DB and load
+        return jackpots.contains(String.valueOf(itemId));
+    }
     // This identifies which items in the rewards lists above should trigger
     // a server-wide message announcing the catch. Obviously, any items here
     // should be in the above lists somewhere. This is not a separate tier.
     private static List<String> jackpots = Arrays.asList(
-            "2049100"); // chaos scroll
+            "4035004"); // chaos scroll
 
-    public static boolean isJackpotFishingDrop(int itemId){
-        // TODO - move this to the DB and load
-        return jackpots.contains(String.valueOf(itemId));
-    }
 
     // Throwing star
     public static final int SUBI_THROWING_STARS = 2070000;
@@ -262,7 +266,6 @@ public class ItemId {
     public static final int EYEDROP = 2050001;
     public static final int TONIC = 2050002;
     public static final int HOLY_WATER = 2050003;
-    public static final int ANTI_BANISH_SCROLL = 2030100;
     private static final int DOJO_PARTY_ALL_CURE = 2022433;
     private static final int CARNIVAL_PARTY_ALL_CURE = 2022163;
     public static final int WHITE_ELIXIR = 2022544;

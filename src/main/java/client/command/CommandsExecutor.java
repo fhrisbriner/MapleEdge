@@ -140,7 +140,7 @@ public class CommandsExecutor {
     }
 
     private void addCommand(String syntax, Class<? extends Command> commandClass) {
-        //for (String syntax : syntaxs){
+        //for (String syntax : syntaxs) {
         addCommand(syntax, 0, commandClass);
         //}
     }
@@ -177,6 +177,7 @@ public class CommandsExecutor {
         addCommand(new String[]{"starforce", "sf"}, StarForceCommand.class);
         addCommand("bank", BankCommand.class);
         addCommand("bonus", Bonus.class); // linked stats system
+        addCommand("energy", stamina.class); // stamina system to replace a complicated boss entry limit
         addCommand("droplimit", DropLimitCommand.class);
         addCommand("craft", CraftCommand.class);
         addCommand("time", TimeCommand.class);
@@ -390,6 +391,7 @@ public class CommandsExecutor {
         levelCommandsCursor = new Pair<>(new ArrayList<String>(), new ArrayList<String>());
 
         addCommand("debug", 5, DebugCommand.class);
+        addCommand("devtest", 5, DevtestCommand.class); // reload java files without restarting
         addCommand("set", 5, SetCommand.class);
         addCommand("showpackets", 5, ShowPacketsCommand.class);
         addCommand("showmovelife", 5, ShowMoveLifeCommand.class);

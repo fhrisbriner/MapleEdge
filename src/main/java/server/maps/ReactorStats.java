@@ -150,4 +150,7 @@ public class ReactorStats {
             return activeSkills;
         }
     }
+    public Rectangle getArea(Point position) {
+        return new Rectangle(position.x + tl.x, position.y + tl.y, br.x - tl.x, br.y - tl.y);
+    }
 }
