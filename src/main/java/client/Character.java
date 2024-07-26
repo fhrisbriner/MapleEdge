@@ -12616,21 +12616,21 @@ public class Character extends AbstractCharacterObject {
         return stamina;
     }
 
-    public int setStamina(int stam) {
+    public int setStamina (int stam) {
         stamina = stam;
         this.yellowMessage("Your Stamina has been set to " + stam);
         saveCharToDB(true);
         return stamina;
     }
 
-    public int addStamina(int stam) {
+    public int addStamina (int stam) {
         stamina += stam;
         this.yellowMessage(stam + " stamina has been added to your stamina pool. Your stamina is now at " + this.stamina);
         saveCharToDB(true);
         return stamina;
     }
 
-    public int removeStamina(int stam) {
+    public int removeStamina (int stam) {
         stamina -= stam;
         this.yellowMessage(stam + " stamina has been removed from your stamina pool. Your stamina is now at " + this.stamina);
         saveCharToDB(true);

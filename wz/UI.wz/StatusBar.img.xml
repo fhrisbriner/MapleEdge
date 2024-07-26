@@ -16,7 +16,7 @@
         </canvas>
         <canvas name="chat" width="566" height="5">
         </canvas>
-        <canvas name="backgrnd" width="1920" height="71">
+        <canvas name="backgrnd" width="1280" height="71">
         </canvas>
         <canvas name="backgrnd2" width="570" height="71">
         </canvas>

@@ -60,7 +60,7 @@ public class Fishing {
     }
 
     private static double getFishingLikelihoodTime(int x) {
-        //Peak fishing at 7am - 9:59am,/ 5H Gap / 3pm - 5:59pm / (3H gap) / 9pm - 11:59pm
+        // Peak fishing at 7am - 9:59am / 5H Gap / 3pm - 5:59pm / (3H gap) / 9pm - 11:59pm
         return switch (x) {
             case 7, 8, 9, 15, 16, 17, 21, 22, 23 -> 10.0;
             default -> 5.0;
@@ -73,7 +73,7 @@ public class Fishing {
 
         double baitLikelihood = baitLevel / 20;
         // this gives a MINIMUM success rate of 33.75% and a MAXIMUM of 82.5% before fishing rate bonuses.
-        // effectively makes basic bait give a +7.5% success rate, mid gives a +15% success rate, and high gives a +30% success rate
+        // effectively makes basic bait give a +7.5% success rate, mid-gives a +15% success rate, and high gives a +30% success rate
         // server configuration can give a flat final bonus of +0% to +10%
         return ((likelihoods[0] + likelihoods[1] + baitLikelihood) * 1.5) + chr.getWorldServer().getFishingRate() > (100.0 * Math.random());
     }
