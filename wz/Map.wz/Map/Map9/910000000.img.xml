@@ -2790,15 +2790,5 @@
             <string name="type" value="n"/>
             <int name="fh" value="8"/>
         </imgdir>
-        <imgdir name="10">
-            <string name="id" value="3004015"/>
-            <int name="x" value="1274"/>
-            <int name="y" value="112"/>
-            <int name="cy" value="120"/>
-            <int name="rx0" value="1254"/>
-            <int name="rx1" value="1294"/>
-            <string name="type" value="n"/>
-            <int name="fh" value="0"/>
-        </imgdir>
     </imgdir>
 </imgdir>
