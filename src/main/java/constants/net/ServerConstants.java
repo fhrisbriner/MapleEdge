@@ -13,7 +13,7 @@ public class ServerConstants {
     public static final Color EMBED_COLOR = Color.decode("#e53349");
 
     public static final boolean Account_Linked_Stats = true; //Adds 1% per 10 levels
-    public static final int Account_LINK_EquipID = 1142145; // ItemID of Stats Booster
+    public static final int Account_LINK_EquipID = 1143168; // ItemID of Stats Booster
     //
     public static final boolean Account_MonsterBook_STAT = true; //
     public static final int Account_MonsterBook_EquipID = 1142101;  //

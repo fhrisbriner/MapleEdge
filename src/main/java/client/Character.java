@@ -11020,9 +11020,9 @@ public class Character extends AbstractCharacterObject {
 
         Inventory equip = this.getInventory(InventoryType.EQUIP);
         Inventory equipped = this.getInventory(InventoryType.EQUIPPED);
-        Equip linkEquip = (Equip) equip.findById(1142145);
+        Equip linkEquip = (Equip) equip.findById(1143168);
         if (linkEquip == null)
-            linkEquip = (Equip) equipped.findById(1142145);
+            linkEquip = (Equip) equipped.findById(1143168);
         if (linkEquip == null) {
             System.out.println("Error: Unable to find link medal.");
             return;

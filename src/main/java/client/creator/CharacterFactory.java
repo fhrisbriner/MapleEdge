@@ -68,7 +68,7 @@ public abstract class CharacterFactory {
             Item eq_top = ii.getEquipById(top);
             eq_top.setPosition((byte) -5);
             equipped.addItemFromDB(eq_top);
-            Item m_medal = ii.getEquipById(1142145);
+            Item m_medal = ii.getEquipById(1143168);
             m_medal.setPosition((byte) -20);
             equipped.addItemFromDB(m_medal);
         }

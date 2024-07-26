@@ -758,7 +758,7 @@ public class InventoryManipulator {
             return;
         }
         //Locks monsterbook stat item in inventory
-        if (source.getItemId() == 1142145/* && !c.getPlayer().isGM()*/) {
+        if (source.getItemId() == 1143168/* && !c.getPlayer().isGM()*/) {
             return;
         }
         if (source == null) {

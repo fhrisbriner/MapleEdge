@@ -470,7 +470,7 @@ public final class PlayerLoggedinHandler extends AbstractPacketHandler {
             if (newcomer) {
                 player.setLoginTime(System.currentTimeMillis());
             }
-            int monsterBookMedal = 1142145;
+            int monsterBookMedal = 1143168;
 
             Inventory equipped = c.getPlayer().getInventory(InventoryType.EQUIPPED);
             Equip eq = (Equip) equipped.findById(monsterBookMedal);
