@@ -10997,7 +10997,7 @@ public class Character extends AbstractCharacterObject {
         //Tier 6 = +75HP/MP and +3 STR/DEX/INT/LUK
         //Tier 7 = +100HP/MP and +4 STR/DEX/INT/LUK
         //Tier 8 = +100HP/MP and +4 STR/DEX/INT/LUK
-        //Tier 9 = +125HP/MP, +5 STR/DEX/INT/LUK, and +5 Watk/+10 Matk (Mark's request)
+        //Tier 9 = +125HP/MP, +5 STR/DEX/INT/LUK
 
         short STRLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getStr() + equipSTR));
         short DEXLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getDex() + equipDEX));
