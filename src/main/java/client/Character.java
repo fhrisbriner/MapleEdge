@@ -10971,6 +10971,8 @@ public class Character extends AbstractCharacterObject {
         short equipDEX = 0;
         short equipINT = 0;
         short equipLUK = 0;
+        short equipHP = 0;
+        short equipMP = 0;
 
         // Link bonus applied to equips.
         Inventory equippedItems = this.getInventory(InventoryType.EQUIPPED);
@@ -10985,6 +10987,17 @@ public class Character extends AbstractCharacterObject {
             equipLUK += eq.getLuk();
         }
         int linkedtotal = this.getLinkedTotal();
+
+        //Monster book stat gain for each maxed Tier
+        //Tier 1 = +25HP/MP and +1 STR/DEX/INT/LUK
+        //Tier 2 = +25HP/MP and +1 STR/DEX/INT/LUK
+        //Tier 3 = +50HP/MP and +2 STR/DEX/INT/LUK
+        //Tier 4 = +50HP/MP and +2 STR/DEX/INT/LUK
+        //Tier 5 = +75HP/MP and +3 STR/DEX/INT/LUK
+        //Tier 6 = +75HP/MP and +3 STR/DEX/INT/LUK
+        //Tier 7 = +100HP/MP and +4 STR/DEX/INT/LUK
+        //Tier 8 = +100HP/MP and +4 STR/DEX/INT/LUK
+        //Tier 9 = +125HP/MP, +5 STR/DEX/INT/LUK, and +5 Watk/+10 Matk (Mark's request)
 
         short STRLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getStr() + equipSTR));
         short DEXLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getDex() + equipDEX));
@@ -11001,22 +11014,20 @@ public class Character extends AbstractCharacterObject {
             return;
         }
 
-        short monsterBookAllStat = (short) (this.getTier5() + this.getTier6() + this.getTier7() + this.getTier8() + this.getTier9());
-        short monsterBookSTR = (short) (this.getTier1() + monsterBookAllStat);
-        short monsterBookDEX = (short) (this.getTier2() + monsterBookAllStat);
-        short monsterBookINT = (short) (this.getTier3() + monsterBookAllStat);
-        short monsterBookLUK = (short) (this.getTier4() + monsterBookAllStat);
-
-        short medalSTR = (short) (STRLinkBonus + monsterBookSTR);
-        short medalDEX = (short) (DEXLinkBonus + monsterBookDEX);
-        short medalINT = (short) (INTLinkBonus + monsterBookINT);
-        short medalLUK = (short) (LUKLinkBonus + monsterBookLUK);
+        short medalHP = (short)  (this.getTier1() * 25 + this.getTier2() * 25 + this.getTier3() * 50 + this.getTier4() * 50 + this.getTier5() * 75 + this.getTier6() * 75 + this.getTier7() * 100 + this.getTier8() * 100 + this.getTier9() * 125);
+        short medalMP = (short) (this.getTier1() * 25 + this.getTier2() * 25 + this.getTier3() * 50 + this.getTier4() * 50 + this.getTier5() * 75 + this.getTier6() * 75 + this.getTier7() * 100 + this.getTier8() * 100 + this.getTier9() * 125);
+        short medalSTR = (short) (STRLinkBonus + (this.getTier1() + this.getTier2() + this.getTier3() * 2 + this.getTier4() * 2 + this.getTier5() * 3 + this.getTier6() * 3 + this.getTier7() * 4 + this.getTier8() * 4 + this.getTier9() * 5));
+        short medalDEX = (short) (DEXLinkBonus + (this.getTier1() + this.getTier2() + this.getTier3() * 2 + this.getTier4() * 2 + this.getTier5() * 3 + this.getTier6() * 3 + this.getTier7() * 4 + this.getTier8() * 4 + this.getTier9() * 5));
+        short medalINT = (short) (INTLinkBonus + (this.getTier1() + this.getTier2() + this.getTier3() * 2 + this.getTier4() * 2 + this.getTier5() * 3 + this.getTier6() * 3 + this.getTier7() * 4 + this.getTier8() * 4 + this.getTier9() * 5));
+        short medalLUK = (short) (LUKLinkBonus + (this.getTier1() + this.getTier2() + this.getTier3() * 2 + this.getTier4() * 2 + this.getTier5() * 3 + this.getTier6() * 3 + this.getTier7() * 4 + this.getTier8() * 4 + this.getTier9() * 5));
 
         try {
             linkEquip.setStr(medalSTR);
             linkEquip.setDex(medalDEX);
             linkEquip.setInt(medalINT);
             linkEquip.setLuk(medalLUK);
+            linkEquip.setHp(medalHP);
+            linkEquip.setMp(medalMP);
 
             short flag = linkEquip.getFlag();
             flag |= ItemConstants.UNTRADEABLE;
