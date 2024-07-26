@@ -5926,14 +5926,21 @@ public class Character extends AbstractCharacterObject {
                 merchant.removeVisitor(this);
                 this.setHiredMerchant(null);
             }
-        } else {
-            if (merchant.isOwner(this)) {
+        } else { //through DC, close client / change map/channel/world
+            if (merchant.isOwner(this) && hasMerchant) {
                 merchant.setOpen(true);
             } else {
                 merchant.removeVisitor(this);
+                if (merchant.isOwner(this) && !hasMerchant) {
+                    merchant.forceClose();
+                    log.warn("Chr {} potentially tried to set up Hired Merchant exploit", this.name);
+                }
             }
             try {
-                merchant.saveItems();
+                if (hasMerchant) {
+                    log.debug("Merchant save items");
+                    merchant.saveItems();
+                }
             } catch (SQLException e) {
                 log.error("Error while saving {}'s Hired Merchant items.", name, e);
             }

@@ -140,7 +140,7 @@ public class CommandsExecutor {
     }
 
     private void addCommand(String syntax, Class<? extends Command> commandClass) {
-        //for (String syntax : syntaxs){
+        //for (String syntax : syntaxs) {
         addCommand(syntax, 0, commandClass);
         //}
     }
