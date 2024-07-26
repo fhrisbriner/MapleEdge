@@ -902,9 +902,6 @@ public class Server {
             initWorldPlayerRanking();
 
             loadPlayerNpcMapStepFromDb();
-
-//
-
         } catch (Exception e) {
             log.error("[SEVERE] Syntax error in 'world.ini'.", e); //For those who get errors
             System.exit(0);

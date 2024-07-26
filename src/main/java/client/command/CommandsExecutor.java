@@ -177,6 +177,7 @@ public class CommandsExecutor {
         addCommand(new String[]{"starforce", "sf"}, StarForceCommand.class);
         addCommand("bank", BankCommand.class);
         addCommand("bonus", Bonus.class); // linked stats system
+        addCommand("energy", stamina.class); // stamina system to replace a complicated boss entry limit
         addCommand("droplimit", DropLimitCommand.class);
         addCommand("craft", CraftCommand.class);
         addCommand("time", TimeCommand.class);
