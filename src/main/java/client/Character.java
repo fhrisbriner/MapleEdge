@@ -13096,14 +13096,15 @@ public class Character extends AbstractCharacterObject {
         this.dataSearchType = dataSearchType;
     }
 
-    private int philID = 100100;
+    // NPC ID and function for corono's drop editor //
+    private int NpcId = 9201601;
 
-    public int getPhilID() {
-        return philID;
+    public int NpcId() {
+        return NpcId;
     }
 
-    public void setPhilID(int id) {
-        philID = id;
+    public void setNpcId(int id) {
+        NpcId = id;
     }
 
     public void openNpcIn(int npc, String scriptname, int time, boolean dispose) {
