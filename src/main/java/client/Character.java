@@ -5926,14 +5926,21 @@ public class Character extends AbstractCharacterObject {
                 merchant.removeVisitor(this);
                 this.setHiredMerchant(null);
             }
-        } else {
-            if (merchant.isOwner(this)) {
+        } else { //through DC, close client / change map/channel/world
+            if (merchant.isOwner(this) && hasMerchant) {
                 merchant.setOpen(true);
             } else {
                 merchant.removeVisitor(this);
+                if (merchant.isOwner(this) && !hasMerchant) {
+                    merchant.forceClose();
+                    log.warn("Chr {} potentially tried to set up Hired Merchant exploit", this.name);
+                }
             }
             try {
-                merchant.saveItems();
+                if (hasMerchant) {
+                    log.debug("Merchant save items");
+                    merchant.saveItems();
+                }
             } catch (SQLException e) {
                 log.error("Error while saving {}'s Hired Merchant items.", name, e);
             }
@@ -6397,7 +6404,8 @@ public class Character extends AbstractCharacterObject {
             sendPacket(PacketCreator.giveBuff(energybar, 0, stat));
             sendPacket(PacketCreator.showOwnBuffEffect(energycharge.getId(), 2));
             getMap().broadcastPacket(this, PacketCreator.showBuffEffect(id, energycharge.getId(), 2));
-            getMap().broadcastPacket(this, PacketCreator.giveForeignBuff(energybar, stat));
+            getMap().broadcastPacket(this, PacketCreator.giveForeignPirateBuff(id, energycharge.getId(),
+                    ceffect.getDuration(), stat));
         }
         if (energybar >= 10000 && energybar < 11000) {
             energybar = 15000;
@@ -13088,14 +13096,15 @@ public class Character extends AbstractCharacterObject {
         this.dataSearchType = dataSearchType;
     }
 
-    private int philID = 100100;
+    // NPC ID and function for corono's drop editor //
+    private int NpcId = 9201601;
 
-    public int getPhilID() {
-        return philID;
+    public int NpcId() {
+        return NpcId;
     }
 
-    public void setPhilID(int id) {
-        philID = id;
+    public void setNpcId(int id) {
+        NpcId = id;
     }
 
     public void openNpcIn(int npc, String scriptname, int time, boolean dispose) {

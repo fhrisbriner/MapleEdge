@@ -687,7 +687,6 @@ public class HiredMerchant extends AbstractMapObject {
             short newBundle = pItems.getBundles();
 
             newItem.setQuantity(pItems.getItem().getQuantity());
-
             if (newBundle > 0) {
                 itemsWithType.add(new Pair<>(newItem, newItem.getInventoryType()));
                 bundles.add(newBundle);
