@@ -25,8 +25,8 @@ public class GameConstants {
     public static final String[] stats = {"tuc", "reqLevel", "reqJob", "reqSTR", "reqDEX", "reqINT", "reqLUK", "reqPOP", "cash", "cursed", "success", "setItemID", "equipTradeBlock", "durability", "randOption", "randStat", "masterLevel", "reqSkillLevel", "elemDefault", "incRMAS", "incRMAF", "incRMAI", "incRMAL", "canLevel", "skill", "charmEXP"};
     public static final int[] CASH_DATA = new int[]{50200004, 50200069, 50200117, 50100008, 50000047};
 
-    public static final int[] FISHING_BAIT_STRENGTH = {100, 100, 100}; // 400 200 100 - default
-    public static final int FISHING_INTERVAL = 5; //seconds
+    public static final int[] FISHING_BAIT_STRENGTH = {100, 100, 100}; // 400 200 100 - default (100 = 1% i assume)
+    public static final int FISHING_INTERVAL = 60; // seconds
 
     // Ronan's rates upgrade system
     private static final int[] DROP_RATE_GAIN = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14};
@@ -40,7 +40,7 @@ public class GameConstants {
     private final static NumberFormat nfParser = NumberFormat.getInstance(YamlConfig.config.server.USE_UNITPRICE_WITH_COMMA ? Locale.FRANCE : Locale.UK);
 
     public static final Disease[] CPQ_DISEASES = {Disease.SLOW, Disease.SEDUCE, Disease.STUN, Disease.POISON,
-            Disease.SEAL, Disease.DARKNESS, Disease.WEAKEN, Disease.CURSE};
+                                                Disease.SEAL, Disease.DARKNESS, Disease.WEAKEN, Disease.CURSE};
 
     public static final int MAX_FIELD_MOB_DAMAGE = getMaxObstacleMobDamageFromWz() * 2;
 
