@@ -2328,8 +2328,12 @@ public class Character extends AbstractCharacterObject {
     }
 
     public void announceBattleshipHp() {
-        sendPacket(PacketCreator.skillCooldown(Corsair.BATTLE_SHIP, 10));
-        sendPacket(PacketCreator.skillCooldown(5221999, 0));
+        Skill battleship = SkillFactory.getSkill(Corsair.BATTLE_SHIP);
+        int cooldown = battleship.getEffect(getSkillLevel(battleship)).getCooldown();
+        sendPacket(PacketCreator.skillCooldown(Corsair.BATTLE_SHIP, cooldown));
+        addCooldown(Corsair.BATTLE_SHIP, Server.getInstance().getCurrentTime(), SECONDS.toMillis(cooldown));
+        removeCooldown(5221999);
+        cancelEffectFromBuffStat(BuffStat.MONSTER_RIDING);
     }
 
     public void decreaseReports() {
