@@ -1129,7 +1129,7 @@
             </imgdir>
             <imgdir name="8">
                 <int name="x" value="654"/>
-                <int name="y" value="-1382"/>
+                <int name="y" value="-1371"/>
                 <int name="z" value="218"/>
                 <string name="oS" value="connect"/>
                 <string name="l0" value="rope"/>
@@ -1140,7 +1140,7 @@
             </imgdir>
             <imgdir name="9">
                 <int name="x" value="654"/>
-                <int name="y" value="-1346"/>
+                <int name="y" value="-1335"/>
                 <int name="z" value="218"/>
                 <string name="oS" value="connect"/>
                 <string name="l0" value="rope"/>
@@ -1151,7 +1151,7 @@
             </imgdir>
             <imgdir name="10">
                 <int name="x" value="654"/>
-                <int name="y" value="-1310"/>
+                <int name="y" value="-1299"/>
                 <int name="z" value="218"/>
                 <string name="oS" value="connect"/>
                 <string name="l0" value="rope"/>
@@ -1162,7 +1162,7 @@
             </imgdir>
             <imgdir name="11">
                 <int name="x" value="654"/>
-                <int name="y" value="-1274"/>
+                <int name="y" value="-1263"/>
                 <int name="z" value="218"/>
                 <string name="oS" value="connect"/>
                 <string name="l0" value="rope"/>
@@ -1173,7 +1173,7 @@
             </imgdir>
             <imgdir name="12">
                 <int name="x" value="654"/>
-                <int name="y" value="-1238"/>
+                <int name="y" value="-1227"/>
                 <int name="z" value="218"/>
                 <string name="oS" value="connect"/>
                 <string name="l0" value="rope"/>
@@ -1184,7 +1184,7 @@
             </imgdir>
             <imgdir name="13">
                 <int name="x" value="654"/>
-                <int name="y" value="-1202"/>
+                <int name="y" value="-1191"/>
                 <int name="z" value="218"/>
                 <string name="oS" value="connect"/>
                 <string name="l0" value="rope"/>
@@ -1195,7 +1195,7 @@
             </imgdir>
             <imgdir name="14">
                 <int name="x" value="654"/>
-                <int name="y" value="-1166"/>
+                <int name="y" value="-1155"/>
                 <int name="z" value="218"/>
                 <string name="oS" value="connect"/>
                 <string name="l0" value="rope"/>
@@ -1206,7 +1206,7 @@
             </imgdir>
             <imgdir name="15">
                 <int name="x" value="654"/>
-                <int name="y" value="-1130"/>
+                <int name="y" value="-1119"/>
                 <int name="z" value="218"/>
                 <string name="oS" value="connect"/>
                 <string name="l0" value="rope"/>
@@ -1217,7 +1217,7 @@
             </imgdir>
             <imgdir name="16">
                 <int name="x" value="654"/>
-                <int name="y" value="-1094"/>
+                <int name="y" value="-1083"/>
                 <int name="z" value="218"/>
                 <string name="oS" value="connect"/>
                 <string name="l0" value="rope"/>
@@ -1228,7 +1228,7 @@
             </imgdir>
             <imgdir name="17">
                 <int name="x" value="654"/>
-                <int name="y" value="-1058"/>
+                <int name="y" value="-1047"/>
                 <int name="z" value="218"/>
                 <string name="oS" value="connect"/>
                 <string name="l0" value="rope"/>
@@ -1239,7 +1239,7 @@
             </imgdir>
             <imgdir name="18">
                 <int name="x" value="654"/>
-                <int name="y" value="-1022"/>
+                <int name="y" value="-1011"/>
                 <int name="z" value="218"/>
                 <string name="oS" value="connect"/>
                 <string name="l0" value="rope"/>
@@ -1250,7 +1250,7 @@
             </imgdir>
             <imgdir name="19">
                 <int name="x" value="654"/>
-                <int name="y" value="-986"/>
+                <int name="y" value="-975"/>
                 <int name="z" value="218"/>
                 <string name="oS" value="connect"/>
                 <string name="l0" value="rope"/>
@@ -1261,7 +1261,7 @@
             </imgdir>
             <imgdir name="20">
                 <int name="x" value="654"/>
-                <int name="y" value="-950"/>
+                <int name="y" value="-939"/>
                 <int name="z" value="218"/>
                 <string name="oS" value="connect"/>
                 <string name="l0" value="rope"/>
@@ -1272,7 +1272,7 @@
             </imgdir>
             <imgdir name="21">
                 <int name="x" value="654"/>
-                <int name="y" value="-914"/>
+                <int name="y" value="-903"/>
                 <int name="z" value="218"/>
                 <string name="oS" value="connect"/>
                 <string name="l0" value="rope"/>
@@ -1283,7 +1283,7 @@
             </imgdir>
             <imgdir name="22">
                 <int name="x" value="654"/>
-                <int name="y" value="-878"/>
+                <int name="y" value="-867"/>
                 <int name="z" value="218"/>
                 <string name="oS" value="connect"/>
                 <string name="l0" value="rope"/>
@@ -1294,7 +1294,7 @@
             </imgdir>
             <imgdir name="23">
                 <int name="x" value="654"/>
-                <int name="y" value="-842"/>
+                <int name="y" value="-831"/>
                 <int name="z" value="218"/>
                 <string name="oS" value="connect"/>
                 <string name="l0" value="rope"/>
@@ -1305,18 +1305,7 @@
             </imgdir>
             <imgdir name="24">
                 <int name="x" value="654"/>
-                <int name="y" value="-806"/>
-                <int name="z" value="218"/>
-                <string name="oS" value="connect"/>
-                <string name="l0" value="rope"/>
-                <string name="l1" value="177"/>
-                <string name="l2" value="1"/>
-                <int name="f" value="0"/>
-                <int name="zM" value="1"/>
-            </imgdir>
-            <imgdir name="25">
-                <int name="x" value="654"/>
-                <int name="y" value="-768"/>
+                <int name="y" value="-793"/>
                 <int name="z" value="218"/>
                 <string name="oS" value="connect"/>
                 <string name="l0" value="rope"/>
@@ -1784,8 +1773,8 @@
         </imgdir>
         <imgdir name="2">
             <int name="x" value="654"/>
-            <int name="y1" value="-1377"/>
-            <int name="y2" value="-749"/>
+            <int name="y1" value="-1381"/>
+            <int name="y2" value="-774"/>
             <int name="uf" value="1"/>
             <int name="page" value="7"/>
             <int name="l" value="0"/>
@@ -2774,8 +2763,8 @@
             <int name="x" value="1170"/>
             <int name="y" value="112"/>
             <int name="cy" value="120"/>
-            <int name="rx0" value="1222"/>
-            <int name="rx1" value="1262"/>
+            <int name="rx0" value="1228"/>
+            <int name="rx1" value="1268"/>
             <int name="f" value="1"/>
             <string name="type" value="n"/>
             <int name="fh" value="0"/>
@@ -2795,8 +2784,8 @@
             <int name="x" value="178"/>
             <int name="y" value="-749"/>
             <int name="cy" value="-741"/>
-            <int name="rx0" value="248"/>
-            <int name="rx1" value="288"/>
+            <int name="rx0" value="258"/>
+            <int name="rx1" value="298"/>
             <int name="f" value="1"/>
             <string name="type" value="n"/>
             <int name="fh" value="8"/>
