@@ -51,7 +51,7 @@ function action(mode, type, selection) {
 
 function showMainOptions() {
     cm.sendSimple("Hi! My name is Rooty, i have become'th cashshop, take a peek!#e#d" +
-            "#k\r\n#L0#Nx Goodies. (5 Maple Leaf)\r\n#L1#Mastery Books. (30 Maple Leaf)\r\n#L30#Maple Weapons.\r\n#L40#Root Shop.\r\n");
+            "#k\r\n#L0#Nx Goodies. (25 Maple Leaf)\r\n#L1#Mastery Books. (20 Maple Leaf)\r\n#L30#Maple Weapons.\r\n#L40#Root Shop.\r\n");
 }
 
 function handleMainSelection(selection) {
@@ -156,7 +156,7 @@ function showMapleWeapons(subcategory) {
                 1302020, 1452016, 1462014, 1472030, 1382009,
                 1482020, 1492020
             ];
-            itemPrice = 5; // Set the price 
+            itemPrice = 25; // Set the price
             break;
         case 32: // Level 43 Maple Weapons
             itemIds = [
@@ -465,7 +465,7 @@ function showItemOptions(subcategory) {
                 1005378, 1005379, 1005380, 1005381, 1005391, 1005394, 1005395,
                 1005397, 1005398,
             ];
-            itemPrice = 5; // Set the price for Cap items
+            itemPrice = 25; // Set the price for Cap items
             break;
         case 3: // Top
             itemIds = [
@@ -528,7 +528,7 @@ function showItemOptions(subcategory) {
                 1042380, 1042381, 1042382, 1042383, 1042384, 1042385, 1042386,
                 1048000, 1048001, 1048002, 1049000, 1102380,
             ];
-            itemPrice = 5; // Set the price for Top items
+            itemPrice = 25; // Set the price for Top items
             break;
         case 4: // Bottom
             itemIds = [
@@ -575,7 +575,7 @@ function showItemOptions(subcategory) {
                 1062237, 1062238, 1062239, 1062244, 1062245, 1062247, 1062248,
                 1062249, 1062250, 1062251, 1062252,
             ];
-            itemPrice = 5; // Set the price for Top items
+            itemPrice = 25; // Set the price for Top items
             break;
         case 5: // Overall
             itemIds = [
@@ -771,7 +771,7 @@ function showItemOptions(subcategory) {
                 1053457, 1053458, 1053459, 1053460, 1053465, 1053466, 1053467,
                 1053468, 1053469, 1053470, 1053472,
             ];
-            itemPrice = 5; // Set the price for Top items
+            itemPrice = 25; // Set the price for Top items
             break;
         case 6: // Shoes
             itemIds = [
@@ -872,7 +872,7 @@ function showItemOptions(subcategory) {
                 1073354, 1073357, 1073370, 1073371, 1073372, 1073373, 1073376,
                 1073377,
             ];
-            itemPrice = 5; // Set the price for Top items
+            itemPrice = 25; // Set the price for Top items
             break;
         case 7: // Gloves
             itemIds = [
@@ -900,7 +900,7 @@ function showItemOptions(subcategory) {
                 1082726, 1082727, 1082728, 1082730, 1082731, 1082733, 1082734,
                 1082735, 1082737, 1082738, 1082741,
             ];
-            itemPrice = 5; // Set the price for Top items
+            itemPrice = 25; // Set the price for Top items
             break;
         case 8: // Cash Effect Capes
             itemIds = [
@@ -945,7 +945,7 @@ function showItemOptions(subcategory) {
                 5013181, 5013182, 5013184, 5013189, 5013190, 5013194, 5013195,
                 5013197, 5013198, 5013199, 5013206, 5013207
             ];
-            itemPrice = 5; // Set the price for Top items
+            itemPrice = 25; // Set the price for Top items
             break;
          case 9: // Capes
             itemIds = [
@@ -970,7 +970,7 @@ function showItemOptions(subcategory) {
                 1102273, 1102285, 1102286, 1102287, 1102288, 1102290, 1102291,
                 1102292, 1102296,
             ];
-            itemPrice = 5; // Set the price for Top items
+            itemPrice = 25; // Set the price for Top items
             break;
         case 10: // Weapon
             itemIds = [
@@ -1092,7 +1092,7 @@ function showItemOptions(subcategory) {
                 1702917, 1702926, 1702927, 1702930, 1702931, 1702932, 1702933,
                 1702940, 1702941,
             ];
-            itemPrice = 5; // Set the price for Top items
+            itemPrice = 25; // Set the price for Top items
             break;
         case 11: // Effect
             itemIds = [
@@ -1121,7 +1121,7 @@ function showItemOptions(subcategory) {
                 5011001, 5011002, 5011003, 5011004, 5011005, 5011006, 5011007,
                 5011008, 5011009,
             ];
-            itemPrice = 5; // Set the price for Top items
+            itemPrice = 25; // Set the price for Top items
             break;
         case 12: // Name Tag Rings
             itemIds = [
@@ -1148,7 +1148,7 @@ function showItemOptions(subcategory) {
                 1115161, 1115162, 1115163, 1115164, 1115165, 1115166, 1115167,
                 1115168, 1115169, 1115170, 1115171, 1115173, 1115175,
             ];
-            itemPrice = 5; // Set the price for Top items
+            itemPrice = 25; // Set the price for Top items
             break;
         case 13: //Chat Bubble Rings
             itemIds = [
@@ -1177,7 +1177,7 @@ function showItemOptions(subcategory) {
                 1115074, 1115075, 1115076, 1115077, 1115078, 1115079, 1115080,
                 1115081, 1115082, 1115084, 1115086,
             ];
-            itemPrice = 5; // Set the price for Top items
+            itemPrice = 25; // Set the price for Top items
             break;
         case 14: //Pets
             itemIds = [
@@ -1288,7 +1288,7 @@ function showItemOptions(subcategory) {
                 5000994, 5000995, 5000996, 5000997, 5000998
 
             ];
-            itemPrice = 5; // Set the price for Top items
+            itemPrice = 25; // Set the price for Top items
             break;
         case 15: //Chairs
             itemIds = [
@@ -1404,7 +1404,7 @@ function showItemOptions(subcategory) {
                 3018344, 3018360, 3018365, 3018369, 3018387, 3018388,
                 3018424, 3018425, 3018427
             ];
-            itemPrice = 5; // Set the price for Top items
+            itemPrice = 25; // Set the price for Top items
             break;
         case 16: //Accessories
             itemIds = [
@@ -1470,7 +1470,7 @@ function showItemOptions(subcategory) {
                 1032255, 1032260, 1032262, 1032264, 1032310, 1033000, 1122121,
                 1122268,
             ];
-            itemPrice = 5; // Set the price for Top items
+            itemPrice = 25; // Set the price for Top items
             break;
         case 17: //Other
             itemIds = [
@@ -1492,7 +1492,7 @@ function showItemOptions(subcategory) {
                 5240021, 5240023, 5240024, 5240027, 5390000, 5390001, 5390002,
                 5390005, 5390006, 5400000, 5401000, 5076000, 5460000
             ];
-            itemPrice = 5; // Set the price for Top items
+            itemPrice = 25; // Set the price for Top items
             break;
         case 18: //Pet Equip
             itemIds = [
@@ -1558,7 +1558,7 @@ function showItemOptions(subcategory) {
                 1802697, 1802698, 1802708, 1802709, 1802710, 1802711, 1802712,
                 1802713
             ];
-            itemPrice = 5; // Set the price for Top items
+            itemPrice = 25; // Set the price for Top items
             break;
             // Add cases for other subcategories
     }
@@ -1582,7 +1582,7 @@ function showMasteryBooks(subcategory) {
 
     var options = "Mastery Books Part " + (subcategory - 10) + "\r\n";
     var itemIds = [];
-    var itemPrice = 30; // Default price for mastery books
+    var itemPrice = 20; // Default price for mastery books
 
     for (var itemId = startItemId; itemId <= endItemId; itemId++) {
         itemIds.push(itemId);
