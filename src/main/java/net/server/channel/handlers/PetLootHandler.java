@@ -87,7 +87,7 @@ public final class PetLootHandler extends AbstractPacketHandler {
             }
 
             
-            if(c.getPlayer().getInventory(ItemConstants.getInventoryType(YamlConfig.config.server.AUTOLOOT_ITEM_ID)).countById(YamlConfig.config.server.AUTOLOOT_ITEM_ID) > 0){
+            if(c.getPlayer().getInventory(ItemConstants.getInventoryType(YamlConfig.config.server.AUTOLOOT_ITEM_ID)).countById(YamlConfig.config.server.AUTOLOOT_ITEM_ID) > 0) {
                 List<MapObject> items = c.getPlayer().getMap().getMapObjectsInRange(c.getPlayer().getPosition(), Double.POSITIVE_INFINITY, Arrays.asList(MapObjectType.ITEM));
                 for (MapObject item : items) {
                     MapItem mapItem = (MapItem) item;

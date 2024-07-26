@@ -144,6 +144,7 @@ public class Character extends AbstractCharacterObject {
     private int battleshipHp = 0;
     private int mesosTraded = 0;
     private int possibleReports = 10;
+    private int stamina;
     private int ariantPoints, dojoPoints, vanquisherStage, dojoStage, dojoEnergy, vanquisherKills;
     private int expRate = 1, mesoRate = 1, dropRate = 1, expCoupon = 1, mesoCoupon = 1, dropCoupon = 1;
     private int omokwins, omokties, omoklosses, matchcardwins, matchcardties, matchcardlosses;
@@ -7466,7 +7467,7 @@ public class Character extends AbstractCharacterObject {
                     ret.canRecvPartySearchInvite = rs.getBoolean("partySearch");
                     ret.reborns = rs.getInt("reborns");
                     ret.bankMesos = rs.getLong("bank");
-
+                    ret.stamina = rs.getInt("stamina");
                     wserv = Server.getInstance().getWorld(ret.world);
 
                     ret.getInventory(InventoryType.EQUIP).setSlotLimit(rs.getByte("equipslots"));
@@ -9041,7 +9042,7 @@ public class Character extends AbstractCharacterObject {
             con.setTransactionIsolation(Connection.TRANSACTION_READ_UNCOMMITTED);
 
             try {
-                try (PreparedStatement ps = con.prepareStatement("UPDATE characters SET level = ?, fame = ?, str = ?, dex = ?, luk = ?, `int` = ?, exp = ?, gachaexp = ?, hp = ?, mp = ?, maxhp = ?, maxmp = ?, sp = ?, ap = ?, gm = ?, skincolor = ?, gender = ?, job = ?, hair = ?, face = ?, map = ?, meso = ?, hpMpUsed = ?, spawnpoint = ?, party = ?, buddyCapacity = ?, messengerid = ?, messengerposition = ?, mountlevel = ?, mountexp = ?, mounttiredness= ?, equipslots = ?, useslots = ?, setupslots = ?, etcslots = ?,  monsterbookcover = ?, vanquisherStage = ?, dojoPoints = ?, lastDojoStage = ?, finishedDojoTutorial = ?, vanquisherKills = ?, matchcardwins = ?, matchcardlosses = ?, matchcardties = ?, omokwins = ?, omoklosses = ?, omokties = ?, dataString = ?, fquest = ?, jailexpire = ?, partnerId = ?, marriageItemId = ?, lastExpGainTime = ?, ariantPoints = ?, partySearch = ?, bank = ? WHERE id = ?", Statement.RETURN_GENERATED_KEYS)) {
+                try (PreparedStatement ps = con.prepareStatement("UPDATE characters SET level = ?, fame = ?, str = ?, dex = ?, luk = ?, `int` = ?, exp = ?, gachaexp = ?, hp = ?, mp = ?, maxhp = ?, maxmp = ?, sp = ?, ap = ?, gm = ?, skincolor = ?, gender = ?, job = ?, hair = ?, face = ?, map = ?, meso = ?, hpMpUsed = ?, spawnpoint = ?, party = ?, buddyCapacity = ?, messengerid = ?, messengerposition = ?, mountlevel = ?, mountexp = ?, mounttiredness= ?, equipslots = ?, useslots = ?, setupslots = ?, etcslots = ?,  monsterbookcover = ?, vanquisherStage = ?, dojoPoints = ?, lastDojoStage = ?, finishedDojoTutorial = ?, vanquisherKills = ?, matchcardwins = ?, matchcardlosses = ?, matchcardties = ?, omokwins = ?, omoklosses = ?, omokties = ?, dataString = ?, fquest = ?, jailexpire = ?, partnerId = ?, marriageItemId = ?, lastExpGainTime = ?, ariantPoints = ?, partySearch = ?, bank = ?, stamina = ? WHERE id = ?", Statement.RETURN_GENERATED_KEYS)) {
                     ps.setInt(1, level);    // thanks CanIGetaPR for noticing an unnecessary "level" limitation when persisting DB data
                     ps.setInt(2, fame);
 
@@ -9155,7 +9156,8 @@ public class Character extends AbstractCharacterObject {
                     ps.setInt(54, ariantPoints);
                     ps.setBoolean(55, canRecvPartySearchInvite);
                     ps.setLong(56, bankMesos);
-                    ps.setInt(57, id);
+                    ps.setInt(57, stamina);
+                    ps.setInt(58, id);
 
                     int updateRows = ps.executeUpdate();
                     if (updateRows < 1) {
@@ -12609,6 +12611,39 @@ public class Character extends AbstractCharacterObject {
     public int getAriantPoints() {
         return this.ariantPoints;
     }
+
+    public int getStamina() {
+        return stamina;
+    }
+
+    public int setStamina(int stam) {
+        stamina = stam;
+        this.yellowMessage("Your Stamina has been set to " + stam);
+        saveCharToDB(true);
+        return stamina;
+    }
+
+    public int addStamina(int stam) {
+        stamina += stam;
+        this.yellowMessage(stam + " stamina has been added to your stamina pool. Your stamina is now at " + this.stamina);
+        saveCharToDB(true);
+        return stamina;
+    }
+
+    public int removeStamina(int stam) {
+        stamina -= stam;
+        this.yellowMessage(stam + " stamina has been removed from your stamina pool. Your stamina is now at " + this.stamina);
+        saveCharToDB(true);
+        return stamina;
+    }
+
+    /*public void restoreStam() {
+        if (this.stamina < this.totallevel) {
+            this.stamina += this.totallevel;
+        }
+        this.yellowMessage("Your Stamina has been restored. Your stamina is now at " + this.stamina);
+        saveCharToDB(true);
+    }*/
 
     public int getBossLog(String bossid) {
         try {

@@ -102,7 +102,7 @@ public class Fishing {
             switch (rand) {
                 case 0:
                     // Meso rewards should be tweaked here for your server's individual game balance
-                    int mesoAward = (int) (25.0 * Math.random() + 25 * chr.getLevel()) * chr.getMesoRate();
+                    int mesoAward = (int) (5.0 * Math.random() + 10 * chr.getLevel()) * chr.getMesoRate();
                     mesoAward = mesoAward / 2 * baitLevel / 100;
                     chr.gainMeso(mesoAward, true, true, true);
                     break;
@@ -110,12 +110,12 @@ public class Fishing {
                     // exp rewards should be tweaked here for your server's individual game balance
                     int expAward = 0;
                     if (chr.getLevel() <= 80) {
-                        expAward = (int) (25 * chr.getLevel() + chr.getLevel() * Math.random()) * chr.getExpRate();
+                        expAward = (int) (15 * chr.getLevel() + chr.getLevel() * Math.random()) * chr.getExpRate();
                     }
                     else if (chr.getLevel() <= 200) {
-                        expAward = (int) (100 * chr.getLevel() + 15*chr.getLevel() * Math.random()) * chr.getExpRate();
+                        expAward = (int) (50 * chr.getLevel() + 15*chr.getLevel() * Math.random()) * chr.getExpRate();
                     } else {
-                        expAward = (int) (1000 * chr.getLevel() + 200*chr.getLevel() * Math.random()) * chr.getExpRate();
+                        expAward = (int) (500 * chr.getLevel() + 200*chr.getLevel() * Math.random()) * chr.getExpRate();
                     }
                     expAward = expAward / 4 * (baitLevel / 100);
                     chr.gainExp(expAward, true, true);
