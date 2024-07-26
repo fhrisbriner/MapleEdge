@@ -19,7 +19,7 @@ public class LoginServerInitializer extends ServerChannelInitializer {
         final long clientSessionId = sessionId.getAndIncrement();
         final String remoteAddress = getRemoteAddress(socketChannel);
         final Client client = Client.createLoginClient(clientSessionId, remoteAddress, packetProcessor, LoginServer.WORLD_ID, LoginServer.CHANNEL_ID);
-        client.getMostRecentAccountFromIP(clientIp);
+        client.getMostRecentAccountFromIP(clientIp); // for autologin
 
         if (!SessionCoordinator.getInstance().canStartLoginSession(client)) {
             socketChannel.close();
