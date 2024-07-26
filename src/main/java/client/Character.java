@@ -146,7 +146,7 @@ public class Character extends AbstractCharacterObject {
     private int possibleReports = 10;
     private int stamina;
     private int ariantPoints, dojoPoints, vanquisherStage, dojoStage, dojoEnergy, vanquisherKills;
-    private int expRate = 1, mesoRate = 1, dropRate = 1, expCoupon = 1, mesoCoupon = 1, dropCoupon = 1;
+    private int expRate = 50, mesoRate = 10, dropRate = 4, expCoupon = 1, mesoCoupon = 1, dropCoupon = 1;
     private int omokwins, omokties, omoklosses, matchcardwins, matchcardties, matchcardlosses;
     private int owlSearch;
     private long lastfametime, lastUsedCashItem, lastExpression = 0, lastHealed, lastBuyback = 0, lastDeathtime, jailExpiration = -1;
@@ -5160,10 +5160,6 @@ public class Character extends AbstractCharacterObject {
     }
 
     public int getExpRate() {
-        if (hasNoviceExpRate()) {   // base exp rate 1x for early levels idea thanks to Vcoc
-            return 1;
-        }
-
         return expRate;
     }
 
