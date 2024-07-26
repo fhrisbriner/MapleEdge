@@ -373,7 +373,7 @@ public class ItemInformationProvider {
                 if (ItemConstants.getInventoryType(itemId).getType() == InventoryType.EQUIP.getType()) {
                     ret = 1;
                 } else {
-                    ret = 10000;
+                    ret = 10000; // items stack limit
                 }
             } else {
                 ret = (short) DataTool.getInt(smEntry);

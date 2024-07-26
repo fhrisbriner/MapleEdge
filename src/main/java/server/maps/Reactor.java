@@ -389,7 +389,8 @@ public class Reactor extends AbstractMapObject {
     }
 
     public Rectangle getArea() {
-        return new Rectangle(getPosition().x + stats.getTL().x, getPosition().y + stats.getTL().y, stats.getBR().x - stats.getTL().x, stats.getBR().y - stats.getTL().y);
+        return stats.getArea(getPosition());
+        //return new Rectangle(getPosition().x + stats.getTL().x, getPosition().y + stats.getTL().y, stats.getBR().x - stats.getTL().x, stats.getBR().y - stats.getTL().y);
     }
 
     public String getName() {

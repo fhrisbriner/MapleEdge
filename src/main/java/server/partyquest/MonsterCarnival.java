@@ -172,25 +172,11 @@ public class MonsterCarnival {
     }
 
     public boolean canGuardianR() {
-        int teamReactors = 0;
-        for (Reactor react : map.getAllReactors()) {
-            if (react.getName().substring(0, 1).contentEquals("0")) {
-                teamReactors += 1;
-            }
-        }
-
-        return teamReactors < map.getMaxReactors();
+        return map.canGuardian("0");
     }
 
     public boolean canGuardianB() {
-        int teamReactors = 0;
-        for (Reactor react : map.getAllReactors()) {
-            if (react.getName().substring(0, 1).contentEquals("1")) {
-                teamReactors += 1;
-            }
-        }
-
-        return teamReactors < map.getMaxReactors();
+        return map.canGuardian("1");
     }
 
     protected void dispose(boolean warpout) {
