@@ -10847,12 +10847,17 @@ public class Character extends AbstractCharacterObject {
         //Tier 7 = +100HP/MP and +4 STR/DEX/INT/LUK
         //Tier 8 = +100HP/MP and +4 STR/DEX/INT/LUK
         //Tier 9 = +125HP/MP, +5 STR/DEX/INT/LUK
-        int percentTotal = this.getLinkedTotal() / 20;
+        //int percentTotal = this.getLinkedTotal() / 10;
+        int linkedtotal = this.getLinkedTotal();
 
-        short STRLinkBonus = (short) (1 + (percentTotal * (this.getStr() + equipSTR)) / 100);
-        short DEXLinkBonus = (short) (1 + (percentTotal * (this.getDex() + equipDEX)) / 100);
-        short INTLinkBonus = (short) (1 + (percentTotal * (this.getInt() + equipINT)) / 100);
-        short LUKLinkBonus = (short) (1 + (percentTotal * (this.getLuk() + equipLUK)) / 100);
+        short STRLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getStr() + equipSTR));
+        short DEXLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getDex() + equipDEX));
+        short INTLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getInt() + equipINT));
+        short LUKLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getLuk() + equipLUK));
+        /*short STRLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getStr() + equipSTR)));
+        short DEXLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getDex() + equipDEX)));
+        short INTLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getInt() + equipINT)));
+        short LUKLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getLuk() + equipLUK)));*/
 
         Inventory equip = this.getInventory(InventoryType.EQUIP);
         Inventory equipped = this.getInventory(InventoryType.EQUIPPED);
@@ -10928,7 +10933,7 @@ public class Character extends AbstractCharacterObject {
     }
 
     public int getLinkedTotalPercent() {
-        LinkedTotalPercent = this.getLinkedTotal() / 20;
+        LinkedTotalPercent = this.getLinkedTotal() / 10;
         return LinkedTotalPercent;
     }
 

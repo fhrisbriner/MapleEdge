@@ -45,15 +45,6 @@ public final class MonsterBook {
     private final Map<Integer, Integer> cards = new LinkedHashMap<>();
     private final Lock lock = new ReentrantLock();
 
-    public Set<Entry<Integer, Integer>> getCardSet() {
-        lock.lock();
-        try {
-            return new HashSet<>(cards.entrySet());
-        } finally {
-            lock.unlock();
-        }
-    }
-
     public void addCard(final Client c, final int cardid) {
         c.getPlayer().getMap().broadcastMessage(c.getPlayer(), PacketCreator.showForeignCardEffect(c.getPlayer().getId()), false);
         int MobItem = 1143168;
