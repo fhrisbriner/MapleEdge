@@ -398,7 +398,7 @@ public final class PlayerLoggedinHandler extends AbstractPacketHandler {
             player.questExpirationTask();
 
             if (ServerConstants.Account_Linked_Stats == true) {
-                player.applyLinkStatsBoost();
+                //player.applyLinkStatsBoost();
             } //TODO linked stats
             //player.updateQuestAttackRing();
             player.changeSkillLevel(SkillFactory.getSkill(10000000 * player.getJobType() + 12), (byte) (player.getLinkedLevel() / 10), 20, -1);
@@ -481,7 +481,7 @@ public final class PlayerLoggedinHandler extends AbstractPacketHandler {
                 eq = (Equip) equipped.findById(monsterBookMedal);
             }
             c.getPlayer().forceUpdateItem(eq);
-            c.getPlayer().applyLinkStatsBoost();
+            //c.getPlayer().applyLinkStatsBoost();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
