@@ -135,6 +135,7 @@ public class Character extends AbstractCharacterObject {
     private int slots = 0;
     private int energybar;
     private int gmLevel;
+    private int accountTotalLevel = 0;
 
     private boolean autoLoginSetting;
     private int ci = 0;
@@ -6977,6 +6978,7 @@ public class Character extends AbstractCharacterObject {
                 }
             }
         }
+        setLinkedTotal();
     }
 
     public boolean leaveParty() {
@@ -7122,9 +7124,9 @@ public class Character extends AbstractCharacterObject {
     }
 
     public void resetPlayerRates() {
-        expRate = 1;
-        mesoRate = 1;
-        dropRate = 1;
+        expRate = 50;
+        mesoRate = 10;
+        dropRate = 4;
 
         expCoupon = 1;
         mesoCoupon = 1;
@@ -10807,167 +10809,7 @@ public class Character extends AbstractCharacterObject {
         return name;
     }
 
-
-    ///// entire linked stats system /////
-    public void reCalculateLinkLevelForAccount() {
-        if(this.LinkedTotal < 0) {
-            try {
-                Connection con = DatabaseConnection.getConnection();
-                PreparedStatement ps = con.prepareStatement("SELECT level, job FROM characters WHERE accountid = ?");
-                ps.setInt(1, this.accountid);
-                ResultSet rs = ps.executeQuery();
-                while(rs.next()) {
-                    int job = rs.getInt("job");
-                    int level = rs.getInt("level");
-                    this.linkedLevel = Math.max(this.linkedLevel, level);
-                    this.updateLinkedLevelForJobAndLevel(job, level);
-                }
-                rs.close();
-                ps.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        // Update for current character too.
-        this.updateLinkedLevelForJobAndLevel(this.getJob().getId(), this.getLevel());
-
-        this.LinkedTotal = (this.LinkedBeginner + this.LinkedNovice + this.LinkedLegend +
-                Math.max(this.LinkedHero + this.LinkedPage + this.LinkedDK, LinkedWarrior) +
-                Math.max(this.LinkedFire + this.LinkedIce + this.LinkedBishop, LinkedMage) +
-                Math.max(this.LinkedHunter + this.LinkedXbow, LinkedArcher) +
-                Math.max(this.LinkedNL + this.LinkedShadower, LinkedThief) +
-                Math.max(this.LinkedBucc + this.LinkedSair, LinkedPirate) +
-                this.LinkedDawn + this.LinkedBlaze + this.LinkedWind + this.LinkedNight + this.LinkedThunder +
-                this.LinkedAran
-        );
-    }
-
     //Linked Stats
-
-    public void updateLinkedLevelForJobAndLevel(int job, int level) {
-        switch (job) {
-            case 0:  // Beginner
-                this.LinkedBeginner = Math.max(this.LinkedBeginner, level);
-                break;
-            case 100: // Base warrior
-                this.LinkedWarrior = Math.max(this.LinkedWarrior, level);
-                break;
-            case 110:
-            case 111:
-            case 112:
-                this.LinkedHero = Math.max(this.LinkedHero, level);
-                break;
-            case 120:
-            case 121:
-            case 122:
-                this.LinkedPage = Math.max(this.LinkedPage, level);
-                break;
-            case 130:
-            case 131:
-            case 132:
-                this.LinkedDK = Math.max(this.LinkedDK, level);
-                break;
-            case 200:
-                this.LinkedMage = Math.max(this.LinkedMage, level);
-                break;
-            case 210:
-            case 211:
-            case 212:
-                this.LinkedFire = Math.max(this.LinkedFire, level);
-                break;
-            case 220:
-            case 221:
-            case 222:
-                this.LinkedIce = Math.max(this.LinkedIce, level);
-                break;
-            case 230:
-            case 231:
-            case 232:
-                this.LinkedBishop = Math.max(this.LinkedBishop, level);
-                break;
-            case 300:
-                this.LinkedArcher = Math.max(this.LinkedArcher, level);
-                break;
-            case 310:
-            case 311:
-            case 312:
-                this.LinkedHunter = Math.max(this.LinkedHunter, level);
-                break;
-            case 320:
-            case 321:
-            case 322:
-                this.LinkedXbow = Math.max(this.LinkedXbow, level);
-                break;
-            case 400:
-                this.LinkedThief = Math.max(this.LinkedThief, level);
-                break;
-            case 410:
-            case 411:
-            case 412:
-                this.LinkedNL = Math.max(this.LinkedNL, level);
-                break;
-            case 420:
-            case 421:
-            case 422:
-                this.LinkedShadower = Math.max(this.LinkedShadower, level);
-                break;
-            case 500:
-                this.LinkedPirate = Math.max(this.LinkedPirate, level);
-                break;
-            case 510:
-            case 511:
-            case 512:
-                this.LinkedBucc = Math.max(this.LinkedBucc, level);
-                break;
-            case 520:
-            case 521:
-            case 522:
-                this.LinkedSair = Math.max(this.LinkedSair, level);
-                break;
-            case 1000:   // Noblesse
-                this.LinkedNovice = Math.max(this.LinkedNovice, level);
-                break;
-            case 1100:
-            case 1110:
-            case 1111:
-            case 1112:
-                this.LinkedDawn = Math.max(this.LinkedDawn, level);
-                break;
-            case 1200:
-            case 1210:
-            case 1211:
-            case 1212:
-                this.LinkedBlaze = Math.max(this.LinkedBlaze, level);
-                break;
-            case 1300:
-            case 1310:
-            case 1311:
-            case 1312:
-                this.LinkedWind = Math.max(this.LinkedWind, level);
-                break;
-            case 1400:
-            case 1410:
-            case 1411:
-            case 1412:
-                this.LinkedNight = Math.max(this.LinkedNight, level);
-                break;
-            case 1500:
-            case 1510:
-            case 1511:
-            case 1512:
-                this.LinkedThunder = Math.max(this.LinkedThunder, level);
-                break;
-            case 2000:    // Legend
-                this.LinkedLegend = Math.max(this.LinkedLegend, level);
-                break;
-            case 2100:
-            case 2110:
-            case 2111:
-            case 2112:
-                this.LinkedAran = Math.max(this.LinkedAran, level);
-                break;
-        }
-    }
 
     public void BoostMedal() {
         getMap().broadcastUpdateCharLookMessage(this, this);
@@ -10981,13 +10823,11 @@ public class Character extends AbstractCharacterObject {
         short equipDEX = 0;
         short equipINT = 0;
         short equipLUK = 0;
-        short equipHP = 0;
-        short equipMP = 0;
 
         // Link bonus applied to equips.
         Inventory equippedItems = this.getInventory(InventoryType.EQUIPPED);
         for (Item item : equippedItems.list()) {
-            if (item.getItemId() == ServerConstants.Account_LINK_EquipID || item.getItemId() == 1142101 || item.getItemId() == 1113058) {  // Custom items.
+            if (item.getItemId() == ServerConstants.Account_LINK_EquipID) {  // Custom items.
                 continue;
             }
             Equip eq = (Equip) item;
@@ -10996,7 +10836,6 @@ public class Character extends AbstractCharacterObject {
             equipINT += eq.getInt();
             equipLUK += eq.getLuk();
         }
-        //int linkedtotal = this.getLinkedTotal();
 
         //Monster book stat gain for each maxed Tier
         //Tier 1 = +25HP/MP and +1 STR/DEX/INT/LUK
@@ -11008,11 +10847,12 @@ public class Character extends AbstractCharacterObject {
         //Tier 7 = +100HP/MP and +4 STR/DEX/INT/LUK
         //Tier 8 = +100HP/MP and +4 STR/DEX/INT/LUK
         //Tier 9 = +125HP/MP, +5 STR/DEX/INT/LUK
+        int percentTotal = this.getLinkedTotal() / 20;
 
-/*        short STRLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getStr() + equipSTR));
-        short DEXLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getDex() + equipDEX));
-        short INTLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getInt() + equipINT));
-        short LUKLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getLuk() + equipLUK));*/
+        short STRLinkBonus = (short) (1 + (percentTotal * (this.getStr() + equipSTR)) / 100);
+        short DEXLinkBonus = (short) (1 + (percentTotal * (this.getDex() + equipDEX)) / 100);
+        short INTLinkBonus = (short) (1 + (percentTotal * (this.getInt() + equipINT)) / 100);
+        short LUKLinkBonus = (short) (1 + (percentTotal * (this.getLuk() + equipLUK)) / 100);
 
         Inventory equip = this.getInventory(InventoryType.EQUIP);
         Inventory equipped = this.getInventory(InventoryType.EQUIPPED);
@@ -11023,15 +10863,17 @@ public class Character extends AbstractCharacterObject {
             System.out.println("Error: Unable to find link medal.");
             return;
         }
+        System.out.println(STRLinkBonus);
 
-        short medalHP = (short)  (this.getTier1() * 25 + this.getTier2() * 25 + this.getTier3() * 50 + this.getTier4() * 50 + this.getTier5() * 75 + this.getTier6() * 75 + this.getTier7() * 100 + this.getTier8() * 100 + this.getTier9() * 125);
+        short medalHP = (short) (this.getTier1() * 25 + this.getTier2() * 25 + this.getTier3() * 50 + this.getTier4() * 50 + this.getTier5() * 75 + this.getTier6() * 75 + this.getTier7() * 100 + this.getTier8() * 100 + this.getTier9() * 125);
         short medalMP = (short) (this.getTier1() * 25 + this.getTier2() * 25 + this.getTier3() * 50 + this.getTier4() * 50 + this.getTier5() * 75 + this.getTier6() * 75 + this.getTier7() * 100 + this.getTier8() * 100 + this.getTier9() * 125);
-        short medalSTR = (short) (/*STRLinkBonus + */(this.getTier1() + this.getTier2() + this.getTier3() * 2 + this.getTier4() * 2 + this.getTier5() * 3 + this.getTier6() * 3 + this.getTier7() * 4 + this.getTier8() * 4 + this.getTier9() * 5));
-        short medalDEX = (short) (/*DEXLinkBonus + */(this.getTier1() + this.getTier2() + this.getTier3() * 2 + this.getTier4() * 2 + this.getTier5() * 3 + this.getTier6() * 3 + this.getTier7() * 4 + this.getTier8() * 4 + this.getTier9() * 5));
-        short medalINT = (short) (/*INTLinkBonus + */(this.getTier1() + this.getTier2() + this.getTier3() * 2 + this.getTier4() * 2 + this.getTier5() * 3 + this.getTier6() * 3 + this.getTier7() * 4 + this.getTier8() * 4 + this.getTier9() * 5));
-        short medalLUK = (short) (/*LUKLinkBonus + */(this.getTier1() + this.getTier2() + this.getTier3() * 2 + this.getTier4() * 2 + this.getTier5() * 3 + this.getTier6() * 3 + this.getTier7() * 4 + this.getTier8() * 4 + this.getTier9() * 5));
+        short medalSTR = (short) (STRLinkBonus + (this.getTier1() + this.getTier2() + this.getTier3() * 2 + this.getTier4() * 2 + this.getTier5() * 3 + this.getTier6() * 3 + this.getTier7() * 4 + this.getTier8() * 4 + this.getTier9() * 5));
+        short medalDEX = (short) (DEXLinkBonus + (this.getTier1() + this.getTier2() + this.getTier3() * 2 + this.getTier4() * 2 + this.getTier5() * 3 + this.getTier6() * 3 + this.getTier7() * 4 + this.getTier8() * 4 + this.getTier9() * 5));
+        short medalINT = (short) (INTLinkBonus + (this.getTier1() + this.getTier2() + this.getTier3() * 2 + this.getTier4() * 2 + this.getTier5() * 3 + this.getTier6() * 3 + this.getTier7() * 4 + this.getTier8() * 4 + this.getTier9() * 5));
+        short medalLUK = (short) (LUKLinkBonus + (this.getTier1() + this.getTier2() + this.getTier3() * 2 + this.getTier4() * 2 + this.getTier5() * 3 + this.getTier6() * 3 + this.getTier7() * 4 + this.getTier8() * 4 + this.getTier9() * 5));
 
         try {
+            System.out.println(this.getLinkedTotal());
             linkEquip.setStr(medalSTR);
             linkEquip.setDex(medalDEX);
             linkEquip.setInt(medalINT);
@@ -11044,133 +10886,34 @@ public class Character extends AbstractCharacterObject {
             flag |= ItemConstants.LOCK;
             linkEquip.setFlag(flag);
             this.forceUpdateItem(linkEquip);
-        } catch (Exception e) {
-            System.out.println("Error: Unable to lock and force update item for link equip.");
+        } catch (Exception e){
+                e.printStackTrace();
         }
         recalcLocalStats();
     }
 
+
     public String getLinkedName() {
         return linkedName;
-    }
-
-    //Linked Stats Calculations//
-    public int getLinkedHero() {
-        return LinkedHero;
-    }
-
-    //Linked Stats Calculations//
-    public int getLinkedDK() {
-        return LinkedDK;
-    }
-
-    //Linked Stats Calculations//
-    public int getLinkedPage() {
-        return LinkedPage;
-    }
-
-    //Linked Stats Calculations//
-    public int getLinkedFire() {
-        return LinkedFire;
-    }
-
-    //Linked Stats Calculations//
-    public int getLinkedIce() {
-        return LinkedIce;
-    }
-
-    public int getLinkedBishop() {
-        return LinkedBishop;
-    }
-
-    public int getLinkedHunter() {
-        return LinkedHunter;
-    }
-
-    public int getLinkedXbow() {
-        return LinkedXbow;
-    }
-
-    public int getLinkedNL() {
-        return LinkedNL;
-    }
-
-    public int getLinkedShadower() {
-        return LinkedShadower;
-    }
-
-    public int getLinkedBucc() {
-        return LinkedBucc;
-    }
-
-    public int getLinkedSair() {
-        return LinkedSair;
-    }
-
-    public int getLinkedBeginner() {
-        return LinkedBeginner;
-    }
-
-    public int getLinkedNovice() {
-        return LinkedNovice;
-    }
-
-    public int getLinkedDawn() {
-        return LinkedDawn;
-    }
-
-    public int getLinkedBlaze() {
-        return LinkedBlaze;
-    }
-
-    public int getLinkedWind() {
-        return LinkedWind;
-    }
-
-    public int getLinkedNight() {
-        return LinkedNight;
-    }
-
-    public int getLinkedThunder() {
-        return LinkedThunder;
-    }
-
-    public int getLinkedAran() {
-        return LinkedAran;
     }
 
     public int getLinkedLevel() {
         return linkedLevel;
     }
 
-    public int getLinkedStats() {
-        return getLinkedStats;
-    }
-
-    public int getTotalChar() {
-        if (charinacc <= 0) {
-            this.charinacc = this.getLinkedTotal();
-        }
-        return charinacc;
-    }
-
-    public int getLinkedTotal() {
-        //        reCalculateLinkLevelForAccount();
-        //        return LinkedTotal;
-        //        if(this.LinkedTotal < 0) {
+    public void setLinkedTotal() {
         int totalLevel = 0;
         int totalRBs = 0;
         try {
             Connection con = DatabaseConnection.getConnection();
             PreparedStatement ps = con.prepareStatement("SELECT level, reborns FROM characters WHERE accountid = ?");
             ps.setInt(1, this.accountid);
-            System.out.println("not broken yet");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 // int job = rs.getInt("job");
                 int chrLevel = rs.getInt("level");
                 totalRBs = rs.getInt("reborns");
-                if(totalRBs > 0 && totalRBs < 3) {
+                if (totalRBs > 0 && totalRBs < 3) {
                     totalLevel += ((200 * totalRBs) + chrLevel);
                 } else {
                     totalLevel += chrLevel;
@@ -11181,13 +10924,16 @@ public class Character extends AbstractCharacterObject {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(totalLevel);
-        return totalLevel;
+        accountTotalLevel = totalLevel;
     }
 
     public int getLinkedTotalPercent() {
-        LinkedTotalPercent = this.getLinkedTotal() / 10;
+        LinkedTotalPercent = this.getLinkedTotal() / 20;
         return LinkedTotalPercent;
+    }
+
+    public int getLinkedTotal() {
+        return accountTotalLevel;
     }
     ///// end of linked system bs /////
 
@@ -12616,21 +12362,21 @@ public class Character extends AbstractCharacterObject {
         return stamina;
     }
 
-    public int setStamina (int stam) {
+    public int setStamina(int stam) {
         stamina = stam;
         this.yellowMessage("Your Stamina has been set to " + stam);
         saveCharToDB(true);
         return stamina;
     }
 
-    public int addStamina (int stam) {
+    public int addStamina(int stam) {
         stamina += stam;
         this.yellowMessage(stam + " stamina has been added to your stamina pool. Your stamina is now at " + this.stamina);
         saveCharToDB(true);
         return stamina;
     }
 
-    public int removeStamina (int stam) {
+    public int removeStamina(int stam) {
         stamina -= stam;
         this.yellowMessage(stam + " stamina has been removed from your stamina pool. Your stamina is now at " + this.stamina);
         saveCharToDB(true);

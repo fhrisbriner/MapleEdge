@@ -60,7 +60,7 @@ public class LevelCommand extends Command {
             }
         }
         else{
-            player.setWorldRates();
+            player.setPlayerExpRatesCerezeth(50);
         }
 
         player.levelUp(false);

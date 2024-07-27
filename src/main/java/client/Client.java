@@ -112,7 +112,7 @@ public class Client extends ChannelInboundHandlerAdapter {
     private int gmlevel;
     private Set<String> macs = new HashSet<>();
     private Map<String, ScriptEngine> engines = new HashMap<>();
-    private byte characterSlots = 3;
+    private byte characterSlots = 15;
     private byte loginattempt = 0;
     private String pin = "";
     private int pinattempt = 0;
