@@ -1,46 +1,12 @@
-/*
-    This file is part of the OdinMS Maple Story Server
-    Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc>
-               Matthias Butz <matze@odinms.de>
-               Jan Christian Meyer <vimes@odinms.de>
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as
-    published by the Free Software Foundation version 3 as published by
-    the Free Software Foundation. You may not use, modify or distribute
-    this program under any other version of the GNU Affero General Public
-    License.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-/**
- *9201142 - Witch Malady - Haunted House
- *@author BubblesDev v75 (Moogra)
- *@author DstroyerDev v83 (Revan)
- */
-
 function start() {
     cm.sendNext("Nice to meet you!");
     cm.dispose();
 }
 
-/*
- * creditz: nico, kane, jorn
- */
 var status = 0;
 var items_10   = [
-3010117, // black crystal blade
-3010115, // 10 Gacha Tickets
-3010114, // 3 Onyx Apple
-3010110, // 2 Naricain's Demon Elexir
-3010109, // 1 Balanced Furies
-3010108, // Eternal Bullet
+3010117, // magic book chair
+3010115, // bed chair
 3010107, // dragon egg chair
 3010097, // strong wooden chair
 3010096, // dragon skull chair
@@ -49,7 +15,7 @@ var items_10   = [
 3010037, // pig big mouth
 3010048, // xmas tree
 3010050, // jap window
-3010077, //  owl cage
+3010077, //  owl cage chair
 3010086, // loli on a sofa
 3010087, // ray charles
 3010090, // ringo star
@@ -174,7 +140,7 @@ var items_50   = [
 3010058, // WorldEnd - You will recover 50 HP every 10 seconds. Perhaps, as you recline, you will find the answer to many of life's questions.
 3010057, // BloodyRose - You will recover 50 HP every 10 seconds. You will experience the might of a conqueror after recovery.
 3010060, // Noblesse Chair - A chair makes you feel like you're sitting in the lap of luxury. Also recovers 50 HP every 10 seconds.
-3010061, // Underneath the Maple Treeï¿½ - A white chair created to celebrate Maple Story's 6th Anniversary. Sit on it to restore 35 HP and 10 MP every 10 seconds.
+3010061, // Underneath the Maple Tree� - A white chair created to celebrate Maple Story's 6th Anniversary. Sit on it to restore 35 HP and 10 MP every 10 seconds.
 3010062, // Bamboo Chair  - A chair that restores HP every 10 seconds when used. It's very strong since it was made from bamboo grown on Rien.
 3010063, // Moon and Star Cushion - A pretty cushion shaped like a moon. Recovers 60 HP every 10 seconds.
 3010064, // Male Desert Rabbit Cushion   - 60 HP is restored every 10 seconds if you lean back on this cute Male Desert Rabbit Cushion.
@@ -229,7 +195,7 @@ function action(mode, type, selection) {
                 var type_ = 2;
                 if (chance <= 10) {
                     type_ = 0;
-                } else if (chance <= 30){
+                } else if (chance <= 30) {
                     type_ = 1;
                 }
                 random = Math.floor(Math.random() * items[type_].length);
@@ -250,3 +216,4 @@ function action(mode, type, selection) {
         }
     }
 }
+

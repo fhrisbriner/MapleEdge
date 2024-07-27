@@ -84,9 +84,6 @@ function action(mode, type, selection) {
                     }
 
                     cm.dispose();
-                } else { //If you're not in by now, tough luck
-                    cm.sendOk("Another expedition has taken the initiative to challenge " + expedBoss + ", lets pray for those brave souls.");
-                    cm.dispose();
                 }
             }
         } else if (status == 4) {
