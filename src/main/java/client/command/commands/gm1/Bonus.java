@@ -36,12 +36,12 @@ public class Bonus extends Command {
 	public void execute(Client c, String[] params) {
 		Character player = c.getPlayer();
 
-
+		//TODO @bonus now shows level 0 because of getlinkedtotal structure changes
 		String showMsg_ = "#eCHARACTER Bonus#n" + "\r\n\r\n";
-		showMsg_ += "Total Link Level: #e#b" + player.getLinkedTotal()+ "#k#n" + "\r\n";
-		showMsg_ += "Bonus All-Stats%: #e#b" + player.getLinkedTotalPercent()+ "%#k#n" + "\r\n";
+		showMsg_ += "Total Link Level: #e#b" + player.getLinkedTotal() + "#k#n" + "\r\n";
+		showMsg_ += "Bonus All-Stats%: #e#b" + player.getLinkedTotalPercent() + "%#k#n" + "\r\n";
 		//int attBonus = (c.getPlayer().QuestsCompleted() / 2) + (c.getPlayer().baseBossPointsForAttRing() / 2);
 		//showMsg_ += "Total ATT Obtained From Quests/Bosses: #e#b"+ Integer.toString(attBonus) +"#k#n" + "\r\n";
-		player.showHint(showMsg_, 300);
+		player.showHint(showMsg_, 200);
 	}
 }

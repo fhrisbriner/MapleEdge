@@ -10854,10 +10854,6 @@ public class Character extends AbstractCharacterObject {
         short DEXLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getDex() + equipDEX));
         short INTLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getInt() + equipINT));
         short LUKLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getLuk() + equipLUK));
-        /*short STRLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getStr() + equipSTR)));
-        short DEXLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getDex() + equipDEX)));
-        short INTLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getInt() + equipINT)));
-        short LUKLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getLuk() + equipLUK)));*/
 
         Inventory equip = this.getInventory(InventoryType.EQUIP);
         Inventory equipped = this.getInventory(InventoryType.EQUIPPED);
