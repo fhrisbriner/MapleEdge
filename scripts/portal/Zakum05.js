@@ -27,11 +27,11 @@ function enter(pi) {
         pi.getPlayer().dropMessage(5, "You do not have the Eye of Fire. You may not face the boss.");
         return false;
     }
-    var react = pi.getMap().getReactorById(2118002);
-    if (react != null && react.getState() > 0) {
-        pi.getPlayer().dropMessage(5, "The entrance is currently blocked.");
-        return false;
-    }
+//    var react = pi.getMap().getReactorById(2118002);
+//    if (react != null && react.getState() > 0) {
+//        pi.getPlayer().dropMessage(5, "The entrance is currently blocked.");
+//        return false;
+//    }
     pi.playPortalSound();
     pi.warp(211042400, "west00");
     return true;

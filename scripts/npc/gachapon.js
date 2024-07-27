@@ -1,71 +1,21 @@
-/*
-    This file is part of the OdinMS Maple Story Server
-    Copyright (C) 2008 Patrick Huy <patrick.huy@frz.cc>
-               Matthias Butz <matze@odinms.de>
-               Jan Christian Meyer <vimes@odinms.de>
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Affero General Public License as
-    published by the Free Software Foundation version 3 as published by
-    the Free Software Foundation. You may not use, modify or distribute
-    this program under any other version of the GNU Affero General Public
-    License.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Affero General Public License for more details.
-
-    You should have received a copy of the GNU Affero General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-/**
- *9201142 - Witch Malady - Haunted House
- *@author BubblesDev v75 (Moogra)
- *@author DstroyerDev v83 (Revan)
- */
-
 function start() {
     cm.sendNext("Nice to meet you!");
     cm.dispose();
 }
 
-/*
- * creditz: nico, kane, jorn
- */
 var status = 0;
 var items_10   = [
-3010175, // scroll for claw attack 50%
-3010174, // scroll for crossbow for attack 50%
-3010173, // scroll for bow for attack 50%
-3010172, // scroll for polearm for attack 50%
-3010171, // scroll for spear for attack 50%
-3010170, // scroll for two handed blunt weapon for attack 50%
-3010169, // scroll for two handed axe for attack 50%
-3010168, // scroll for two handed sword for attack 50%
-3010161, // scroll for staff for magic attack 50%
-3010155, // scroll for wand for magic attack 50%
-3010152, // scroll for dagger for attack 50%
-3010139, // scroll for one handed blunt weapon for attack 50%
-3010137, // scroll for one handed axe for attack 50%
-3010133, // scroll for one handed sword for attack 50%
-3010132, // scroll for knuckler for attack 50%
-3010131, // scroll for gun for attack 50%
-3010117, // black crystal blade
-3010115, // 10 Gacha Tickets
-3010114, // 3 Onyx Apple
-3010110, // 2 Naricain's Demon Elexir
-3010109, // 1 Balanced Furies
-3010108, // Eternal Bullet
-3010107, // black belt
-3010097, // witch's crimson belt
-3010096, // witch's ocean blue belt
-3010095, // witch's deep purple belt
+3010117, // magic book chair
+3010115, // bed chair
+3010107, // dragon egg chair
+3010097, // strong wooden chair
+3010096, // dragon skull chair
+3010095, // stone golem hand chair
 3010027, // cheetos
 3010037, // pig big mouth
 3010048, // xmas tree
 3010050, // jap window
-3010077, //  owl cage
+3010077, //  owl cage chair
 3010086, // loli on a sofa
 3010087, // ray charles
 3010090, // ringo star
@@ -75,30 +25,11 @@ var items_10   = [
 3010142, // fishtank
 3010144, //  bamboo stars
 3010145, // maple faries
-3010148, // blue monsta
+3010148, // blue monsta chair
 3010150, // 5th anniversary chair
 3010200, // evan chair
 3012012, // flower chair
 3013001, // fire chair
-1000030, // Sachiel Wig (M)
-1000031, // Veamoth Wig (M)
-1000032, // Janus Wig (M
-1102097, // Janus Wings
-1102148, // Tania Cloak
-1102149, // Mercury Cloak
-5010069,
-5010075,
-1702118, //Janus Sword
-1702119, // Sachiel Sword
-1702120, // Veamoth Sword
-1072281, // Sachiel Shoes
-1072282, // Veamoth Shoes
-1072283, // Janus Shoes
-5010076, // Yellow 
-5010077,  // White
-5010078, // White godly
-5010079, // Black Godly
-5010080, // Red Godly
 3018180, //Honey Jar Chair
 3018183, //Sakura Tree field chair
 3018184, //Moonlight chair
@@ -179,16 +110,8 @@ var items_10   = [
 ];
 
 var items_30   = [
-3010075, // scroll for claw attack 50%
-3010068, // scroll for crossbow for attack 50%
-3010058, // scroll for bow for attack 50%
-3010055, // scroll for polearm for attack 50%
-3010052, // scroll for spear for attack 50%
-3010049, // scroll for two handed blunt weapon for attack 50%
-3010036, // scroll for two handed axe for attack 50%
-3010021, // scroll for two handed sword for attack 50%
 3010000, // The Relaxer - Catch your breath and relax by sitting on this chair to recover 50 HP every 10 seconds.\n#cCannot be traded or dropped.#
-3010001,  //Sky-blue Wooden Chair - A specially-made sky-blue wooden chair that's only available in Lith Harbor. Recover 35 HP every 10 seconds.
+3010001, //Sky-blue Wooden Chair - A specially-made sky-blue wooden chair that's only available in Lith Harbor. Recover 35 HP every 10 seconds.
 3010002, //Green Chair - A comfortable, plush green chair, complete with arm-rests. Recovers 50 HP every 10 seconds.
 3010003, // Red Chair - A comfortable, plush red chair, complete with arm-rests.. Recovers 50 HP every 10 seconds.
 3010004, // The Yellow Relaxer - Catch your breath and relax by sitting on this chair to recover 50 HP every 10 seconds. Perfect for a quick break from training.
@@ -230,7 +153,7 @@ var items_50   = [
 3010098, // TV Recliner - A new chair to recline and relax in throughout the Thanksgiving holiday.\nRecovers 60 HP and 30 MP every 10 seconds.
 3010116, // The Spirit of Rock Chair - A new chair that makes you feel like a Rock Star.\nRecovers 60 HP and 30 MP every 10 seconds.
 3010101, // Christmas Gift Box - A huge X-mas Gift Box big enough to fit a grownup. It has a message that reads, "I am here for you." Sitting in it will recover 50 HP and MP every 10 seconds.
-3010073, // Giant Pink Bean Cushion - A cushion that resembles Pink Bean, the underling of the Black Mage. Leaning against the cushion and resting will recover 50 HP and 30 MP every 10 seconds. 
+3010073, // Giant Pink Bean Cushion - A cushion that resembles Pink Bean, the underling of the Black Mage. Leaning against the cushion and resting will recover 50 HP and 30 MP every 10 seconds.
 3010099, // Cuddly Polar Bear - Cuddling with the Polar Bear for some cozy, comfy rest will recover 50 HP and 50 MP every 10 seconds.
 3010044, // Winter Red Chair  - A chair with a big umbrella. Recovers 30 HP and 30 MP every 10 seconds.
 3010106, // Ryko Chair - Snuggle up with Aran's loyal mount, Ryko, to recover 50 HP and MP every 10 seconds.
@@ -242,13 +165,13 @@ var items_50   = [
 3010084, // ??? ?? ?? - ??? ??? ??? ?? ?? ???? ??? ? ? ??.
 3010092, // Witch's Broomstick - Hold onto the Broomstick so you don't fall off.
 3012010, // Half-Heart Chocolate Cake Chair - Sink yourself into this heavenly cake chair next to someone else who owns it as well, and watch it create a scrumptious effect! Mmm, this chair is so delicious you'll recover 50 HP every 10 seconds.
-3012011, // Chocolate Fondue Chair - Yummy! Use this chair next to someone else who's also using it, and a mouth-watering chocolate fondue appears. Smack your lips and dream about treats as you recover 50 HP every 10 seconds. 
+3012011, // Chocolate Fondue Chair - Yummy! Use this chair next to someone else who's also using it, and a mouth-watering chocolate fondue appears. Smack your lips and dream about treats as you recover 50 HP every 10 seconds.
 3010069, // Yellow Robot Chair - Perch yourself on the hand of this powerful yellow robot to recover 50 HP and 30 MP every 10 seconds.
 
 ];
 
 
-var items      = new Array(items_10,items_30,items_50);
+var items = new Array(items_10,items_30,items_50);
 
 function start() {
     status = 0;
@@ -265,14 +188,14 @@ function action(mode, type, selection) {
             status--;
         }
         if (status == 1) {
-            cm.sendYesNo("If you give me 1 donor point you will get:\r\n\r\n#fUI/UIWindow.img/QuestIcon/4/0#\r\n\r\n#fUI/UIWindow.img/QuestIcon/5/0# #bx 1 Mysterious NX or Chair#k\r\n\r\n");
+            cm.sendYesNo("If you give me 1 gacha ticket you will get:\r\n\r\n#fUI/UIWindow.img/QuestIcon/4/0#\r\n\r\n#fUI/UIWindow.img/QuestIcon/5/0# #bx 1 Mysterious Chair#k\r\n\r\n");
         } else if (status == 2) {
             if (cm.haveItem(5220000, 1)) {
                 chance = Math.ceil(Math.random() * 100);
                 var type_ = 2;
                 if (chance <= 10) {
                     type_ = 0;
-                } else if (chance <= 30){
+                } else if (chance <= 30) {
                     type_ = 1;
                 }
                 random = Math.floor(Math.random() * items[type_].length);

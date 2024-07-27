@@ -94,7 +94,7 @@ public class ItemId {
             4009411, 4009411, 4009411, 4009411, 4009411, // fishing coin
             4009411, 4009411, 4009411, 4009411, 4009411, // fishing coin
             4001126, 4001126, 4001126, 4001126, 4001126, // maple leaf
-            4035003, // refunds user with golden shrimp bait
+            4035002, // refunds user with golden shrimp bait
             4034791, // Grown Golden fish - only 1
             1012071, 1012072, 1012073, // choco / Melon / watermelon Icecream Bar
             1002788, // Necomimi
@@ -106,6 +106,11 @@ public class ItemId {
 
     public static int [] FISHING_REWARDS_RARE = {
             5451000, 5451000, 5451000, 5451000, 5451000, // remote Gachapon ticket
+            3010114, 3010114, 3010114, 3010114, 3010114, // onyx apple
+            3010110, 3010110, 3010110, 3010110, 3010110, // Naricain's demon potion
+            4035003, 4035003, 4035003, 4035003, 4035003, // refunds user with golden shrimp bait
+            4035002, 4035002, 4035002, // golden worm bait, lower the better
+
             4034792, // Legendary Golden Fish - there should only be 1 in-game
             1012071, // Choco Icecream Bar
             1012072, // Melon Icecream Bar
@@ -114,7 +119,8 @@ public class ItemId {
             1002788, // Necomimi
             2002015, // Elpam Elixir - buff potion
             4280003, // premium silver box
-            4001253  // billion coin (1 coin : 1b mesos)
+            4001253,  // billion coin (1 coin : 1b mesos)
+            3018335 // celestial whale chair - VERY RARE
     };
 
     public static boolean isJackpotFishingDrop(int itemId) {
@@ -125,7 +131,7 @@ public class ItemId {
     // a server-wide message announcing the catch. Obviously, any items here
     // should be in the above lists somewhere. This is not a separate tier.
     private static List<String> jackpots = Arrays.asList(
-            "4035004"); // chaos scroll
+            "3018335"); // chaos scroll
 
 
     // Throwing star
