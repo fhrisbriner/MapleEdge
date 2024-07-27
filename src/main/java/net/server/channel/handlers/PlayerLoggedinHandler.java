@@ -442,6 +442,8 @@ public final class PlayerLoggedinHandler extends AbstractPacketHandler {
                 }
             }
 
+            player.setLinkedTotal();
+
             // Tell the client to use the custom scripts available for the NPCs provided, instead of the WZ entries.
             if (YamlConfig.config.server.USE_NPCS_SCRIPTABLE) {
 
