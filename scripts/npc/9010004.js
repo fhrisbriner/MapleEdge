@@ -156,7 +156,7 @@ function showMapleWeapons(subcategory) {
                 1302020, 1452016, 1462014, 1472030, 1382009,
                 1482020, 1492020
             ];
-            itemPrice = 25; // Set the price
+            itemPrice = 5; // Set the price
             break;
         case 32: // Level 43 Maple Weapons
             itemIds = [

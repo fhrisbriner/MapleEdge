@@ -38,9 +38,9 @@ public class MaxSkillCommand extends Command {
     @Override
     public void execute(Client c, String[] params) {
         Character player = c.getPlayer();
-        String job = params[0];
-        if (params.length > 1)
+        if (params.length > 0)
         {
+            String job = params[0];
             for (Data skill_ : DataProviderFactory.getDataProvider(WZFiles.SKILL).getData(job + ".img").getChildByPath("skill").getChildren()) {
                 try {
                     Skill skill = SkillFactory.getSkill(Integer.parseInt(skill_.getName()));
