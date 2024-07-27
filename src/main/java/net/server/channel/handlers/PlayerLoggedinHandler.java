@@ -413,13 +413,6 @@ public final class PlayerLoggedinHandler extends AbstractPacketHandler {
 
             player.receivePartyMemberHP();
 
-            player.resetPlayerRates();
-            if (YamlConfig.config.server.USE_ADD_RATES_BY_LEVEL) {
-                player.setPlayerRates();
-                player.setWorldRates();
-                player.updateCouponRates();
-            }
-
             if(player.getReborns() > 0){
                 if(player.getReborns() == 1){
                     player.setPlayerExpRatesCerezeth(YamlConfig.config.server.REBIRTH_FIRST_RATE);
