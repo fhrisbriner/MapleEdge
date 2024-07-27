@@ -56,7 +56,7 @@ public final class MonsterBook {
 
     public void addCard(final Client c, final int cardid) {
         c.getPlayer().getMap().broadcastMessage(c.getPlayer(), PacketCreator.showForeignCardEffect(c.getPlayer().getId()), false);
-        int MobItem = 1113232;
+        int MobItem = 1143168;
         Inventory equipped = c.getPlayer().getInventory(InventoryType.EQUIPPED);
         Equip eq = (Equip) equipped.findById(MobItem);
 
