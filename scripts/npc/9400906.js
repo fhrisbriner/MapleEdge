@@ -26,7 +26,7 @@
 
 var itemToUse = 4001126;
 
-var weapons = [1702934, 1702935, 1702936, 1702937, 1702938, 1702939, 1702942, 1702943, 1702944];
+var weapons = [1702934, 1702935, 1702936, 1702937, 1702938, 1702939, 1702942, 1702943];
 var bait1 = [4035001];
 var bait2 = [4035002];
 var bait3 = [4035004];
@@ -176,7 +176,7 @@ function action(mode, type, selection) {
                 } else {
                     cm.gainItem(itemToUse, -5);
                     cm.gainItem(5220000, 10); 
-                    cm.sendOk("You have successfully exchanged 5 #t" + itemToUse + "# for a " + gachatix + " Day Hired Merchant.");
+                    cm.sendOk("You have successfully exchanged 5 #t" + itemToUse + "# for 10 " + gachatix + " Gacha tickets.");
                 }
             } else if (choice == 3) {
                 // Handle item to Weapons

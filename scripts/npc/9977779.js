@@ -37,8 +37,8 @@ function action(mode, type, selection) {
     }
 
     if (status === 0) {
-        let selStr = "#eMew, I'm Kibbles and welcome to my forge!#n\r\n\r\nI can craft you a wide variety of "
-        selStr += "equipment and refine raw minerals! Of course, you would have to provide me with the "
+        let selStr = "#eYo! Whats up? Eon here.#n\r\n\r\nI can craft make you some pretty cool "
+        selStr += "equipment for the right price of course. I also refine minerals! Of course, you would have to provide me with the "
         selStr += "#r#erequired materials#n#k.#b#e";
 
         for (let option of selectionMenuOptions) {
