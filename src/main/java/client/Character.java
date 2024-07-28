@@ -10810,7 +10810,7 @@ public class Character extends AbstractCharacterObject {
     }
 
     //Linked Stats
-    /*public void BoostMedal() {
+    public void BoostMedal() {
         getMap().broadcastUpdateCharLookMessage(this, this);
         this.applyLinkStatsBoost();
     }
@@ -10846,13 +10846,12 @@ public class Character extends AbstractCharacterObject {
         //Tier 7 = +100HP/MP and +4 STR/DEX/INT/LUK
         //Tier 8 = +100HP/MP and +4 STR/DEX/INT/LUK
         //Tier 9 = +125HP/MP, +5 STR/DEX/INT/LUK
-        //int percentTotal = this.getLinkedTotal() / 10;
-        int linkedtotal = this.getLinkedTotal();
+        int percentTotal = this.getLinkedTotal() / 20;
 
-        short STRLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getStr() + equipSTR));
-        short DEXLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getDex() + equipDEX));
-        short INTLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getInt() + equipINT));
-        short LUKLinkBonus = (short) (1 + (linkedtotal/5000) * (this.getLuk() + equipLUK));
+        short STRLinkBonus = (short) (1 + (percentTotal * (this.getStr() + equipSTR)) / 100);
+        short DEXLinkBonus = (short) (1 + (percentTotal * (this.getDex() + equipDEX)) / 100);
+        short INTLinkBonus = (short) (1 + (percentTotal * (this.getInt() + equipINT)) / 100);
+        short LUKLinkBonus = (short) (1 + (percentTotal * (this.getLuk() + equipLUK)) / 100);
 
         Inventory equip = this.getInventory(InventoryType.EQUIP);
         Inventory equipped = this.getInventory(InventoryType.EQUIPPED);
@@ -10863,37 +10862,32 @@ public class Character extends AbstractCharacterObject {
             System.out.println("Error: Unable to find link medal.");
             return;
         }
-        System.out.println(STRLinkBonus);
-
-        short monsterBookAllStat = (short) (this.getTier5() + this.getTier6() + this.getTier7() + this.getTier8() + this.getTier9());
-        short monsterBookSTR = (short) (this.getTier1() + monsterBookAllStat);
-        short monsterBookDEX = (short) (this.getTier2() + monsterBookAllStat);
-        short monsterBookINT = (short) (this.getTier3() + monsterBookAllStat);
-        short monsterBookLUK = (short) (this.getTier4() + monsterBookAllStat);
-
-        short medalSTR = (short) (STRLinkBonus + monsterBookSTR);
-        short medalDEX = (short) (DEXLinkBonus + monsterBookDEX);
-        short medalINT = (short) (INTLinkBonus + monsterBookINT);
-        short medalLUK = (short) (LUKLinkBonus + monsterBookLUK);
+        short medalHP = (short) (this.getTier1() * 25 + this.getTier2() * 25 + this.getTier3() * 50 + this.getTier4() * 50 + this.getTier5() * 75 + this.getTier6() * 75 + this.getTier7() * 100 + this.getTier8() * 100 + this.getTier9() * 125);
+        short medalMP = (short) (this.getTier1() * 25 + this.getTier2() * 25 + this.getTier3() * 50 + this.getTier4() * 50 + this.getTier5() * 75 + this.getTier6() * 75 + this.getTier7() * 100 + this.getTier8() * 100 + this.getTier9() * 125);
+        short medalSTR = (short) (STRLinkBonus + (this.getTier1() + this.getTier2() + this.getTier3() * 2 + this.getTier4() * 2 + this.getTier5() * 3 + this.getTier6() * 3 + this.getTier7() * 4 + this.getTier8() * 4 + this.getTier9() * 5));
+        short medalDEX = (short) (DEXLinkBonus + (this.getTier1() + this.getTier2() + this.getTier3() * 2 + this.getTier4() * 2 + this.getTier5() * 3 + this.getTier6() * 3 + this.getTier7() * 4 + this.getTier8() * 4 + this.getTier9() * 5));
+        short medalINT = (short) (INTLinkBonus + (this.getTier1() + this.getTier2() + this.getTier3() * 2 + this.getTier4() * 2 + this.getTier5() * 3 + this.getTier6() * 3 + this.getTier7() * 4 + this.getTier8() * 4 + this.getTier9() * 5));
+        short medalLUK = (short) (LUKLinkBonus + (this.getTier1() + this.getTier2() + this.getTier3() * 2 + this.getTier4() * 2 + this.getTier5() * 3 + this.getTier6() * 3 + this.getTier7() * 4 + this.getTier8() * 4 + this.getTier9() * 5));
 
         try {
-            System.out.println(this.getLinkedTotal());
             linkEquip.setStr(medalSTR);
             linkEquip.setDex(medalDEX);
             linkEquip.setInt(medalINT);
             linkEquip.setLuk(medalLUK);
+            linkEquip.setHp(medalHP);
+            linkEquip.setMp(medalMP);
 
             short flag = linkEquip.getFlag();
             flag |= ItemConstants.UNTRADEABLE;
             flag |= ItemConstants.LOCK;
             linkEquip.setFlag(flag);
             this.forceUpdateItem(linkEquip);
-              } catch (Exception e){
-        e.printStackTrace();
+        } catch (Exception e){
+                e.printStackTrace();
         }
         recalcLocalStats();
     }
-    */
+
 
     public String getLinkedName() {
         return linkedName;
@@ -10930,7 +10924,7 @@ public class Character extends AbstractCharacterObject {
     }
 
     public int getLinkedTotalPercent() {
-        LinkedTotalPercent = this.getLinkedTotal() / 10;
+        LinkedTotalPercent = this.getLinkedTotal() / 20;
         return LinkedTotalPercent;
     }
 
