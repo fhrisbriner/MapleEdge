@@ -11021,20 +11021,20 @@ public class Character extends AbstractCharacterObject {
     }
 
     public void autoban(String reason) {
-        if (this.isGM() || this.isBanned()) {  // thanks RedHat for noticing GM's being able to get banned
-            return;
-        }
+//        if (this.isGM() || this.isBanned()) {  // thanks RedHat for noticing GM's being able to get banned
+//            return;
+//        }
 
-        this.ban(reason);
-        sendPacket(PacketCreator.sendPolice(String.format("You have been blocked by the#b %s Police for HACK reason.#k", "Cosmic")));
-        TimerManager.getInstance().schedule(new Runnable() {
-            @Override
-            public void run() {
-                client.disconnect(false, false);
-            }
-        }, 5000);
+//        this.ban(reason);
+//        sendPacket(PacketCreator.sendPolice(String.format("You have been blocked by the#b %s Police for HACK reason.#k", "Cosmic")));
+//        TimerManager.getInstance().schedule(new Runnable() {
+//            @Override
+//            public void run() {
+//                client.disconnect(false, false);
+//            }
+//        }, 5000);
 
-        Server.getInstance().broadcastGMMessage(this.getWorld(), PacketCreator.serverNotice(6, Character.makeMapleReadable(this.name) + " was autobanned for " + reason));
+        //Server.getInstance().broadcastGMMessage(this.getWorld(), PacketCreator.serverNotice(6, Character.makeMapleReadable(this.name) + " was autobanned for " + reason));
     }
 
     public void block(int reason, int days, String desc) {
