@@ -10906,7 +10906,7 @@ public class Character extends AbstractCharacterObject {
     }
 
     public void setLinkedTotal() {
-        accountTotalLevel  += ((200 * reborns) + level);
+        accountTotalLevel = ((200 * reborns) + level);
     }
 
     public int getLinkedTotalPercent() {
