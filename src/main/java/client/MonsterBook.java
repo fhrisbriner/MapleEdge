@@ -91,7 +91,7 @@ public final class MonsterBook {
                     c.getPlayer().AddTier1(1);
                     c.getPlayer().UpdateTier1();
                     c.getPlayer().forceUpdateItem(eq);
-                    //c.getPlayer().applyLinkStatsBoost();
+                    c.getPlayer().applyLinkStatsBoost();
                     c.getPlayer().dropMessage("Tier 1 card completed");
                 }
             }
@@ -100,7 +100,7 @@ public final class MonsterBook {
                     c.getPlayer().AddTier2(1);
                     c.getPlayer().UpdateTier2();
                     c.getPlayer().forceUpdateItem(eq);
-                    //c.getPlayer().applyLinkStatsBoost();
+                    c.getPlayer().applyLinkStatsBoost();
                     c.getPlayer().dropMessage("Tier 2 card completed");
                 }
             }
@@ -109,7 +109,7 @@ public final class MonsterBook {
                     c.getPlayer().AddTier3(1);
                     c.getPlayer().UpdateTier3();
                     c.getPlayer().forceUpdateItem(eq);
-                    //c.getPlayer().applyLinkStatsBoost();
+                    c.getPlayer().applyLinkStatsBoost();
                     c.getPlayer().dropMessage("Tier 3 card completed");
                 }
             }
@@ -118,7 +118,7 @@ public final class MonsterBook {
                     c.getPlayer().AddTier4(1);
                     c.getPlayer().UpdateTier4();
                     c.getPlayer().forceUpdateItem(eq);
-                    //c.getPlayer().applyLinkStatsBoost();
+                    c.getPlayer().applyLinkStatsBoost();
                     c.getPlayer().dropMessage("Tier 4 card completed");
                 }
             }
@@ -127,7 +127,7 @@ public final class MonsterBook {
                     c.getPlayer().AddTier5(1);
                     c.getPlayer().UpdateTier5();
                     c.getPlayer().forceUpdateItem(eq);
-                    //c.getPlayer().applyLinkStatsBoost();
+                    c.getPlayer().applyLinkStatsBoost();
                     c.getPlayer().dropMessage("Tier 5 card completed");
                 }
             }
@@ -136,7 +136,7 @@ public final class MonsterBook {
                     c.getPlayer().AddTier6(1);
                     c.getPlayer().UpdateTier6();
                     c.getPlayer().forceUpdateItem(eq);
-                    //c.getPlayer().applyLinkStatsBoost();
+                    c.getPlayer().applyLinkStatsBoost();
                     c.getPlayer().dropMessage("Tier 6 card completed");
                 }
             }
@@ -145,7 +145,7 @@ public final class MonsterBook {
                     c.getPlayer().AddTier7(1);
                     c.getPlayer().UpdateTier7();
                     c.getPlayer().forceUpdateItem(eq);
-                    //c.getPlayer().applyLinkStatsBoost();
+                    c.getPlayer().applyLinkStatsBoost();
                     c.getPlayer().dropMessage("Tier 7 card completed");
                 }
             }
@@ -154,7 +154,7 @@ public final class MonsterBook {
                     c.getPlayer().AddTier8(1);
                     c.getPlayer().UpdateTier8();
                     c.getPlayer().forceUpdateItem(eq);
-                    //c.getPlayer().applyLinkStatsBoost();
+                    c.getPlayer().applyLinkStatsBoost();
                     c.getPlayer().dropMessage("Tier 8 card completed");
                 }
             }
@@ -163,7 +163,7 @@ public final class MonsterBook {
                     c.getPlayer().AddTier9(1);
                     c.getPlayer().UpdateTier9();
                     c.getPlayer().forceUpdateItem(eq);
-                    //c.getPlayer().applyLinkStatsBoost();
+                    c.getPlayer().applyLinkStatsBoost();
                     c.getPlayer().dropMessage("Tier 9 card completed");
                 }
             }

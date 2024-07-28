@@ -47,13 +47,13 @@ public final class HealOvertimeHandler extends AbstractPacketHandler {
         if (healHP != 0) {
             abm.setTimestamp(8, timestamp, 28);  // thanks Vcoc & Thora for pointing out d/c happening here
             if ((abm.getLastSpam(0) + 1500) > timestamp) {
-                AutobanFactory.FAST_HP_HEALING.addPoint(abm, "Fast hp healing");
+                //AutobanFactory.FAST_HP_HEALING.addPoint(abm, "Fast hp healing");
             }
 
             MapleMap map = chr.getMap();
             int abHeal = (int) (77 * map.getRecovery() * 1.5); // thanks Ari for noticing players not getting healed in sauna in certain cases
             if (healHP > abHeal) {
-                AutobanFactory.HIGH_HP_HEALING.autoban(chr, "Healing: " + healHP + "; Max is " + abHeal + ".");
+                //AutobanFactory.HIGH_HP_HEALING.autoban(chr, "Healing: " + healHP + "; Max is " + abHeal + ".");
                 return;
             }
 
