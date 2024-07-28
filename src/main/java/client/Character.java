@@ -9167,6 +9167,14 @@ public class Character extends AbstractCharacterObject {
                     }
                 }
 
+                try (PreparedStatement ps = con.prepareStatement("UPDATE accounts SET totallevel = ? WHERE id = ?")) {
+                    ps.setInt(1, accountTotalLevel);
+                    ps.setInt(2, accountid);
+                    ps.executeUpdate();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
                 List<Pet> petList = new LinkedList<>();
                 petLock.lock();
                 try {
@@ -10898,29 +10906,7 @@ public class Character extends AbstractCharacterObject {
     }
 
     public void setLinkedTotal() {
-        int totalLevel = 0;
-        int totalRBs = 0;
-        try {
-            Connection con = DatabaseConnection.getConnection();
-            PreparedStatement ps = con.prepareStatement("SELECT level, reborns FROM characters WHERE accountid = ?");
-            ps.setInt(1, this.accountid);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                // int job = rs.getInt("job");
-                int chrLevel = rs.getInt("level");
-                totalRBs = rs.getInt("reborns");
-                if (totalRBs > 0 && totalRBs < 3) {
-                    totalLevel += ((200 * totalRBs) + chrLevel);
-                } else {
-                    totalLevel += chrLevel;
-                }
-            }
-            rs.close();
-            ps.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        accountTotalLevel = totalLevel;
+        accountTotalLevel  += ((200 * reborns) + level);
     }
 
     public int getLinkedTotalPercent() {
