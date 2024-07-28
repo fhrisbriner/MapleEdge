@@ -45,15 +45,6 @@ public final class MonsterBook {
     private final Map<Integer, Integer> cards = new LinkedHashMap<>();
     private final Lock lock = new ReentrantLock();
 
-    public Set<Entry<Integer, Integer>> getCardSet() {
-        lock.lock();
-        try {
-            return new HashSet<>(cards.entrySet());
-        } finally {
-            lock.unlock();
-        }
-    }
-
     public void addCard(final Client c, final int cardid) {
         c.getPlayer().getMap().broadcastMessage(c.getPlayer(), PacketCreator.showForeignCardEffect(c.getPlayer().getId()), false);
         int MobItem = 1143168;
@@ -100,7 +91,7 @@ public final class MonsterBook {
                     c.getPlayer().AddTier1(1);
                     c.getPlayer().UpdateTier1();
                     c.getPlayer().forceUpdateItem(eq);
-                    c.getPlayer().applyLinkStatsBoost();
+                    //c.getPlayer().applyLinkStatsBoost();
                     c.getPlayer().dropMessage("Tier 1 card completed");
                 }
             }
@@ -109,7 +100,7 @@ public final class MonsterBook {
                     c.getPlayer().AddTier2(1);
                     c.getPlayer().UpdateTier2();
                     c.getPlayer().forceUpdateItem(eq);
-                    c.getPlayer().applyLinkStatsBoost();
+                    //c.getPlayer().applyLinkStatsBoost();
                     c.getPlayer().dropMessage("Tier 2 card completed");
                 }
             }
@@ -118,7 +109,7 @@ public final class MonsterBook {
                     c.getPlayer().AddTier3(1);
                     c.getPlayer().UpdateTier3();
                     c.getPlayer().forceUpdateItem(eq);
-                    c.getPlayer().applyLinkStatsBoost();
+                    //c.getPlayer().applyLinkStatsBoost();
                     c.getPlayer().dropMessage("Tier 3 card completed");
                 }
             }
@@ -127,7 +118,7 @@ public final class MonsterBook {
                     c.getPlayer().AddTier4(1);
                     c.getPlayer().UpdateTier4();
                     c.getPlayer().forceUpdateItem(eq);
-                    c.getPlayer().applyLinkStatsBoost();
+                    //c.getPlayer().applyLinkStatsBoost();
                     c.getPlayer().dropMessage("Tier 4 card completed");
                 }
             }
@@ -136,7 +127,7 @@ public final class MonsterBook {
                     c.getPlayer().AddTier5(1);
                     c.getPlayer().UpdateTier5();
                     c.getPlayer().forceUpdateItem(eq);
-                    c.getPlayer().applyLinkStatsBoost();
+                    //c.getPlayer().applyLinkStatsBoost();
                     c.getPlayer().dropMessage("Tier 5 card completed");
                 }
             }
@@ -145,7 +136,7 @@ public final class MonsterBook {
                     c.getPlayer().AddTier6(1);
                     c.getPlayer().UpdateTier6();
                     c.getPlayer().forceUpdateItem(eq);
-                    c.getPlayer().applyLinkStatsBoost();
+                    //c.getPlayer().applyLinkStatsBoost();
                     c.getPlayer().dropMessage("Tier 6 card completed");
                 }
             }
@@ -154,7 +145,7 @@ public final class MonsterBook {
                     c.getPlayer().AddTier7(1);
                     c.getPlayer().UpdateTier7();
                     c.getPlayer().forceUpdateItem(eq);
-                    c.getPlayer().applyLinkStatsBoost();
+                    //c.getPlayer().applyLinkStatsBoost();
                     c.getPlayer().dropMessage("Tier 7 card completed");
                 }
             }
@@ -163,7 +154,7 @@ public final class MonsterBook {
                     c.getPlayer().AddTier8(1);
                     c.getPlayer().UpdateTier8();
                     c.getPlayer().forceUpdateItem(eq);
-                    c.getPlayer().applyLinkStatsBoost();
+                    //c.getPlayer().applyLinkStatsBoost();
                     c.getPlayer().dropMessage("Tier 8 card completed");
                 }
             }
@@ -172,7 +163,7 @@ public final class MonsterBook {
                     c.getPlayer().AddTier9(1);
                     c.getPlayer().UpdateTier9();
                     c.getPlayer().forceUpdateItem(eq);
-                    c.getPlayer().applyLinkStatsBoost();
+                    //c.getPlayer().applyLinkStatsBoost();
                     c.getPlayer().dropMessage("Tier 9 card completed");
                 }
             }
@@ -291,24 +282,24 @@ public final class MonsterBook {
         }
     }
 
-    public static int[] getCardTierSize() {
-        try (Connection con = DatabaseConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM monstercarddata GROUP BY floor(cardid / 1000);", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-             ResultSet rs = ps.executeQuery()) {
-            rs.last();
-            int[] tierSizes = new int[rs.getRow()];
-            rs.beforeFirst();
-
-            while (rs.next()) {
-                tierSizes[rs.getRow() - 1] = rs.getInt(1);
-            }
-
-            return tierSizes;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return new int[0];
-        }
-    }
+//    public static int[] getCardTierSize() {
+//        try (Connection con = DatabaseConnection.getConnection();
+//             PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM monstercarddata GROUP BY floor(cardid / 1000);", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+//             ResultSet rs = ps.executeQuery()) {
+//            rs.last();
+//            int[] tierSizes = new int[rs.getRow()];
+//            rs.beforeFirst();
+//
+//            while (rs.next()) {
+//                tierSizes[rs.getRow() - 1] = rs.getInt(1);
+//            }
+//
+//            return tierSizes;
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            return new int[0];
+//        }
+//    }
 
     //Tiers Boolean so you could actually remove the cards you dont need to be counted...
     public static boolean isTier1(int CardID) {

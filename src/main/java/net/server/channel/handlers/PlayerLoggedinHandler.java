@@ -398,7 +398,7 @@ public final class PlayerLoggedinHandler extends AbstractPacketHandler {
             player.questExpirationTask();
 
             if (ServerConstants.Account_Linked_Stats == true) {
-                player.applyLinkStatsBoost();
+                //player.applyLinkStatsBoost();
             } //TODO linked stats
             //player.updateQuestAttackRing();
             player.changeSkillLevel(SkillFactory.getSkill(10000000 * player.getJobType() + 12), (byte) (player.getLinkedLevel() / 10), 20, -1);
@@ -414,13 +414,13 @@ public final class PlayerLoggedinHandler extends AbstractPacketHandler {
             player.receivePartyMemberHP();
 
             if(player.getReborns() > 0){
-                if(player.getReborns() == 1){
+                if(player.getReborns() == 1) {
                     player.setPlayerExpRatesCerezeth(YamlConfig.config.server.REBIRTH_FIRST_RATE);
                 }
-                else if(player.getReborns() == 2){
+                else if(player.getReborns() == 2) {
                     player.setPlayerExpRatesCerezeth(YamlConfig.config.server.REBIRTH_SECOND_RATE);
                 }
-                else if(player.getReborns() == 3){
+                else if(player.getReborns() == 3) {
                     player.setPlayerExpRatesCerezeth(YamlConfig.config.server.REBIRTH_THIRD_RATE);
                 }
             }
@@ -441,8 +441,8 @@ public final class PlayerLoggedinHandler extends AbstractPacketHandler {
                     eim.registerPlayer(player);
                 }
             }
-
-            player.setLinkedTotal();
+            //TODO this causes the database to die
+            //player.setLinkedTotal();
 
             // Tell the client to use the custom scripts available for the NPCs provided, instead of the WZ entries.
             if (YamlConfig.config.server.USE_NPCS_SCRIPTABLE) {
@@ -481,7 +481,7 @@ public final class PlayerLoggedinHandler extends AbstractPacketHandler {
                 eq = (Equip) equipped.findById(monsterBookMedal);
             }
             c.getPlayer().forceUpdateItem(eq);
-            c.getPlayer().applyLinkStatsBoost();
+            //c.getPlayer().applyLinkStatsBoost();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
