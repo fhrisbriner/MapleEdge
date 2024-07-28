@@ -47,14 +47,20 @@ public class BanCommand extends Command {
             player.yellowMessage("Syntax: !ban <IGN> <Reason> (Please be descriptive)");
             return;
         }
+
         String ign = params[0];
         String reason = joinStringFrom(params, 1);
         Character target = c.getChannelServer().getPlayerStorage().getCharacterByName(ign);
+
         if (target != null) {
             String readableTargetName = Character.makeMapleReadable(target.getName());
             String ip = target.getClient().getRemoteAddress();
+            String hwid = String.valueOf(target.getClient().getHwid());
+            //TODO to force it to ban hwid and ip at the same time
             //Ban ip
             try (Connection con = DatabaseConnection.getConnection()) {
+                //if (hwid.matches("/[0-9A-F]{8}$")) {
+                //}
                 if (ip.matches("/[0-9]{1,3}\\..*")) {
                     try (PreparedStatement ps = con.prepareStatement("INSERT INTO ipbans VALUES (DEFAULT, ?, ?)")) {
                         ps.setString(1, ip);
@@ -69,17 +75,17 @@ public class BanCommand extends Command {
                 c.getPlayer().message(target.getName() + "'s IP was not banned: " + ip);
             }
             target.getClient().banMacs();
-            reason = c.getPlayer().getName() + " banned " + readableTargetName + " for " + reason + " (IP: " + ip + ") " + "(MAC: " + c.getMacs() + ")";
+            reason = c.getPlayer().getName() + " banned " + readableTargetName + " for " + reason + " (IP: " + ip + ") " + "(MAC: " + c.getMacs() + " (HWID: " + c.getHwid() + ")";
             target.ban(reason);
             target.yellowMessage("You have been banned by #b" + c.getPlayer().getName() + " #k.");
             target.yellowMessage("Reason: " + reason);
             c.sendPacket(PacketCreator.getGMEffect(4, (byte) 0));
             final Character rip = target;
-            TimerManager.getInstance().schedule(() -> rip.getClient().disconnect(false, false), 5000); //5 Seconds
-            Server.getInstance().broadcastMessage(c.getWorld(), PacketCreator.serverNotice(6, "[RIP]: " + ign + " has been banned."));
+            TimerManager.getInstance().schedule(() -> rip.getClient().disconnect(false, false), 1000); // why is there a delay to wait before even disconnecting a hacker/bot
+            Server.getInstance().broadcastMessage(c.getWorld(), PacketCreator.serverNotice(6, "My name is " + ign + ", I am bad at MapleStory, so i hack!! has been banned."));
         } else if (Character.ban(ign, reason, false)) {
             c.sendPacket(PacketCreator.getGMEffect(4, (byte) 0));
-            Server.getInstance().broadcastMessage(c.getWorld(), PacketCreator.serverNotice(6, "[RIP]: " + ign + " has been banned."));
+            Server.getInstance().broadcastMessage(c.getWorld(), PacketCreator.serverNotice(6, "My name is " + ign + ", I am bad at MapleStory, so i hack!! has been banned."));
         } else {
             c.sendPacket(PacketCreator.getGMEffect(6, (byte) 1));
         }

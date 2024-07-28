@@ -186,7 +186,7 @@ public class CommandsExecutor {
         addCommand("minesweeper", MineSweeperCommand.class);
         addCommand("memory", MemoryCommand.class);
         addCommand("dps", DamageCheckCommand.class);
-        //addCommand(new String[]{"qs", "qsell"}, QuickSellCommand.class);
+        addCommand(new String[]{"qs", "qsell"}, QuickSellCommand.class);
         //addCommand(new String[]{"bb", "buyback"}, BuyBackCommand.class);
         addCommand("uptime", UptimeCommand.class);
         addCommand("gacha", GachaCommand.class);
@@ -215,16 +215,15 @@ public class CommandsExecutor {
         addCommand("mobhp", MobHpCommand.class);
         addCommand("roll", RollCommand.class);
 	    addCommand("shop", ShopCommand.class);
-	    /*
          addCommand("sell", SellitemsCommand.class);
-         addCommand("resetap", ResetAPStatCommand.class);
-         addCommand("resetsp", ResetSPStatCommand.class);
-        */
+         //addCommand("resetap", ResetAPStatCommand.class);
+         //addCommand("resetsp", ResetSPStatCommand.class);
+
         addCommand(new String[]{"wdf", "whatdropsfrom"}, WhatDropsFromCommand.class);
         addCommand(new String[]{"wd", "whodrops"}, WhoDropsCommand.class);
         //addCommand("orebag", OreBagCommand.class);
         //addCommand("autologin", SetAutoLoginCommand.class);
-        //addCommand("weekly", BossLogCommand.class);
+        addCommand("weekly", BossLogCommand.class);
         commandsNameDesc.add(levelCommandsCursor);
     }
 
@@ -246,7 +245,7 @@ public class CommandsExecutor {
 
         addCommand("goto", 2,  GotoCommand.class);
         addCommand("recharge", 2, RechargeCommand.class);
-        addCommand("whereami", 2, WhereaMiCommand.class);
+        addCommand("where", 2, Where.class);
         addCommand("hide", 2, HideCommand.class);
         addCommand("unhide", 2, UnHideCommand.class);
         addCommand("sp", 2, SpCommand.class);
@@ -261,7 +260,7 @@ public class CommandsExecutor {
         addCommand("clearsavelocs", 2, ClearSavedLocationsCommand.class);
         addCommand("warp", 2, WarpCommand.class);
         addCommand(new String[]{"warphere", "summon"}, 2, SummonCommand.class);
-        addCommand(new String[]{"warpto", "reach", "follow"}, 2, ReachCommand.class);
+        addCommand(new String[]{"warpto", "reach", "follow", "move"}, 2, ReachCommand.class);
         addCommand("gmshop", 2, GmShopCommand.class);
         addCommand("heal", 2, HealCommand.class);
         addCommand("item", 2, ItemCommand.class);
@@ -282,7 +281,6 @@ public class CommandsExecutor {
         addCommand("loot", 2,  LootCommand.class);
         addCommand("mobskill", 2, MobSkillCommand.class);
         addCommand("maxskill", 2, MaxSkillCommand.class);
-        addCommand("editShop", 2,  EditShopCommand.class);
 
         commandsNameDesc.add(levelCommandsCursor);
     }

@@ -33,7 +33,7 @@ import server.maps.MapObject;
 
 import java.util.HashSet;
 
-public class WhereaMiCommand extends Command {
+public class Where extends Command {
     {
         setDescription("Show info about objects on current map.");
     }

@@ -21,7 +21,6 @@ package server.expeditions;
 
 import client.Client;
 import config.YamlConfig;
-import net.server.Server;
 import tools.DatabaseConnection;
 import tools.Pair;
 
@@ -35,13 +34,14 @@ import static java.util.concurrent.TimeUnit.HOURS;
  * @author Conrad
  * @author Ronan
  */
+
 public class ExpeditionBossLog {
 
     public enum BossLogEntry {
-        ZAKUM(1, 5, 8, 24, true),
-        HORNTAIL(2,6, 6, 24, true),
-        PINKBEAN(3, 7, 5, 24, true),
-        SCARGA(4, 1, 10, 24, true),
+        ZAKUM(1, 5, 5, 24, true),
+        HORNTAIL(2,6, 3, 24, true),
+        PINKBEAN(3, 7, 2, 24, true),
+        SCARGA(4, 1, 5, 24, true),
         PAPULATUS(5, 2, 10, 24, true),
         VONLEON(6, 8, 3, 24, true),
         CYGNUS(7, 9, 3, 24, true),
@@ -109,9 +109,8 @@ public class ExpeditionBossLog {
         /*
         Boss logs resets 12am, weekly thursday 12AM - thanks Smitty Werbenjagermanjensen (superadlez) - https://www.reddit.com/r/Maplestory/comments/61tiup/about_reset_time/
         */
-
         Calendar thursday = Calendar.getInstance();
-        thursday.set(Calendar.DAY_OF_WEEK, Calendar.THURSDAY);
+        thursday.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
         thursday.set(Calendar.HOUR, 0);
         thursday.set(Calendar.MINUTE, 0);
         thursday.set(Calendar.SECOND, 0);
@@ -383,7 +382,7 @@ public class ExpeditionBossLog {
 
         String sql = "SELECT bl.*, c.name AS characterName " +
                 "FROM " + getBossLogTable(boss.week) + " bl " +
-                "JOIN mapleroot.characters c ON bl.characterid = c.id " +
+                "JOIN worldedge.characters c ON bl.characterid = c.id " +
                 "WHERE bl.party_uuid = ? AND bl.bosstype LIKE ?";
 
         try (Connection con = DatabaseConnection.getConnection();
