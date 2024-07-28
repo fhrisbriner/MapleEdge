@@ -8415,7 +8415,7 @@ public class Character extends AbstractCharacterObject {
             if (hbmp != null) {
                 localmaxmp += (hbmp.doubleValue() / 100) * localmaxmp;
             }
-
+            // Cap the values at 30,000
             localmaxhp = Math.min(30000, localmaxhp);
             localmaxmp = Math.min(30000, localmaxmp);
 

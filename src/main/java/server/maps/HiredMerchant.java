@@ -553,12 +553,13 @@ public class HiredMerchant extends AbstractMapObject {
         visitorLock.lock();
         try {
             Character[] copy = new Character[3];
-            System.arraycopy(visitors, 0, copy, 0, visitors.length);
-            /*for (int i = 0; i < visitors.length; i++) {
+            for (int i = 0; i < visitors.length; i++) {
                 Visitor visitor = visitors[i];
                 if (visitor != null) {
                     copy[i] = visitor.chr;
-                }*/
+                }
+            }
+
             return copy;
         } finally {
             visitorLock.unlock();
