@@ -12,11 +12,11 @@ function start() {
     level = cm.getPlayer().getLevel();
     depression = 0;
 
-    if (cm.getJobId() === 700) {
-        cm.sendOk("You're now a Super Beginner.");
-        cm.dispose();
-        return;
-    }
+    //if (cm.getJobId() === 700) {
+    //    cm.sendOk("You're now a Super Beginner.");
+      //  cm.dispose();
+        //return;
+    //}
 
     if (cm.getPlayer().getSkillLevel(1051) !== 0) {
         if (level < 200) {
@@ -70,7 +70,7 @@ function action(m, t, s) {
 }
 
 function jobAdvance() {
-    if (job !== 700) {
+    //if (job !== 700) {
         cm.changeJobById(job);
     }
     giveRewards();
