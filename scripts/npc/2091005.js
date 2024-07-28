@@ -25,7 +25,7 @@
 * @Map(s): Dojo Hall
 */
 
-var disabled = false;
+var disabled = true; //TODO buff dojo bosses
 var belts = Array(1132000, 1132001, 1132002, 1132003, 1132004);
 var belt_reborns = Array(0, 0, 1, 2, 3);
 var belt_on_inventory;

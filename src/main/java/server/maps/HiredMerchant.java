@@ -152,7 +152,8 @@ public class HiredMerchant extends AbstractMapObject {
         visitorLock.lock();
         try {
             int slot = getVisitorSlot(chr);
-            if (slot < 0) { //Not found
+            if (slot < 0) { // Not found
+                System.out.println("Visitor not found for character: " + chr.getId());
                 return;
             }
 
@@ -160,9 +161,14 @@ public class HiredMerchant extends AbstractMapObject {
             if (visitor != null && visitor.chr.getId() == chr.getId()) {
                 visitors[slot] = null;
                 addVisitorToHistory(visitor);
-                broadcastToVisitors(PacketCreator.hiredMerchantVisitorLeave(slot + 1));
+                broadcastToVisitors(PacketCreator.hiredMerchantVisitorLeave(slot + 2));
                 this.getMap().broadcastMessage(PacketCreator.updateHiredMerchantBox(this));
+                System.out.println("Visitor removed successfully: " + chr.getId());
+            } else {
+                System.out.println("Visitor does not match or is null for character: " + chr.getId());
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             visitorLock.unlock();
         }
