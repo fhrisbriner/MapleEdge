@@ -10810,7 +10810,6 @@ public class Character extends AbstractCharacterObject {
     }
 
     //Linked Stats
-
     public void BoostMedal() {
         getMap().broadcastUpdateCharLookMessage(this, this);
         this.applyLinkStatsBoost();
