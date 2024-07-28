@@ -636,7 +636,7 @@
 <vector name="lt" x="-250" y="-150"/>
 <vector name="rb" x="250" y="150"/>
 <int name="time" value="3600"/>
-<int name="x" value="995"/>
+<int name="x" value="2"/>
 </imgdir>
 <imgdir name="2">
 <string name="hs" value="h2"/>
@@ -645,7 +645,7 @@
 <vector name="lt" x="-250" y="-150"/>
 <vector name="rb" x="250" y="150"/>
 <int name="time" value="3600"/>
-<int name="x" value="990"/>
+<int name="x" value="4"/>
 </imgdir>
 <imgdir name="3">
 <string name="hs" value="h3"/>
@@ -654,7 +654,7 @@
 <vector name="lt" x="-250" y="-150"/>
 <vector name="rb" x="250" y="150"/>
 <int name="time" value="3600"/>
-<int name="x" value="985"/>
+<int name="x" value="6"/>
 </imgdir>
 <imgdir name="4">
 <string name="hs" value="h4"/>
@@ -663,7 +663,7 @@
 <vector name="lt" x="-250" y="-150"/>
 <vector name="rb" x="250" y="150"/>
 <int name="time" value="3600"/>
-<int name="x" value="980"/>
+<int name="x" value="8"/>
 </imgdir>
 <imgdir name="5">
 <string name="hs" value="h5"/>
@@ -672,7 +672,7 @@
 <vector name="lt" x="-250" y="-150"/>
 <vector name="rb" x="250" y="150"/>
 <int name="time" value="3600"/>
-<int name="x" value="975"/>
+<int name="x" value="10"/>
 </imgdir>
 <imgdir name="6">
 <string name="hs" value="h6"/>
@@ -681,7 +681,7 @@
 <vector name="lt" x="-250" y="-150"/>
 <vector name="rb" x="250" y="150"/>
 <int name="time" value="3600"/>
-<int name="x" value="970"/>
+<int name="x" value="12"/>
 </imgdir>
 <imgdir name="7">
 <string name="hs" value="h7"/>
@@ -690,7 +690,7 @@
 <vector name="lt" x="-250" y="-150"/>
 <vector name="rb" x="250" y="150"/>
 <int name="time" value="3600"/>
-<int name="x" value="965"/>
+<int name="x" value="14"/>
 </imgdir>
 <imgdir name="8">
 <string name="hs" value="h8"/>
@@ -699,7 +699,7 @@
 <vector name="lt" x="-250" y="-150"/>
 <vector name="rb" x="250" y="150"/>
 <int name="time" value="3600"/>
-<int name="x" value="960"/>
+<int name="x" value="16"/>
 </imgdir>
 <imgdir name="9">
 <string name="hs" value="h9"/>
@@ -708,7 +708,7 @@
 <vector name="lt" x="-250" y="-150"/>
 <vector name="rb" x="250" y="150"/>
 <int name="time" value="3600"/>
-<int name="x" value="955"/>
+<int name="x" value="18"/>
 </imgdir>
 <imgdir name="10">
 <string name="hs" value="h10"/>
@@ -717,7 +717,7 @@
 <vector name="lt" x="-250" y="-150"/>
 <vector name="rb" x="250" y="150"/>
 <int name="time" value="3600"/>
-<int name="x" value="950"/>
+<int name="x" value="20"/>
 </imgdir>
 <imgdir name="11">
 <string name="hs" value="h11"/>
@@ -726,7 +726,7 @@
 <vector name="lt" x="-250" y="-150"/>
 <vector name="rb" x="250" y="150"/>
 <int name="time" value="3600"/>
-<int name="x" value="945"/>
+<int name="x" value="22"/>
 </imgdir>
 <imgdir name="12">
 <string name="hs" value="h12"/>
@@ -735,7 +735,7 @@
 <vector name="lt" x="-250" y="-150"/>
 <vector name="rb" x="250" y="150"/>
 <int name="time" value="3600"/>
-<int name="x" value="940"/>
+<int name="x" value="24"/>
 </imgdir>
 <imgdir name="13">
 <string name="hs" value="h13"/>
@@ -744,7 +744,7 @@
 <vector name="lt" x="-250" y="-150"/>
 <vector name="rb" x="250" y="150"/>
 <int name="time" value="3600"/>
-<int name="x" value="935"/>
+<int name="x" value="26"/>
 </imgdir>
 <imgdir name="14">
 <string name="hs" value="h14"/>
@@ -753,7 +753,7 @@
 <vector name="lt" x="-250" y="-150"/>
 <vector name="rb" x="250" y="150"/>
 <int name="time" value="3600"/>
-<int name="x" value="930"/>
+<int name="x" value="28"/>
 </imgdir>
 <imgdir name="15">
 <string name="hs" value="h15"/>
@@ -762,7 +762,7 @@
 <vector name="lt" x="-250" y="-150"/>
 <vector name="rb" x="250" y="150"/>
 <int name="time" value="3600"/>
-<int name="x" value="925"/>
+<int name="x" value="30"/>
 </imgdir>
 <imgdir name="16">
 <string name="hs" value="h16"/>
@@ -771,7 +771,7 @@
 <vector name="lt" x="-300" y="-200"/>
 <vector name="rb" x="300" y="200"/>
 <int name="time" value="3600"/>
-<int name="x" value="920"/>
+<int name="x" value="32"/>
 </imgdir>
 <imgdir name="17">
 <string name="hs" value="h17"/>
@@ -780,7 +780,7 @@
 <vector name="lt" x="-300" y="-200"/>
 <vector name="rb" x="300" y="200"/>
 <int name="time" value="3600"/>
-<int name="x" value="915"/>
+<int name="x" value="34"/>
 </imgdir>
 <imgdir name="18">
 <string name="hs" value="h18"/>
@@ -789,7 +789,7 @@
 <vector name="lt" x="-300" y="-200"/>
 <vector name="rb" x="300" y="200"/>
 <int name="time" value="3600"/>
-<int name="x" value="910"/>
+<int name="x" value="36"/>
 </imgdir>
 <imgdir name="19">
 <string name="hs" value="h19"/>
@@ -798,7 +798,7 @@
 <vector name="lt" x="-300" y="-200"/>
 <vector name="rb" x="300" y="200"/>
 <int name="time" value="3600"/>
-<int name="x" value="905"/>
+<int name="x" value="38"/>
 </imgdir>
 <imgdir name="20">
 <string name="hs" value="h20"/>
@@ -807,7 +807,7 @@
 <vector name="lt" x="-300" y="-200"/>
 <vector name="rb" x="300" y="200"/>
 <int name="time" value="3600"/>
-<int name="x" value="900"/>
+<int name="x" value="40"/>
 </imgdir>
 <imgdir name="21">
 <string name="hs" value="h21"/>
@@ -816,7 +816,7 @@
 <vector name="lt" x="-300" y="-200"/>
 <vector name="rb" x="300" y="200"/>
 <int name="time" value="3600"/>
-<int name="x" value="895"/>
+<int name="x" value="42"/>
 </imgdir>
 <imgdir name="22">
 <string name="hs" value="h22"/>
@@ -825,7 +825,7 @@
 <vector name="lt" x="-300" y="-200"/>
 <vector name="rb" x="300" y="200"/>
 <int name="time" value="3600"/>
-<int name="x" value="890"/>
+<int name="x" value="44"/>
 </imgdir>
 <imgdir name="23">
 <string name="hs" value="h23"/>
@@ -834,7 +834,7 @@
 <vector name="lt" x="-300" y="-200"/>
 <vector name="rb" x="300" y="200"/>
 <int name="time" value="3600"/>
-<int name="x" value="885"/>
+<int name="x" value="46"/>
 </imgdir>
 <imgdir name="24">
 <string name="hs" value="h24"/>
@@ -843,7 +843,7 @@
 <vector name="lt" x="-300" y="-200"/>
 <vector name="rb" x="300" y="200"/>
 <int name="time" value="3600"/>
-<int name="x" value="880"/>
+<int name="x" value="48"/>
 </imgdir>
 <imgdir name="25">
 <string name="hs" value="h25"/>
@@ -852,7 +852,7 @@
 <vector name="lt" x="-300" y="-200"/>
 <vector name="rb" x="300" y="200"/>
 <int name="time" value="3600"/>
-<int name="x" value="875"/>
+<int name="x" value="50"/>
 </imgdir>
 <imgdir name="26">
 <string name="hs" value="h26"/>
@@ -861,7 +861,7 @@
 <vector name="lt" x="-300" y="-200"/>
 <vector name="rb" x="300" y="200"/>
 <int name="time" value="3600"/>
-<int name="x" value="870"/>
+<int name="x" value="52"/>
 </imgdir>
 <imgdir name="27">
 <string name="hs" value="h27"/>
@@ -870,7 +870,7 @@
 <vector name="lt" x="-300" y="-200"/>
 <vector name="rb" x="300" y="200"/>
 <int name="time" value="3600"/>
-<int name="x" value="865"/>
+<int name="x" value="54"/>
 </imgdir>
 <imgdir name="28">
 <string name="hs" value="h28"/>
@@ -879,7 +879,7 @@
 <vector name="lt" x="-300" y="-200"/>
 <vector name="rb" x="300" y="200"/>
 <int name="time" value="3600"/>
-<int name="x" value="860"/>
+<int name="x" value="56"/>
 </imgdir>
 <imgdir name="29">
 <string name="hs" value="h29"/>
@@ -888,7 +888,7 @@
 <vector name="lt" x="-300" y="-200"/>
 <vector name="rb" x="300" y="200"/>
 <int name="time" value="3600"/>
-<int name="x" value="855"/>
+<int name="x" value="58"/>
 </imgdir>
 <imgdir name="30">
 <string name="hs" value="h30"/>
@@ -897,7 +897,7 @@
 <vector name="lt" x="-300" y="-200"/>
 <vector name="rb" x="300" y="200"/>
 <int name="time" value="3600"/>
-<int name="x" value="850"/>
+<int name="x" value="60"/>
 </imgdir>
 </imgdir>
 <imgdir name="req">
