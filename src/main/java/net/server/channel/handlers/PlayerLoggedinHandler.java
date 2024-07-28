@@ -442,7 +442,7 @@ public final class PlayerLoggedinHandler extends AbstractPacketHandler {
                 }
             }
             //TODO this causes the database to die
-            //player.setLinkedTotal();
+            player.setLinkedTotal();
 
             // Tell the client to use the custom scripts available for the NPCs provided, instead of the WZ entries.
             if (YamlConfig.config.server.USE_NPCS_SCRIPTABLE) {
