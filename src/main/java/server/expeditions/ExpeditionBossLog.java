@@ -109,24 +109,24 @@ public class ExpeditionBossLog {
         /*
         Boss logs resets 12am, weekly thursday 12AM - thanks Smitty Werbenjagermanjensen (superadlez) - https://www.reddit.com/r/Maplestory/comments/61tiup/about_reset_time/
         */
-        Calendar thursday = Calendar.getInstance();
-        thursday.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
-        thursday.set(Calendar.HOUR, 0);
-        thursday.set(Calendar.MINUTE, 0);
-        thursday.set(Calendar.SECOND, 0);
+        Calendar friday = Calendar.getInstance();
+        friday.set(Calendar.DAY_OF_WEEK, Calendar.FRIDAY);
+        friday.set(Calendar.HOUR, 0);
+        friday.set(Calendar.MINUTE, 0);
+        friday.set(Calendar.SECOND, 0);
 
         Calendar now = Calendar.getInstance();
 
-        long weekLength = DAYS.toMillis(7);
+        long weekLength = DAYS.toMillis(1); // testing to see if this is affecting entry limits
         long halfDayLength = HOURS.toMillis(12);
 
-        long deltaTime = now.getTime().getTime() - thursday.getTime().getTime();    // 2x time: get Date into millis
+        long deltaTime = now.getTime().getTime() - friday.getTime().getTime();    // 2x time: get Date into millis
         deltaTime += halfDayLength;
         deltaTime %= weekLength;
         deltaTime -= halfDayLength;
 
         if (deltaTime < halfDayLength) {
-            ExpeditionBossLog.resetBossLogTable(true, thursday);
+            ExpeditionBossLog.resetBossLogTable(true, friday);
         }
 
         now.set(Calendar.HOUR, 0);

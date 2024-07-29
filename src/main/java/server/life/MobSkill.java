@@ -423,7 +423,7 @@ public class MobSkill {
             for (Character character : getPlayersInRange(monster)) {
                 if (!character.hasActiveBuff(Bishop.HOLY_SHIELD)) {
                     if (disease.equals(Disease.SEDUCE)) {
-                        if (i < count) {
+                        if (i < getCount()) {
                             character.giveDebuff(Disease.SEDUCE, this);
                             i++;
                         }
@@ -447,6 +447,10 @@ public class MobSkill {
 
     public MobSkillType getType() {
         return id.type();
+    }
+
+    public int getCount() {
+        return count;
     }
 
     public int getMpCon() {

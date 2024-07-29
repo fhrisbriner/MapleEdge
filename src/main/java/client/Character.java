@@ -121,6 +121,7 @@ public class Character extends AbstractCharacterObject {
             "nigger", "homo", "suck", "cum", "shit", "shitty", "condom", "security", "official", "rape", "nigga", "sex", "tit", "boner", "orgy", "clit", "asshole", "fatass", "bitch", "support", "gamemaster", "cock", "gaay", "gm",
             "operate", "master", "sysop", "party", "GameMaster", "community", "message", "event", "test", "meso", "Scania", "yata", "AsiaSoft", "henesys"};
 
+    private Character player;
     private int world;
     private int accountid, id, level;
     private int rank, rankMove, jobRank, jobRankMove;
@@ -302,35 +303,9 @@ public class Character extends AbstractCharacterObject {
     public int potionCount = 0;
     public boolean inExpedition = false;
     private int reborns;
-    // linked system //
-    //Linked skills Calculations //
-    private int LinkedHero = 0;
-    private int LinkedDK = 0;
-    private int LinkedPage = 0;
-    private int LinkedFire = 0;
-    private int LinkedBishop = 0;
-    private int LinkedIce = 0;
-    private int LinkedHunter = 0;
-    private int LinkedXbow = 0;
-    private int LinkedNL = 0;
-    private int LinkedShadower = 0;
-    private int LinkedBucc = 0;
-    private int LinkedSair = 0;
-    private int LinkedBeginner = 0;
-    private int LinkedNovice = 0;
-    private int LinkedDawn = 0;
-    private int LinkedBlaze = 0;
-    private int LinkedWind = 0;
-    private int LinkedNight = 0;
-    private int LinkedThunder = 0;
-    private int LinkedAran = 0;
-    private int LinkedWarrior = 0;
-    private int LinkedMage = 0;
-    private int LinkedArcher = 0;
-    private int LinkedThief = 0;
-    private int LinkedPirate = 0;
-    private int LinkedLegend = 0;
-
+    // votepoints //
+    private int accId = -4;
+    private int votepoints;
     // link level i guess //
     private int LinkedTotal = -1;
     private int LinkedTotalPercent;
@@ -4453,13 +4428,14 @@ public class Character extends AbstractCharacterObject {
                 statBuffs.add(new Pair<>(mse, statup.getRight()));
             }
         }
-
-        Comparator cmp = new Comparator<Pair<StatEffect, Integer>>() {
+        //TODO old
+        /*        Comparator cmp = new Comparator<Pair<StatEffect, Integer>>() {
             @Override
             public int compare(Pair<StatEffect, Integer> o1, Pair<StatEffect, Integer> o2) {
                 return o2.getRight().compareTo(o1.getRight());
             }
-        };
+        };*/
+        Comparator cmp = (Comparator<Pair<StatEffect, Integer>>) (o1, o2) -> o2.getRight().compareTo(o1.getRight());
 
         for (Entry<BuffStat, List<Pair<StatEffect, Integer>>> statBuffs : buffEffects.entrySet()) {
             Collections.sort(statBuffs.getValue(), cmp);
@@ -5542,6 +5518,55 @@ public class Character extends AbstractCharacterObject {
         }
         return skills.get(skill).masterlevel;
     }
+
+    //TODO as much its better to move code out of character.java, this should be moved here so NPC script can start using - function
+    //                cm.getPlayer().getVotePoints() > 99) {
+    //                cm.getPlayer().gainVotePoints(-99);
+
+    public int getVotepoints() {
+        int points = 0;
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement("SELECT `votepoints` FROM accounts WHERE id = ?")) {
+            ps.setInt(1, accId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    points = rs.getInt("votepoints");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        votepoints = points;
+        return votepoints;
+    }
+
+    public void addVotePoints(int points) {
+        votepoints += points;
+        saveVotePoints();
+    }
+
+    public void useVotePoints(int points) {
+        if (points > votepoints) {
+            //Should not happen, should probably log this
+            return;
+        }
+        votepoints -= points;
+        saveVotePoints();
+        MapleLeafLogger.log(player, false, Integer.toString(points));
+    }
+
+    private void saveVotePoints() {
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement("UPDATE accounts SET votepoints = ? WHERE id = ?")) {
+            ps.setInt(1, votepoints);
+            ps.setInt(2, accId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public int getTotalStr() {
         return localstr;
@@ -7622,6 +7647,7 @@ public class Character extends AbstractCharacterObject {
                         retClient.setAccountName(rs.getString("name"));
                         retClient.setCharacterSlots(rs.getByte("characterslots"));
                         retClient.setLanguage(rs.getInt("language"));   // thanks Zein for noticing user language not overriding default once player is in-game
+
                     }
                 }
             }
@@ -11929,6 +11955,7 @@ public class Character extends AbstractCharacterObject {
         }
         return -1;
     }
+
 
 
     public int sellAllPosLast(InventoryType type, short pos, short lpos) {

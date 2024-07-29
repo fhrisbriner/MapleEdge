@@ -21,7 +21,7 @@ public class ByteBufInPacket implements InPacket {
     @Override
     public byte readByte() {
         return byteBuf.readByte();
-    }
+    } //TODO add a logging for "readerIndex(11) + length(1) exceeds writerIndex(11)"
 
     @Override
     public short readUnsignedByte() { return byteBuf.readUnsignedByte(); }
