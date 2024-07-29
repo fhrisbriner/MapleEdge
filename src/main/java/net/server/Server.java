@@ -1801,7 +1801,8 @@ public class Server {
         }
     }
 
-    public boolean validateCharacteridInTransition(Client client, int charId) {
+    //TODO ip validation doesn't write to sql but is causing changing channel to break into black screen and appears to store cache somewhere
+    /*public boolean validateCharacteridInTransition(Client client, int charId) {
         if (!YamlConfig.config.server.USE_IP_VALIDATION) {
             return true;
         }
@@ -1846,6 +1847,7 @@ public class Server {
             lgnRLock.unlock();
         }
     }
+    */
 
     public void registerLoginState(Client c) {
         srvLock.lock();
