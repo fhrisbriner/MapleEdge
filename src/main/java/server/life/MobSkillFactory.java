@@ -79,10 +79,10 @@ public class MobSkillFactory {
             if (skillData == null) {
                 return Optional.empty();
             }
-
             int mpCon = DataTool.getInt("mpCon", skillData, 0);
             List<Integer> toSummon = new ArrayList<>();
             for (int i = 0; i > -1; i++) {
+                //TODO i don't like how this is looping billion of times
                 if (skillData.getChildByPath(String.valueOf(i)) == null) {
                     break;
                 }
