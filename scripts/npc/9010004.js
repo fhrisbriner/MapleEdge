@@ -50,8 +50,8 @@ function action(mode, type, selection) {
 }
 
 function showMainOptions() {
-    cm.sendSimple("Hi! My name is Rooty, i have become'th cashshop, take a peek!#e#d" +
-            "#k\r\n#L0#Nx Goodies. (25 Maple Leaf)\r\n#L1#Mastery Books. (20 Maple Leaf)\r\n#L30#Maple Weapons.\r\n#L40#Root Shop.\r\n");
+    cm.sendSimple("Hi! I'm bubbles, I am your all in one cashshop needs!#e#d" +
+            "#k\r\n#L0#Nx Goodies. (25 Maple Leaf)\r\n#L1#Mastery Books. (20 Maple Leaf)\r\n#L30#Maple Item's.\r\n#L40#Special Shop.\r\n");
 }
 
 function handleMainSelection(selection) {
@@ -83,7 +83,8 @@ function handleMainSelection(selection) {
                 "#k\r\n#L31#Level 35        " + "\n\n#i" + currencyItemId + "# 5 ea"
                 + "#k\r\n#L32#Level 43        " + "\n\n#i" + currencyItemId + "#10 ea"
                 + "#k\r\n#L33#Level 64        " + "\n\n#i" + currencyItemId + "#15 ea"
-                + "#k\r\n#L34#Level 77        " + "\n\n#i" + currencyItemId + "#20 ea");
+                + "#k\r\n#L34#Level 77        " + "\n\n#i" + currencyItemId + "#20 ea"
+                + "k#\r\b#L35#Common items    " + "\b\b#i" + currencyItemId + "#25 ea");
     } else if (selection == 40) {
         cm.sendSimple("Please select the item you want to purchase#e#d" +
                 "#k\r\n#L41#Quality of Life items for 200 #i" + 4001126 + ":# ?"
@@ -184,7 +185,14 @@ function showMapleWeapons(subcategory) {
             ];
             itemPrice = 20; // Set the price 
             break;
-
+        case 35: // Common items
+            itemIds = [
+                1012098, 1012101, 1012102, 1012103,
+                1032040, 1032041, 1032042, 1082252,
+                1002758, 1102166, 1102167, 1102168,
+                1122042, 1092047, 1092046, 1092045
+                ];
+            itemPrice = 25; // Set the price
     }
 
     var options = getOptionsList(itemIds);

@@ -56,13 +56,16 @@ public class BanCommand extends Command {
             String readableTargetName = Character.makeMapleReadable(target.getName());
             String ip = target.getClient().getRemoteAddress();
             String hwid = String.valueOf(target.getClient().getHwid());
-            //TODO to force it to ban hwid and ip at the same time
-            //Ban ip
+
+            //TODO requires some cleaning but does ban MAC + HWID currently and bans every single account user tries to create
+            //TODO - to use INSERT INTO HWID bans table instead of ipbans which appears to not be logging anything - even tho it bans MAC + HWID currently
             try (Connection con = DatabaseConnection.getConnection()) {
                 //if (hwid.matches("/[0-9A-F]{8}$")) {
                 //}
                 if (ip.matches("/[0-9]{1,3}\\..*")) {
+                    //try (PreparedStatement ps = con.prepareStatement("INSERT INTO hwidbans VALUES (? ?")) {
                     try (PreparedStatement ps = con.prepareStatement("INSERT INTO ipbans VALUES (DEFAULT, ?, ?)")) {
+                        //ps.setString(1, hwidbanid);
                         ps.setString(1, ip);
                         ps.setString(2, String.valueOf(target.getClient().getAccID()));
 
@@ -81,6 +84,8 @@ public class BanCommand extends Command {
             target.yellowMessage("Reason: " + reason);
             c.sendPacket(PacketCreator.getGMEffect(4, (byte) 0));
             final Character rip = target;
+            //TODO appears to not disconnect them properly but they can't do anything in-game or see anyone. (maybe true value?)
+            //TODO to connect "DiscordWebhook webhookMessage" function here so we can shame players for hacking in shame wall
             TimerManager.getInstance().schedule(() -> rip.getClient().disconnect(false, false), 1000); // why is there a delay to wait before even disconnecting a hacker/bot
             Server.getInstance().broadcastMessage(c.getWorld(), PacketCreator.serverNotice(6, "My name is " + ign + ", I am bad at MapleStory, so i hack!! has been banned."));
         } else if (Character.ban(ign, reason, false)) {

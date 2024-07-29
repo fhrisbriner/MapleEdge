@@ -41,8 +41,6 @@ function action(mode, type, selection) {
                 if (eim.giveEventReward(cm.getPlayer(), 1)) {
                     cm.gainItem(2023008, 1);
                     cm.gainItem(4021010, 1);
-                    cm.gainItem(2022282, 2);
-                    cm.gainItem(2022179, 6);
                     cm.gainItem(2000005, 1000);
                     
                     cm.warp(270050000);

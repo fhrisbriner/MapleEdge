@@ -23,6 +23,9 @@ package net.server.channel.handlers;
 
 import client.Character;
 import client.Client;
+import client.inventory.InventoryType;
+import client.inventory.manipulator.InventoryManipulator;
+import constants.id.ItemId;
 import constants.id.MapId;
 import net.AbstractPacketHandler;
 import net.packet.InPacket;
@@ -84,76 +87,88 @@ public final class ChangeMapHandler extends AbstractPacketHandler {
                 chr.setPosition(new Point(p.readInt(), p.readInt()));
             }
 
-            if (targetMapId != -1) {
-                if (!chr.isAlive()) {
-                    MapleMap map = chr.getMap();
-                    if((chr.getDeathCount() > 0 && MapId.LOTUS_MAP(map.getId())) || (chr.getDeathCount() > 0 && MapId.isRb2BossMap(map.getId()))
-                            || (chr.getDeathCount() > 0 && MapId.MAGNUS_MAP(map.getId())) || (chr.getDeathCount() > 0 && MapId.LOTUS_TRAINING_MAP(map.getId()))
-                            || (chr.getDeathCount() > 0 && MapId.isRB1BossMap(map.getId()))) {
-                        chr.setDeathCounter(chr.getDeathCount() - 1);
-                        chr.respawn(map.getId());
-                        chr.dropMessage(chr.getDeathCount() + " Deaths remaining.");
-                        return;
+
+        if (targetMapId != -1) {
+            if (!chr.isAlive()) {
+                MapleMap map = chr.getMap();
+                if (wheel && chr.haveItemWithId(ItemId.WHEEL_OF_FORTUNE, false)) {
+                    // thanks lucasziron (lziron) for showing revivePlayer() triggering by Whee
+                    InventoryManipulator.removeById(c, InventoryType.CASH, ItemId.WHEEL_OF_FORTUNE, 1, true, false);
+                    chr.sendPacket(PacketCreator.showWheelsLeft(chr.getItemQuantity(ItemId.WHEEL_OF_FORTUNE, false)));
+
+                    chr.updateHp(50);
+                    chr.changeMap(map, map.findClosestPlayerSpawnpoint(chr.getPosition()));
+
+                if ((chr.getDeathCount() > 0 && MapId.LOTUS_MAP(map.getId())) || (chr.getDeathCount() > 0 && MapId.isRb2BossMap(map.getId()))
+                    || (chr.getDeathCount() > 0 && MapId.MAGNUS_MAP(map.getId())) || (chr.getDeathCount() > 0 && MapId.LOTUS_TRAINING_MAP(map.getId()))
+                    || (chr.getDeathCount() > 0 && MapId.isRB1BossMap(map.getId()))) {
+                    chr.setDeathCounter(chr.getDeathCount() - 1);
+                    chr.respawn(map.getId());
+                    chr.dropMessage(chr.getDeathCount() + " Deaths remaining.");
+                    return;
                     }
                     boolean executeStandardPath = true;
                     if (chr.getEventInstance() != null) {
-                        executeStandardPath = chr.getEventInstance().revivePlayer(chr);
+                    executeStandardPath = chr.getEventInstance().revivePlayer(chr);
                     }
-                    if (PyramidProcessor.getPyramidForCharacter(chr.getId()) != null) {
-                        executeStandardPath = PyramidProcessor.getPyramidForCharacter(chr.getId()).revivePlayer(chr);
-                    }
-                    if (executeStandardPath) {
-                        chr.respawn(map.getReturnMapId());
-                    }
-                } else {
-                    if (chr.isGM()) {
-                        MapleMap to = chr.getWarpMap(targetMapId);
-                        chr.changeMap(to, to.getPortal(0));
-                    } else {
-                        final int divi = chr.getMapId() / 100;
-                        boolean warp = false;
-                        if (divi == 0) {
-                            if (targetMapId == 10000) {
-                                warp = true;
+                        if (PyramidProcessor.getPyramidForCharacter(chr.getId()) != null) {
+                            executeStandardPath = PyramidProcessor.getPyramidForCharacter(chr.getId()).revivePlayer(chr);
                             }
-                        } else if (divi == 20100) {
-                            if (targetMapId == MapId.LITH_HARBOUR) {
-                                c.sendPacket(PacketCreator.lockUI(false));
-                                c.sendPacket(PacketCreator.disableUI(false));
-                                warp = true;
+                            if (executeStandardPath) {
+                                chr.respawn(map.getReturnMapId());
                             }
-                        } else if (divi == 9130401) { // Only allow warp if player is already in Intro map, or else = hack
-                            if (targetMapId == MapId.EREVE || targetMapId / 100 == 9130401) { // Cygnus introduction
-                                warp = true;
-                            }
-                        } else if (divi == 9140900) { // Aran Introduction
-                            if (targetMapId == MapId.ARAN_TUTO_2 || targetMapId == MapId.ARAN_TUTO_3 || targetMapId == MapId.ARAN_TUTO_4 || targetMapId == MapId.ARAN_INTRO) {
-                                warp = true;
-                            }
-                        } else if (divi / 10 == 1020) { // Adventurer movie clip Intro
-                            if (targetMapId == 1020000) {
-                                warp = true;
-                            }
-                        } else if (divi / 10 >= 980040 && divi / 10 <= 980045) {
-                            if (targetMapId == MapId.WITCH_TOWER_ENTRANCE) {
-                                warp = true;
-                            }
-                        }
-                        if (warp) {
-                            final MapleMap to = chr.getWarpMap(targetMapId);
-                            chr.changeMap(to, to.getPortal(0));
-                        }
-                        if (targetMapId == 211070100 && chr.getMapId() == 211070000) {
-                            chr.potionCount = 100;
-                        }
-                        if (targetMapId == 211070101 || targetMapId == 211070100) {
-                            chr.inExpedition = true;
                         } else {
-                            chr.inExpedition = false;
+                            if (chr.isGM()) {
+                                MapleMap to = chr.getWarpMap(targetMapId);
+                                chr.changeMap(to, to.getPortal(0));
+                            } else {
+                                final int divi = chr.getMapId() / 100;
+                                boolean warp = false;
+                                if (divi == 0) {
+                                    if (targetMapId == 10000) {
+                                        warp = true;
+                                    }
+                                } else if (divi == 20100) {
+                                    if (targetMapId == MapId.LITH_HARBOUR) {
+                                        c.sendPacket(PacketCreator.lockUI(false));
+                                        c.sendPacket(PacketCreator.disableUI(false));
+                                        warp = true;
+                                    }
+                                } else if (divi == 9130401) { // Only allow warp if player is already in Intro map, or else = hack
+                                    if (targetMapId == MapId.EREVE || targetMapId / 100 == 9130401) { // Cygnus introduction
+                                        warp = true;
+                                    }
+                                } else if (divi == 9140900) { // Aran Introduction
+                                    if (targetMapId == MapId.ARAN_TUTO_2 || targetMapId == MapId.ARAN_TUTO_3 || targetMapId == MapId.ARAN_TUTO_4 || targetMapId == MapId.ARAN_INTRO) {
+                                        warp = true;
+                                    }
+                                } else if (divi / 10 == 1020) { // Adventurer movie clip Intro
+                                    if (targetMapId == 1020000) {
+                                        warp = true;
+                                    }
+                                } else if (divi / 10 >= 980040 && divi / 10 <= 980045) {
+                                    if (targetMapId == MapId.WITCH_TOWER_ENTRANCE) {
+                                        warp = true;
+                                    }
+                                }
+                                if (warp) {
+                                    final MapleMap to = chr.getWarpMap(targetMapId);
+                                    chr.changeMap(to, to.getPortal(0));
+                                }
+                                if (targetMapId == 211070100 && chr.getMapId() == 211070000) {
+                                    chr.potionCount = 100;
+                                }
+                                if (targetMapId == 211070101 || targetMapId == 211070100) {
+                                    chr.inExpedition = true;
+                                } else {
+                                    chr.inExpedition = false;
+                                }
+                            }
                         }
                     }
                 }
-            }
+
+
 
             if (portal != null && !portal.getPortalStatus()) {
                 c.sendPacket(PacketCreator.blockedMessage(1));

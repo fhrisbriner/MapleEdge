@@ -1274,6 +1274,7 @@ public class Client extends ChannelInboundHandlerAdapter {
             e.printStackTrace();
         }
     }
+
     public int getVotePoints() {
         int points = 0;
         try (Connection con = DatabaseConnection.getConnection();

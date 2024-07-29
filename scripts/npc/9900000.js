@@ -206,7 +206,7 @@ function action(mode, type, selection) {
 		FemaleHairPages=Math.floor(femaleHair.length/hairsPerPage)+(femaleHair.length%hairsPerPage==0?0:1);
 		MaleFacePages=Math.floor(maleFace.length/facesPerPage)+(maleFace.length%facesPerPage==0?0:1);
 		FemaleFacePages=Math.floor(femaleFace.length/facesPerPage)+(femaleFace.length%facesPerPage==0?0:1);
-		msg="\t\t\t\t\t\t\t\t\t#eCotton's Saloon#n\r\n";
+		msg="\t\t\t\t\t\t\t\t\t#eDonald's Stylist#n\r\n";
 		msg+="#e#r#L0#Skin#l\t\t\t\t\t#L1#Hair Color#l\t\t\t\t\t#L2#Eye Color#l\r\n";
 		msg+="\r\n\t\t\t\t\t\t\t       #b#L3#Hair Catalog#l#k\r\n\r\n";
 		msg+="\r\n\t#b#L5#Male Face Catalog#l#k\t\t#b#L6#Female Face Catalog#l#k";

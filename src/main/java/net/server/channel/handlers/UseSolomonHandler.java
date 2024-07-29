@@ -56,7 +56,7 @@ public final class UseSolomonHandler extends AbstractPacketHandler {
                     if (slotItem == null) {
                         return;
                     }
-
+                    // to remove or repurpose this feature?
                     long gachaexp = ii.getExpById(itemId);
                     if (slotItem.getItemId() != itemId || slotItem.getQuantity() <= 0 || chr.getLevel() > ii.getMaxLevelById(itemId)) {
                         return;

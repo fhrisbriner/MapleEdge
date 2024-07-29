@@ -186,7 +186,7 @@ public class CommandsExecutor {
         addCommand("minesweeper", MineSweeperCommand.class);
         addCommand("memory", MemoryCommand.class);
         addCommand("dps", DamageCheckCommand.class);
-        addCommand(new String[]{"qs", "qsell"}, QuickSellCommand.class);
+        //addCommand(new String[]{"qs", "qsell"}, QuickSellCommand.class);
         //addCommand(new String[]{"bb", "buyback"}, BuyBackCommand.class);
         addCommand("uptime", UptimeCommand.class);
         addCommand("gacha", GachaCommand.class);

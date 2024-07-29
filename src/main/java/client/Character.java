@@ -302,35 +302,9 @@ public class Character extends AbstractCharacterObject {
     public int potionCount = 0;
     public boolean inExpedition = false;
     private int reborns;
-    // linked system //
-    //Linked skills Calculations //
-    private int LinkedHero = 0;
-    private int LinkedDK = 0;
-    private int LinkedPage = 0;
-    private int LinkedFire = 0;
-    private int LinkedBishop = 0;
-    private int LinkedIce = 0;
-    private int LinkedHunter = 0;
-    private int LinkedXbow = 0;
-    private int LinkedNL = 0;
-    private int LinkedShadower = 0;
-    private int LinkedBucc = 0;
-    private int LinkedSair = 0;
-    private int LinkedBeginner = 0;
-    private int LinkedNovice = 0;
-    private int LinkedDawn = 0;
-    private int LinkedBlaze = 0;
-    private int LinkedWind = 0;
-    private int LinkedNight = 0;
-    private int LinkedThunder = 0;
-    private int LinkedAran = 0;
-    private int LinkedWarrior = 0;
-    private int LinkedMage = 0;
-    private int LinkedArcher = 0;
-    private int LinkedThief = 0;
-    private int LinkedPirate = 0;
-    private int LinkedLegend = 0;
-
+    // votepoints //
+    private int accId = -4;
+    private int votepoints;
     // link level i guess //
     private int LinkedTotal = -1;
     private int LinkedTotalPercent;
@@ -4453,13 +4427,14 @@ public class Character extends AbstractCharacterObject {
                 statBuffs.add(new Pair<>(mse, statup.getRight()));
             }
         }
-
-        Comparator cmp = new Comparator<Pair<StatEffect, Integer>>() {
+        //TODO old
+        /*        Comparator cmp = new Comparator<Pair<StatEffect, Integer>>() {
             @Override
             public int compare(Pair<StatEffect, Integer> o1, Pair<StatEffect, Integer> o2) {
                 return o2.getRight().compareTo(o1.getRight());
             }
-        };
+        };*/
+        Comparator cmp = (Comparator<Pair<StatEffect, Integer>>) (o1, o2) -> o2.getRight().compareTo(o1.getRight());
 
         for (Entry<BuffStat, List<Pair<StatEffect, Integer>>> statBuffs : buffEffects.entrySet()) {
             Collections.sort(statBuffs.getValue(), cmp);
@@ -7622,6 +7597,7 @@ public class Character extends AbstractCharacterObject {
                         retClient.setAccountName(rs.getString("name"));
                         retClient.setCharacterSlots(rs.getByte("characterslots"));
                         retClient.setLanguage(rs.getInt("language"));   // thanks Zein for noticing user language not overriding default once player is in-game
+
                     }
                 }
             }
@@ -11929,6 +11905,7 @@ public class Character extends AbstractCharacterObject {
         }
         return -1;
     }
+
 
 
     public int sellAllPosLast(InventoryType type, short pos, short lpos) {
