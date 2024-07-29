@@ -84,7 +84,7 @@ function handleMainSelection(selection) {
                 + "#k\r\n#L32#Level 43        " + "\n\n#i" + currencyItemId + "#10 ea"
                 + "#k\r\n#L33#Level 64        " + "\n\n#i" + currencyItemId + "#15 ea"
                 + "#k\r\n#L34#Level 77        " + "\n\n#i" + currencyItemId + "#20 ea"
-                + "k#\r\b#L35#Common items    " + "\b\b#i" + currencyItemId + "#25 ea");
+                + "#k\r\b#L35#Common items    " + "\b\b#i" + currencyItemId + "#25 ea");
     } else if (selection == 40) {
         cm.sendSimple("Please select the item you want to purchase#e#d" +
                 "#k\r\n#L41#Quality of Life items for 200 #i" + 4001126 + ":# ?"
