@@ -12,11 +12,11 @@ function start() {
     level = cm.getPlayer().getLevel();
     depression = 0;
 
-    if (cm.getJobId() === 0) {
-        cm.sendOk("You're now a Beginner.");
-        cm.dispose();
-        return;
-    }
+    //if (cm.getJobId() === 0) {
+    //    cm.sendOk("You're now a Beginner.");
+    ///    cm.dispose();
+    //    return;
+    //}
 
     if (cm.getPlayer().getSkillLevel(1051) !== 0) {
         if (level < 200) {
