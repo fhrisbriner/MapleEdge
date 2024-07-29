@@ -21,21 +21,21 @@
 /*
    @Author: Arthur L - Refactored command content into modules
 */
-package client.command.commands.gm0;
+package client.command.commands.gm1;
 
 import client.Character;
 import client.*;
 import client.command.Command;
 
-public class ResetSPStatCommand extends Command {
+public class ResetAPStatCommand extends Command {
     {
-        setDescription("Set all skill levels to 0.");
+        setDescription("Reset AP Stats.");
     }
 
     @Override
     public void execute(Client c, String[] params) {
         Character player = c.getPlayer();        
-        player.updateRemainingSp(0);
-        player.yellowMessage("SP stats reseted.");
+        player.resetStats();
+        player.yellowMessage("AP stats reseted.");
     }
 }

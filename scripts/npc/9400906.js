@@ -20,6 +20,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+
 var itemToUse = 4001126;
 
 var weapons = [1702934, 1702936, 1702937, 1702938, 1702939, 1702942, 1702943];
@@ -59,14 +60,14 @@ function action(mode, type, selection) {
         } else {
             status--;
         }
-        
+
         if (status == 0) {
             if (cm.getPlayer().getLevel() < 30) {
                 cm.sendOk("Hello, I am the Vote Point exchanger for #rMapleEdge#k!\r\n\r\nI am sorry, but I can only exchange Vote Points for players #blevel 30 or over#k.");
                 cm.dispose();
                 return;
             }
-            
+
             var outStr = "Hello, I am the Vote Point exchanger for #rMapleEdge#k!\r\n";
 			outStr += "#bPlease make sure to @dispose when you are done.#k\r\n";
             outStr += "You currently have #r#c" + itemToUse + "##k #t" + itemToUse + "# and #r" + vp + "#k Vote Points.#b\r\n\r\n";
@@ -81,7 +82,7 @@ function action(mode, type, selection) {
             cm.sendSimple(outStr);
         } else if (status == 1) {
             choice = selection;
-            
+
             if (selection == 0) {
                 // Exchange VP for leaves
                 if (vp <= 0) {
@@ -92,56 +93,56 @@ function action(mode, type, selection) {
                 cm.sendYesNo("Would you like to exchange Vote Point" + (vp > 1 ? "s" : "") + " for Maple Leaves?");
             } else if (selection == 1) {
                 // Exchange item for GachaTickets
-                if (vp <= 0) {
-                    cm.sendOk("I'm sorry, but you don't have any Vote Points to exchange!");
+                if (!cm.haveItem(itemToUse)) {
+                    cm.sendOk("I'm sorry, but you don't have any #t" + itemToUse + "#.");
                     cm.dispose();
                     return;
                 }
                 cm.sendYesNo("Would you like to exchange 5 #t" + itemToUse + "# for " + gachamount + " Gacha tickets?");
             } else if (selection == 3) {
                 // Exchange item for Custom Weapons
-                if (vp <= 0) {
-                    cm.sendOk("I'm sorry, but you don't have any Vote Points to exchange!");
+                if (!cm.haveItem(itemToUse)) {
+                    cm.sendOk("I'm sorry, but you don't have any #t" + itemToUse + "#.");
                     cm.dispose();
                     return;
                 }
                 cm.sendYesNo("Would you like to exchange 10 #t" + itemToUse + "# for " + weaponAmount + " Random Custom Weapon?" + (weaponAmount > 1 ? "s" : "") + "?");
             } else if (selection == 4) {
                 // Exchange item for buffs
-                if (vp <= 0) {
-                    cm.sendOk("I'm sorry, but you don't have any Vote Points to exchange!");
+                if (!cm.haveItem(itemToUse)) {
+                    cm.sendOk("I'm sorry, but you don't have any #t" + itemToUse + "#.");
                     cm.dispose();
                     return;
                 }
                 cm.sendYesNo("Would you like to exchange 50 #t" + itemToUse + "# for " + buffAmount + " #t" + buff1ID + "#s and " + buffAmount + " #t" + buff2ID + "#s?");
             } else if (selection == 5) {
                 // Exchange item for hired merchant
-                if (vp <= 0) {
-                    cm.sendOk("I'm sorry, but you don't have any Vote Points to exchange!");
+                if (!cm.haveItem(itemToUse)) {
+                    cm.sendOk("I'm sorry, but you don't have any #t" + itemToUse + "#.");
                     cm.dispose();
                     return;
                 }
                 cm.sendYesNo("Would you like to exchange 10 #t" + itemToUse + "# for a " + hiredMerchantLength + " Day Hired Merchant?");
             } else if (selection == 6) {
                 // Exchange item for Tier 1 bait
-                if (vp <= 0) {
-                    cm.sendOk("I'm sorry, but you don't have any Vote Points to exchange!");
+                if (!cm.haveItem(itemToUse)) {
+                    cm.sendOk("I'm sorry, but you don't have any #t" + itemToUse + "#.");
                     cm.dispose();
                     return;
                 }
                 cm.sendYesNo("Would you like to exchange 5 #t" + itemToUse + "# for " + bait1amount + " Tier 1 bait?");
             } else if (selection == 7) {
                 // Exchange item for Tier 2 bait
-                if (vp <= 0) {
-                    cm.sendOk("I'm sorry, but you don't have any Vote Points to exchange!");
+                if (!cm.haveItem(itemToUse)) {
+                    cm.sendOk("I'm sorry, but you don't have any #t" + itemToUse + "#.");
                     cm.dispose();
                     return;
                 }
                 cm.sendYesNo("Would you like to exchange 10 #t" + itemToUse + "# for " + bait2amount + " Tier 2 bait?");
             } else if (selection == 8) {
                 // Exchange item for Tier 3 bait
-                if (vp <= 0) {
-                    cm.sendOk("I'm sorry, but you don't have any Vote Points to exchange!");
+                if (!cm.haveItem(itemToUse)) {
+                    cm.sendOk("I'm sorry, but you don't have any #t" + itemToUse + "#.");
                     cm.dispose();
                     return;
                 }
@@ -153,12 +154,12 @@ function action(mode, type, selection) {
 				if (vp <= 0) {
 					cm.sendOk("I'm sorry, but you don't have any Vote Points to exchange!");
 				} else if (vp >= 10) {
-					//cm.gainItem(itemToUse, +50);
+					cm.gainItem(itemToUse, +50);
 					cm.getClient().useVotePoints(10);
 					vp -= 10;
 					cm.sendOk("You have successfully exchanged 10 Vote Points for 50 Maple Leaves.");
 				} else if (vp >= 5) {
-					//cm.gainItem(itemToUse, +25);
+					cm.gainItem(itemToUse, +25);
 					cm.getClient().useVotePoints(5);
 					vp -= 5;
 					cm.sendOk("You have successfully exchanged 5 Vote Points for 25 Maple Leaves.");
@@ -167,100 +168,82 @@ function action(mode, type, selection) {
 				}
             } else if (choice == 1) {
                  // Handle item Gacha
-                if (vp <= 0) {
-                    cm.sendOk("I'm sorry, but you don't have any Vote Points to exchange!");
-                    cm.dispose();
+                if (!cm.haveItem(itemToUse)) {
+                    cm.sendOk("I'm sorry, but you don't have any #t" + itemToUse + "#.");
                 } else {
-                    //cm.gainItem(itemToUse, -5);
-                    cm.gainItem(5220000, 10); 
-                    cm.sendOk("You have successfully exchanged 5 #t" + itemToUse + "# for 10 " + gachatix + " Gacha tickets.");
-                    cm.dispose();
+                    cm.gainItem(itemToUse, -5);
+                    cm.gainItem(5220000, 10);
+                    cm.sendOk("You have successfully exchanged 5 #t" + itemToUse + "# for " + gachatix + "10 gacha tickets ");
                 }
             } else if (choice == 3) {
                 // Handle item to Weapons
-                if (vp <= 0) {
-                    cm.sendOk("I'm sorry, but you don't have any Vote Points to exchange!");
-                    cm.dispose();
+                if (!cm.haveItem(itemToUse)) {
+                    cm.sendOk("I'm sorry, but you don't have any #t" + itemToUse + "#.");
                 } else {
-                    cm.gainItem(itemToUse, -50); // cost
+                    cm.gainItem(itemToUse, -10);
                     for (var i = 0; i < weaponAmount; i++) {
                         var weaponID = weapons[Math.floor(Math.random() * weapons.length)];
                         cm.gainItem(weaponID, 1);
                     }
-                    cm.sendOk("You have successfully exchanged 1 #t" + itemToUse + "# for " + weaponAmount + " Random Maple Weapon" + (weaponAmount > 1 ? "s" : "") + ".");
-                    cm.dispose();
+                    cm.sendOk("You have successfully exchanged 10 #t" + itemToUse + "# for " + weaponAmount + " Random Maple Weapon" + (weaponAmount > 1 ? "s" : "") + ".");
                 }
             } else if (choice == 4) {
                 // Handle item to Buffs
-                if (vp <= 0) {
-                    cm.sendOk("I'm sorry, but you don't have any Vote Points to exchange!");
-                    cm.dispose();
+                if (!cm.haveItem(itemToUse)) {
+                    cm.sendOk("I'm sorry, but you don't have any #t" + itemToUse + "#.");
                 } else {
-                    cm.gainItem(itemToUse, -200);
+                    cm.gainItem(itemToUse, -50);
                     for (var i = 0; i < buffAmount; i++) {
                         cm.gainItem(buff1ID, 1);
                         cm.gainItem(buff2ID, 1);
                     }
-                    cm.sendOk("You have successfully exchanged 1 #t" + itemToUse + "# for " + buffAmount + " #t" + buff1ID + "#s and " + buffAmount + " #t" + buff2ID + "#s.");
-                    cm.dispose();
+                    cm.sendOk("You have successfully exchanged 50 #t" + itemToUse + "# for " + buffAmount + " #t" + buff1ID + "#s and " + buffAmount + " #t" + buff2ID + "#s.");
                 }
             } else if (choice == 5) {
                 // Handle item to Hired Merchant
-                if (vp <= 0) {
-                    cm.sendOk("I'm sorry, but you don't have any Vote Points to exchange!");
-                    cm.dispose();
+                if (!cm.haveItem(itemToUse)) {
+                    cm.sendOk("I'm sorry, but you don't have any #t" + itemToUse + "#.");
                 } else {
-                    cm.gainItem(itemToUse, -1);
+                    cm.gainItem(itemToUse, -10);
                     cm.gainItem(5030006, 1); // Assume Hired Merchant ID is 5020000
-                    cm.sendOk("You have successfully exchanged 1 #t" + itemToUse + "# for a " + hiredMerchantLength + " Day Hired Merchant.");
-                    cm.dispose();
+                    cm.sendOk("You have successfully exchanged 10 #t" + itemToUse + "# for a " + hiredMerchantLength + " Day Hired Merchant.");
                 }
             } else if (choice == 6) {
                 // Handle item to Tier 1 Bait
-                if (vp <= 0) {
-                    cm.sendOk("I'm sorry, but you don't have any Vote Points to exchange!");
-                    cm.dispose();
+                if (!cm.haveItem(itemToUse)) {
+                    cm.sendOk("I'm sorry, but you don't have any #t" + itemToUse + "#.");
                 } else {
-                    cm.getClient().useVotePoints(5);
-                    vp -= 5;
-                    //cm.gainItem(itemToUse, -1);
+                    cm.gainItem(itemToUse, -1);
                     for (var i = 0; i < bait1amount; i++) {
                         cm.gainItem(bait1[0], 1);
                     }
-                    cm.sendOk("You have successfully exchanged 1 #t" + itemToUse + "# for " + bait1amount + " Tier 1 bait.");
-                    cm.dispose();
+                    cm.sendOk("You have successfully exchanged 5 #t" + itemToUse + "# for " + bait1amount + " Tier 1 bait.");
                 }
             } else if (choice == 7) {
                 // Handle item to Tier 2 Bait
-                if (vp <= 0) {
-                    cm.sendOk("I'm sorry, but you don't have any Vote Points to exchange!");
-                    cm.dispose();
+                if (!cm.haveItem(itemToUse)) {
+                    cm.sendOk("I'm sorry, but you don't have any #t" + itemToUse + "#.");
                 } else {
-                    cm.getClient().useVotePoints(5);
-                    vp -= 5;
-                    //cm.gainItem(itemToUse, -1);
+                    cm.gainItem(itemToUse, -5);
                     for (var i = 0; i < bait2amount; i++) {
                         cm.gainItem(bait2[0], 1);
                     }
-                    cm.sendOk("You have successfully exchanged 1 #t" + itemToUse + "# for " + bait2amount + " Tier 2 bait.");
-                    cm.dispose();
+                    cm.sendOk("You have successfully exchanged 10 #t" + itemToUse + "# for " + bait2amount + " Tier 2 bait.");
                 }
             } else if (choice == 8) {
                 // Handle item to Tier 3 Bait
-                if (vp <= 0) {
-                    cm.sendOk("I'm sorry, but you don't have any Vote Points to exchange!");
-                    cm.dispose();
+                if (!cm.haveItem(itemToUse)) {
+                    cm.sendOk("I'm sorry, but you don't have any #t" + itemToUse + "#.");
                 } else {
-                    cm.getClient().useVotePoints(5);
-                    vp -= 5;
-                    //cm.gainItem(itemToUse, -1);
+                    cm.gainItem(itemToUse, -15);
                     for (var i = 0; i < bait3amount; i++) {
                         cm.gainItem(bait3[0], 1);
                     }
-                    cm.sendOk("You have successfully exchanged 1 #t" + itemToUse + "# for " + bait3amount + " Tier 3 bait.");
+                    cm.sendOk("You have successfully exchanged 15 #t" + itemToUse + "# for " + bait3amount + " Tier 3 bait.");
 					cm.dispose();
                 }
             }
+
             cm.dispose();
         }
     }

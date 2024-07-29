@@ -26,6 +26,9 @@ package client.command;
 import client.Client;
 import client.command.commands.gm0.*;
 import client.command.commands.gm1.Bonus;
+import client.command.commands.gm1.BuffMeCommand;
+import client.command.commands.gm1.ResetAPStatCommand;
+import client.command.commands.gm1.ResetSPStatCommand;
 import client.command.commands.gm2.*;
 import client.command.commands.gm3.*;
 import client.command.commands.gm4.*;
@@ -215,9 +218,8 @@ public class CommandsExecutor {
         addCommand("mobhp", MobHpCommand.class);
         addCommand("roll", RollCommand.class);
 	    addCommand("shop", ShopCommand.class);
-         addCommand("sell", SellitemsCommand.class);
-         //addCommand("resetap", ResetAPStatCommand.class);
-         //addCommand("resetsp", ResetSPStatCommand.class);
+        addCommand("sell", SellitemsCommand.class);
+
 
         addCommand(new String[]{"wdf", "whatdropsfrom"}, WhatDropsFromCommand.class);
         addCommand(new String[]{"wd", "whodrops"}, WhoDropsCommand.class);
@@ -231,10 +233,12 @@ public class CommandsExecutor {
     private void registerLv1Commands() {
         levelCommandsCursor = new Pair<>(new ArrayList<String>(), new ArrayList<String>());
 
-        /*addCommand("whatdropsfrom", 1, WhatDropsFromCommand.class);
-        addCommand("whodrops", 1, WhoDropsCommand.class);
+        //addCommand("whatdropsfrom", 1, WhatDropsFromCommand.class);
+        //addCommand("whodrops", 1, WhoDropsCommand.class);
         addCommand("buffme", 1, BuffMeCommand.class);
-        addCommand("goto", 1, GotoCommand.class);*/
+        addCommand("resetap", 1, ResetAPStatCommand.class);
+        addCommand("resetsp", 1, ResetSPStatCommand.class);
+        //addCommand("goto", 1, GotoCommand.class);
 
         commandsNameDesc.add(levelCommandsCursor);
     }

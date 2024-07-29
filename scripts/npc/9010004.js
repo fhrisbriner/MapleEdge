@@ -100,7 +100,7 @@ function handleSubSelection(selection) {
     } else if (selection == 19 || selection == 20) {
         status++;
         showMasteryBooks(selection);
-    } else if (selection >= 31 && selection <= 34) {
+    } else if (selection >= 31 && selection <= 35) {
         status++;
         showMapleWeapons(selection);
     } else if (selection == 41) {
