@@ -38,18 +38,18 @@ import static java.util.concurrent.TimeUnit.HOURS;
 public class ExpeditionBossLog {
 
     public enum BossLogEntry {
-        ZAKUM(1, 5, 5, 24, false),
-        HORNTAIL(2,6, 1, 24, true),
-        PINKBEAN(3, 7, 2, 24, true),
-        SCARGA(4, 1, 3, 24, false),
-        PAPULATUS(5, 2, 3, 24, true),
-        VONLEON(6, 8, 2, 24, true),
-        CYGNUS(7, 9, 2, 24, true),
+        ZAKUM(1, 5, 1, 24, false),
+        HORNTAIL(2,6, 1, 24, false),
+        PINKBEAN(3, 7, 1, 24, false),
+        SCARGA(4, 1, 1, 24, false),
+        PAPULATUS(5, 2, 1, 24, false),
+        VONLEON(6, 8, 1, 24, true),
+        CYGNUS(7, 9, 1, 24, true),
         WILLSPIDER(8, 11, 1, 24, true),
         VERUS(9, 12, 1, 24, true),
         DARKNELL(10, 13, 1, 24, true),
-        KREXEL(11, 3, 5, 24, false),
-        CASTELLAN(12, 4, 5, 24, false),
+        KREXEL(11, 3, 3, 24, false),
+        CASTELLAN(12, 4, 3, 24, false),
         LUCID(13, 10, 1, 24, true);
 
 

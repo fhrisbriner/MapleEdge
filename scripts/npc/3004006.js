@@ -64,7 +64,7 @@ function action(mode, type, selection) {
                             const playerInteraction = chr.getAbstractPlayerInteraction();
                             chr.getClient().getWorldServer().removeUnclaimed(ExpeditionBossLog.BossLogEntry.ZAKUM, chr.getId());
 
-                            playerInteraction.gainItem(4032133, 1);
+                            playerInteraction.gainItem(4032133, 1); // zakum diamond
                             playerInteraction.gainItem(2000005, 1000);
                         })
 
@@ -77,8 +77,7 @@ function action(mode, type, selection) {
                             const playerInteraction = chr.getAbstractPlayerInteraction();
                             chr.getClient().getWorldServer().removeUnclaimed(ExpeditionBossLog.BossLogEntry.HORNTAIL, chr.getId());
 
-                            playerInteraction.gainItem(4001094, 1);
-                            playerInteraction.gainItem(2022179, 1);
+                            playerInteraction.gainItem(4001094, 1); // nine spirit egg
                             playerInteraction.gainItem(2000005, 1000);
                         })
 
@@ -91,8 +90,6 @@ function action(mode, type, selection) {
                             const playerInteraction = chr.getAbstractPlayerInteraction();
                             chr.getClient().getWorldServer().removeUnclaimed(ExpeditionBossLog.BossLogEntry.VONLEON, chr.getId());
 
-                            playerInteraction.gainItem(2022282, 1);
-                            playerInteraction.gainItem(2022179, 2);
                             playerInteraction.gainItem(4001693, 1);
                             playerInteraction.gainItem(2000005, 1000);
                         })
@@ -107,8 +104,6 @@ function action(mode, type, selection) {
                             const playerInteraction = chr.getAbstractPlayerInteraction();
                             chr.getClient().getWorldServer().removeUnclaimed(ExpeditionBossLog.BossLogEntry.CYGNUS, chr.getId());
 
-                            playerInteraction.gainItem(2022282, 8);
-                            playerInteraction.gainItem(2022179, 25);
                             playerInteraction.gainItem(2000005, 1000);
                         })
 
@@ -122,12 +117,10 @@ function action(mode, type, selection) {
                             const playerInteraction = chr.getAbstractPlayerInteraction();
                             chr.getClient().getWorldServer().removeUnclaimed(ExpeditionBossLog.BossLogEntry.WILL, chr.getId());
 
-                            playerInteraction.gainItem(4021033, 30);
-                            playerInteraction.gainItem(4021034, 15);
-                            playerInteraction.gainItem(4021035, 5);
-                            playerInteraction.gainItem(2022282, 5);
-                            playerInteraction.gainItem(2022179, 25);
-                            playerInteraction.gainItem(2000005, 1000);
+                            playerInteraction.gainItem(4021033, 30); // basic spell essence
+                            playerInteraction.gainItem(4021034, 15); // fine spell essence
+                            playerInteraction.gainItem(4021035, 5); // grand spell essence
+                            playerInteraction.gainItem(2000005, 1000); // power elixir
                         })
 
                         eim.setProperty("rewarded", "true");
@@ -143,8 +136,6 @@ function action(mode, type, selection) {
                             playerInteraction.gainItem(4021033, 30);
                             playerInteraction.gainItem(4021034, 15);
                             playerInteraction.gainItem(4021035, 5);
-                            playerInteraction.gainItem(2022282, 5);
-                            playerInteraction.gainItem(2022179, 25);
                             playerInteraction.gainItem(2000005, 1000);
                         })
 
@@ -161,8 +152,6 @@ function action(mode, type, selection) {
                             playerInteraction.gainItem(4021033, 30);
                             playerInteraction.gainItem(4021034, 15);
                             playerInteraction.gainItem(4021035, 5);
-                            playerInteraction.gainItem(2022282, 5);
-                            playerInteraction.gainItem(2022179, 25);
                             playerInteraction.gainItem(2000005, 1000);
                         })
 
@@ -179,8 +168,6 @@ function action(mode, type, selection) {
                             playerInteraction.gainItem(4021033, 30);
                             playerInteraction.gainItem(4021034, 15);
                             playerInteraction.gainItem(4021035, 5);
-                            playerInteraction.gainItem(2022282, 5);
-                            playerInteraction.gainItem(2022179, 25);
                             playerInteraction.gainItem(2000005, 1000);
                         })
 
@@ -214,7 +201,7 @@ function getWarpToMapId(mapId) {
             warpToMapId = 450012200; //DARKNELL
             break;
         case 450010100:
-            warpToMapId = 450011500; //VERUS
+            warpToMapId = 450011500; //VERUS HILLA
             break;
         case 541020800:
             warpToMapId = 541020700; //KREXEL

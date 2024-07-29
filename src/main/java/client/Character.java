@@ -121,7 +121,6 @@ public class Character extends AbstractCharacterObject {
             "nigger", "homo", "suck", "cum", "shit", "shitty", "condom", "security", "official", "rape", "nigga", "sex", "tit", "boner", "orgy", "clit", "asshole", "fatass", "bitch", "support", "gamemaster", "cock", "gaay", "gm",
             "operate", "master", "sysop", "party", "GameMaster", "community", "message", "event", "test", "meso", "Scania", "yata", "AsiaSoft", "henesys"};
 
-    private Character player;
     private int world;
     private int accountid, id, level;
     private int rank, rankMove, jobRank, jobRankMove;
@@ -5518,55 +5517,6 @@ public class Character extends AbstractCharacterObject {
         }
         return skills.get(skill).masterlevel;
     }
-
-    //TODO as much its better to move code out of character.java, this should be moved here so NPC script can start using - function
-    //                cm.getPlayer().getVotePoints() > 99) {
-    //                cm.getPlayer().gainVotePoints(-99);
-
-    public int getVotepoints() {
-        int points = 0;
-        try (Connection con = DatabaseConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement("SELECT `votepoints` FROM accounts WHERE id = ?")) {
-            ps.setInt(1, accId);
-
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    points = rs.getInt("votepoints");
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        votepoints = points;
-        return votepoints;
-    }
-
-    public void addVotePoints(int points) {
-        votepoints += points;
-        saveVotePoints();
-    }
-
-    public void useVotePoints(int points) {
-        if (points > votepoints) {
-            //Should not happen, should probably log this
-            return;
-        }
-        votepoints -= points;
-        saveVotePoints();
-        MapleLeafLogger.log(player, false, Integer.toString(points));
-    }
-
-    private void saveVotePoints() {
-        try (Connection con = DatabaseConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement("UPDATE accounts SET votepoints = ? WHERE id = ?")) {
-            ps.setInt(1, votepoints);
-            ps.setInt(2, accId);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     public int getTotalStr() {
         return localstr;
