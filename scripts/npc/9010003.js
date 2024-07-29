@@ -12,19 +12,19 @@ function start() {
     level = cm.getPlayer().getLevel();
     depression = 0;
 
-    //if (cm.getJobId() === 700) {
-    //    cm.sendOk("You're now a Super Beginner.");
-      //  cm.dispose();
-        //return;
-    //}
+    if (cm.getJobId() === 0) {
+        cm.sendOk("You're now a Beginner.");
+        cm.dispose();
+        return;
+    }
 
     if (cm.getPlayer().getSkillLevel(1051) !== 0) {
         if (level < 200) {
             cm.sendOk("Come back when you're good, kiddo.");
         } else {
             cm.changeJobById(700);
-            cm.teachSkill(1051, -1, 1, -1);   // Chain Attack 2
-            cm.teachSkill(1052, -1, 1, -1);   // Chain Attack
+            //cm.teachSkill(1051, -1, 1, -1);   // Chain Attack 2
+            //cm.teachSkill(1052, -1, 1, -1);   // Chain Attack
         }
         cm.dispose();
         return;
@@ -70,7 +70,7 @@ function action(m, t, s) {
 }
 
 function jobAdvance() {
-    //if (job !== 700) {
+    if (job !== 0) {
         cm.changeJobById(job);
     }
     giveRewards();
@@ -88,16 +88,16 @@ function giveRewards() {
             cm.gainItem(1302077, 1);
             break;
         case 700:
-            cm.gainItem(1302024, 1);
-            cm.gainItem(1040014, 1);
-            cm.gainItem(1002419, 1);
-            cm.gainItem(1060004, 1);
-            cm.gainItem(1072368, 1);
-            cm.gainItem(1082245, 1);
-            cm.gainItem(1102174, 1);
-            cm.gainItem(1092003, 1);
-            cm.teachSkill(1051, 1, 1, -1);   // Chain Attack 2
-            cm.teachSkill(1052, 1, 1, -1);   // Chain Attack
+//            cm.gainItem(1302024, 1);
+//            cm.gainItem(1040014, 1);
+//            cm.gainItem(1002419, 1);
+//            cm.gainItem(1060004, 1);
+//            cm.gainItem(1072368, 1);
+//            cm.gainItem(1082245, 1);
+//            cm.gainItem(1102174, 1);
+//            cm.gainItem(1092003, 1);
+//            cm.teachSkill(1051, 1, 1, -1);   // Chain Attack 2
+//            cm.teachSkill(1052, 1, 1, -1);   // Chain Attack
             cm.sendOk("You're on the right path now.");
             break;
         case 2100:
@@ -211,7 +211,7 @@ function fillJobs() {
     if (currentJobId === 0 && level >= 8) {
         jobs.push(200);
         if (level >= 10) {
-            jobs.push(...[100, 300, 400, 500, 700]);
+            jobs.push(...[100, 300, 400, 500]);
         }
         return;
     }
