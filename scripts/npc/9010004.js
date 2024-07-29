@@ -191,8 +191,9 @@ function showMapleWeapons(subcategory) {
                 1032040, 1032041, 1032042, 1082252,
                 1002758, 1102166, 1102167, 1102168,
                 1122042, 1092047, 1092046, 1092045
-                ];
+            ];
             itemPrice = 25; // Set the price
+            break;
     }
 
     var options = getOptionsList(itemIds);

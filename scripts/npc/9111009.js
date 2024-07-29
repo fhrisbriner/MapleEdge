@@ -176,19 +176,19 @@ function action(mode, type, selection) {
                 } else {
                     cm.gainItem(itemToUse, -5);
                     cm.gainItem(5220000, 10); 
-                    cm.sendOk("You have successfully exchanged 5 #t" + itemToUse + "# for a " + gachatix + " Day Hired Merchant.");
+                    cm.sendOk("You have successfully exchanged 5 #t" + itemToUse + "# for " + gachatix + "10 gacha tickets ");
                 }
             } else if (choice == 3) {
                 // Handle item to Weapons
                 if (!cm.haveItem(itemToUse)) {
                     cm.sendOk("I'm sorry, but you don't have any #t" + itemToUse + "#.");
                 } else {
-                    cm.gainItem(itemToUse, -1);
+                    cm.gainItem(itemToUse, -10);
                     for (var i = 0; i < weaponAmount; i++) {
                         var weaponID = weapons[Math.floor(Math.random() * weapons.length)];
                         cm.gainItem(weaponID, 1);
                     }
-                    cm.sendOk("You have successfully exchanged 1 #t" + itemToUse + "# for " + weaponAmount + " Random Maple Weapon" + (weaponAmount > 1 ? "s" : "") + ".");
+                    cm.sendOk("You have successfully exchanged 10 #t" + itemToUse + "# for " + weaponAmount + " Random Maple Weapon" + (weaponAmount > 1 ? "s" : "") + ".");
                 }
             } else if (choice == 4) {
                 // Handle item to Buffs
@@ -200,16 +200,16 @@ function action(mode, type, selection) {
                         cm.gainItem(buff1ID, 1);
                         cm.gainItem(buff2ID, 1);
                     }
-                    cm.sendOk("You have successfully exchanged 1 #t" + itemToUse + "# for " + buffAmount + " #t" + buff1ID + "#s and " + buffAmount + " #t" + buff2ID + "#s.");
+                    cm.sendOk("You have successfully exchanged 50 #t" + itemToUse + "# for " + buffAmount + " #t" + buff1ID + "#s and " + buffAmount + " #t" + buff2ID + "#s.");
                 }
             } else if (choice == 5) {
                 // Handle item to Hired Merchant
                 if (!cm.haveItem(itemToUse)) {
                     cm.sendOk("I'm sorry, but you don't have any #t" + itemToUse + "#.");
                 } else {
-                    cm.gainItem(itemToUse, -1);
+                    cm.gainItem(itemToUse, -10);
                     cm.gainItem(5030006, 1); // Assume Hired Merchant ID is 5020000
-                    cm.sendOk("You have successfully exchanged 1 #t" + itemToUse + "# for a " + hiredMerchantLength + " Day Hired Merchant.");
+                    cm.sendOk("You have successfully exchanged 10 #t" + itemToUse + "# for a " + hiredMerchantLength + " Day Hired Merchant.");
                 }
             } else if (choice == 6) {
                 // Handle item to Tier 1 Bait
@@ -220,29 +220,29 @@ function action(mode, type, selection) {
                     for (var i = 0; i < bait1amount; i++) {
                         cm.gainItem(bait1[0], 1);
                     }
-                    cm.sendOk("You have successfully exchanged 1 #t" + itemToUse + "# for " + bait1amount + " Tier 1 bait.");
+                    cm.sendOk("You have successfully exchanged 5 #t" + itemToUse + "# for " + bait1amount + " Tier 1 bait.");
                 }
             } else if (choice == 7) {
                 // Handle item to Tier 2 Bait
                 if (!cm.haveItem(itemToUse)) {
                     cm.sendOk("I'm sorry, but you don't have any #t" + itemToUse + "#.");
                 } else {
-                    cm.gainItem(itemToUse, -1);
+                    cm.gainItem(itemToUse, -5);
                     for (var i = 0; i < bait2amount; i++) {
                         cm.gainItem(bait2[0], 1);
                     }
-                    cm.sendOk("You have successfully exchanged 1 #t" + itemToUse + "# for " + bait2amount + " Tier 2 bait.");
+                    cm.sendOk("You have successfully exchanged 10 #t" + itemToUse + "# for " + bait2amount + " Tier 2 bait.");
                 }
             } else if (choice == 8) {
                 // Handle item to Tier 3 Bait
                 if (!cm.haveItem(itemToUse)) {
                     cm.sendOk("I'm sorry, but you don't have any #t" + itemToUse + "#.");
                 } else {
-                    cm.gainItem(itemToUse, -1);
+                    cm.gainItem(itemToUse, -15);
                     for (var i = 0; i < bait3amount; i++) {
                         cm.gainItem(bait3[0], 1);
                     }
-                    cm.sendOk("You have successfully exchanged 1 #t" + itemToUse + "# for " + bait3amount + " Tier 3 bait.");
+                    cm.sendOk("You have successfully exchanged 15 #t" + itemToUse + "# for " + bait3amount + " Tier 3 bait.");
 					cm.dispose();
                 }
             }
