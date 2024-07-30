@@ -1453,15 +1453,12 @@ public class MapleMap {
 /*    public void broadcastBalrogVictory(String leaderName) {
         getWorldServer().dropMessage(6, "[Victory] " + leaderName + "'s party has successfully defeated the Balrog! Praise to them, they finished with " + countAlivePlayers() + " players alive.");
     }
-
     public void broadcastHorntailVictory() {
         getWorldServer().dropMessage(6, "[Victory] To the crew that have finally conquered Horned Tail after numerous attempts, I salute thee! You are the true heroes of Leafre!!");
     }
-
     public void broadcastZakumVictory() {
         getWorldServer().dropMessage(6, "[Victory] At last, the tree of evil that for so long overwhelmed Ossyria has fallen. To the crew that managed to finally conquer Zakum, after numerous attempts, victory! You are the true heroes of Ossyria!!");
     }
-
     public void broadcastPinkBeanVictory(int channel) {
         getWorldServer().dropMessage(6, "[Victory] In a swift stroke of sorts, the crew that has attempted Pink Bean at channel " + channel + " has ultimately defeated it. The Temple of Time shines radiantly once again, the day finally coming back, as the crew that managed to finally conquer it returns victoriously from the battlefield!!");
     }
@@ -1483,7 +1480,6 @@ public class MapleMap {
     public void broadcastKrexelVictory() {
         getWorldServer().dropMessage(6, "[Victory] In a swift stroke of sorts, the crew that has attempted Krexel at channel " + channel + " has ultimately defeated it. The day finally coming back, as the crew that managed to finally conquer it returns victoriously from the battlefield!!");
     }
-
     public void broadcastLucidVictory() {
         getWorldServer().dropMessage(6, "[Victory] In a swift stroke of sorts, the crew that has attempted Lucid at channel " + channel + " has ultimately defeated it. The day finally coming back, as the crew that managed to finally conquer it returns victoriously from the battlefield!!");
     }*/

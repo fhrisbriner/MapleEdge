@@ -121,7 +121,6 @@ public class MapId {
     }
 
 
-
     // Aran intro
     public static final int ARAN_TUTO_1 = 914090010;
     public static final int ARAN_TUTO_2 = 914090011;
